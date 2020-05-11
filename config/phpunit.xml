@@ -39,5 +39,6 @@
     <logging>
         <log type="text" target="php://stdout" />
         <log type="junit" target="../reports/test-results.xml" />
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
 </phpunit>
