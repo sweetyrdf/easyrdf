@@ -3,7 +3,7 @@
 
 # Don't include these directories in the GitHub generated zip files
 # This is to reduce the Composer download size
-config export-ignore
+docker export-ignore
 docs export-ignore
 examples export-ignore
 test export-ignore
