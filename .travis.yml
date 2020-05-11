@@ -33,3 +33,7 @@ script:
   - make lint
   - make cs
   - make test-lib
+  
+after_success:
+    # Submit coverage report to Coveralls servers, see .coveralls.yml
+    - travis_retry php coveralls.phar -v
