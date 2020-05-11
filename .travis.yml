@@ -26,8 +26,8 @@ cache:
     - $HOME/.composer/cache/files
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq graphviz
+  - sudo apt-get update -q -y
+  - sudo apt-get install -q -y graphviz
 
 before_script:
   - travis_retry composer install --no-interaction --prefer-dist
