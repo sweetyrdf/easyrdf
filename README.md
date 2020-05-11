@@ -1,9 +1,31 @@
-EasyRdf
-=======
+# EasyRdf (fork)
 
 [![Build Status](https://travis-ci.com/sweetyrdf/easyrdf.svg?branch=master)](https://travis-ci.com/sweetyrdf/easyrdf)
-
 [![Coverage Status](https://coveralls.io/repos/github/sweetyrdf/easyrdf/badge.svg?branch=master)](https://coveralls.io/github/sweetyrdf/easyrdf?branch=master)
+
+:exclamation: This is a forked version of [EasyRdf](https://github.com/njh/easyrdf). 
+
+## Why this fork?
+
+EasyRdf is in maintenance mode since 2017 ([link](https://github.com/njh/easyrdf/issues/282)) and is not actively maintained since. There are 6+ pull requests pending with fixes and new features. Its sad to see another RDF PHP project die slowly, so i decided to clean house and give the code a new home ([further info](https://github.com/njh/easyrdf/issues/320)).
+
+#### What can you expect as a user?
+
+This fork aims to be a drop-in replacement for the `easyrdf/easyrdf` package, which means, you can use it without changing your code. But you should still read the notes of the latest release, to make sure nothing unexpected happens after an update.
+
+#### What can you expect as an EasyRdf developer?
+
+This repository is set up in a way to lower the maintenance overhead in comparison to the original version. For instance, by adding coveralls service (easier [test coverage overview](https://coveralls.io/github/sweetyrdf/easyrdf)) and reworked tooling (reduced bash code in Makefile, keep commands simple).
+
+Furthermore, this repository is held by an organization instead of a user. This allows more flexible maintenance, like add further maintainer or helper.
+
+**Contributions are welcome!** Please read [DEVELOPER.md](https://github.com/sweetyrdf/easyrdf/blob/master/DEVELOPER.md) ([Work In Progress](https://github.com/sweetyrdf/easyrdf/issues/3)) for further information.
+
+Further mainainers are possible, please send an email to [@k00ni](https://github.com/k00ni).
+
+---
+
+## About
 
 EasyRdf is a PHP library designed to make it easy to consume and produce [RDF].
 It was designed for use in mixed teams of experienced and inexperienced RDF
@@ -51,7 +73,7 @@ Links
 Requirements
 ------------
 
-* PHP 5.3 or higher
+* PHP 5.5 or higher
 
 
 Features
@@ -60,7 +82,7 @@ Features
 * API documentation written in `phpdoc`
 * Extensive unit tests written using `phpunit`
 * Built-in parsers and serialisers: RDF/JSON, N-Triples, RDF/XML, Turtle
-* Optional parsing support for: [ARC2], [Redland Bindings], [rapper]
+* Optional parsing support for: [ARC2], [rapper]
 * Optional support for [`Zend\Http\Client`]
 * No required external dependancies upon other libraries (PEAR, Zend, etc...)
 * Complies with Zend Framework coding style.
@@ -72,7 +94,6 @@ Features
 More Examples
 -------------
 
-* [`artistinfo.php`](https://github.com/njh/easyrdf/blob/master/examples/artistinfo.php#slider) - Example of mapping an RDF class type to a PHP Class
 * [`basic.php`](https://github.com/njh/easyrdf/blob/master/examples/basic.php#slider) - Basic "Hello World" type example
 * [`basic_sparql.php`](https://github.com/njh/easyrdf/blob/master/examples/basic_sparql.php#slider) - Example of making a SPARQL `SELECT` query
 * [`converter.php`](https://github.com/njh/easyrdf/blob/master/examples/converter.php#slider) - Convert RDF from one format to another
@@ -87,7 +108,6 @@ More Examples
 * [`serialise.php`](https://github.com/njh/easyrdf/blob/master/examples/serialise.php#slider) - Basic serialisation example
 * [`sparql_queryform.php`](https://github.com/njh/easyrdf/blob/master/examples/sparql_queryform.php#slider) - Form to submit SPARQL queries and display the result
 * [`uk_postcode.php`](https://github.com/njh/easyrdf/blob/master/examples/uk_postcode.php#slider) - Example of resolving UK postcodes using uk-postcodes.com
-* [`villages.php`](https://github.com/njh/easyrdf/blob/master/examples/villages.php#slider) - Fetch and information about villages in Fife from dbpedialite.org
 * [`zend_framework.php`](https://github.com/njh/easyrdf/blob/master/examples/zend_framework.php#slider) - Example of using `Zend\Http\Client` with EasyRdf
 
 
@@ -107,11 +127,10 @@ The examples are in the public domain, for more information see [UNLICENSE].
 
 [ARC2]:http://github.com/semsol/arc2/
 [BSD-3-Clause]:http://www.opensource.org/licenses/BSD-3-Clause
-[downloaded from the EasyRdf website]:http://www.easyrdf.org/downloads
+[downloaded from the EasyRdf website]:https://github.com/sweetyrdf/easyrdf/releases
 [GraphViz]:http://www.graphviz.org/
 [rapper]:http://librdf.org/raptor/rapper.html
 [RDF]:http://en.wikipedia.org/wiki/Resource_Description_Framework
-[Redland Bindings]:http://librdf.org/bindings/
 [SPARQL 1.1 query language]:http://www.w3.org/TR/sparql11-query/
 [UNLICENSE]:http://unlicense.org/
 [`Zend\Http\Client`]:http://framework.zend.com/manual/2.3/en/modules/zend.http.client.html
