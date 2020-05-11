@@ -70,7 +70,7 @@ class HttpgetTest extends \EasyRdf\TestCase
         );
         $this->assertContains('<title>Test EasyRdf\\HTTP\\Client Get</title>', $output);
         $this->assertContains('<h1>Test EasyRdf\\HTTP\\Client Get</h1>', $output);
-        $this->assertContains('<b>Content-type</b>: text/html<br />', $output);
+        $this->assertContains('<b>Content-type</b>: text/html; charset=UTF-8<br />', $output);
         $this->assertContains('&lt;h1&gt;Home - Tom Heath&lt;/h1&gt;', $output);
     }
 
