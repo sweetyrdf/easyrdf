@@ -3,6 +3,8 @@ EasyRdf
 
 [![Build Status](https://travis-ci.com/sweetyrdf/easyrdf.svg?branch=master)](https://travis-ci.com/sweetyrdf/easyrdf)
 
+[![Coverage Status](https://coveralls.io/repos/github/sweetyrdf/easyrdf/badge.svg?branch=master)](https://coveralls.io/github/sweetyrdf/easyrdf?branch=master)
+
 EasyRdf is a PHP library designed to make it easy to consume and produce [RDF].
 It was designed for use in mixed teams of experienced and inexperienced RDF
 developers. It is written in Object Oriented PHP and has been tested
