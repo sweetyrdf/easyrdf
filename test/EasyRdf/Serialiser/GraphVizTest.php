@@ -239,31 +239,31 @@ class GraphVizTest extends TestCase
         $svg = $this->serialiser->serialise($this->graph, 'svg');
 
         $this->assertContains(
-            'class="node"><title>Rhttp://www.example.com/joe#me</title>',
+            'class="node">'.PHP_EOL.'<title>Rhttp://www.example.com/joe#me</title>',
             $svg
         );
         $this->assertContains(
-            'class="node"><title>LJoe Bloggs</title>',
+            'class="node">'.PHP_EOL.'<title>LJoe Bloggs</title>',
             $svg
         );
         $this->assertContains(
-            'class="edge"><title>Rhttp://www.example.com/joe#me&#45;&gt;LJoe Bloggs</title>',
+            'class="edge">'.PHP_EOL.'<title>Rhttp://www.example.com/joe#me&#45;&gt;LJoe Bloggs</title>',
             $svg
         );
         $this->assertContains(
-            'class="node"><title>B_:genid1</title>',
+            'class="node">'.PHP_EOL.'<title>B_:genid1</title>',
             $svg
         );
         $this->assertContains(
-            'class="edge"><title>Rhttp://www.example.com/joe#me&#45;&gt;B_:genid1</title>',
+            'class="edge">'.PHP_EOL.'<title>Rhttp://www.example.com/joe#me&#45;&gt;B_:genid1</title>',
             $svg
         );
         $this->assertContains(
-            'class="node"><title>LProject Name</title>',
+            'class="node">'.PHP_EOL.'<title>LProject Name</title>',
             $svg
         );
         $this->assertContains(
-            'class="edge"><title>B_:genid1&#45;&gt;LProject Name</title>',
+            'class="edge">'.PHP_EOL.'<title>B_:genid1&#45;&gt;LProject Name</title>',
             $svg
         );
     }
