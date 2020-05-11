@@ -1,3 +1,5 @@
+:exclamation: This file is not maintained anymore. Please see https://github.com/sweetyrdf/easyrdf/releases for releases and changelog.
+
 EasyRdf 0.10.x
 ==============
 

@@ -1,31 +1,19 @@
-Contributing to EasyRdf
-=======================
+# Contributing
 
 Contributions to the EasyRdf codebase are welcome using the usual Github pull request workflow.
-
-To run the code style checker:
-
-```
-make cs
-```
 
 You can run the PHP unit test suite with:
 
 ```
-make test-lib
+make test
 ```
 
-Unit tests are automatically run after being received by Github:
-http://ci.aelius.com/job/easyrdf/
+Unit tests are automatically run after being received by Github (library and examples):
 
-The tests for the examples are run separately:
-http://ci.aelius.com/job/easyrdf-examples/
+https://travis-ci.com/github/sweetyrdf/easyrdf
 
 
-Notes
------
+## Notes
 
-* Please ask on the [mailing list] before starting work on any significant changes
-* Please write tests for any new features or bug fixes. The tests should be checked in the same commit as the code.
-
-[mailing list]:http://groups.google.com/group/easyrdf
+* Please create an [issue](https://github.com/sweetyrdf/easyrdf/issues) before starting work on any significant changes
+* We only accept code, which comes with tests, no matter if its a new feature or bug fix.
