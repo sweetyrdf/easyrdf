@@ -1,19 +1,38 @@
-# Contributing
+# Developers
 
-Contributions to the EasyRdf codebase are welcome using the usual Github pull request workflow.
+Please also read [https://github.com/sweetyrdf/easyrdf/blob/master/CONTRIBUTING.md].
 
-You can run the PHP unit test suite with:
+## Docker
 
-```
-make test
-```
+To improve local development we have a Docker container on board. You can find it in `/docker`.
 
-Unit tests are automatically run after being received by Github (library and examples):
+If you are on `Linux`, go to your terminal, switch to the `docker` folder and run:
 
-https://travis-ci.com/github/sweetyrdf/easyrdf
+`make`
 
+This will build and start the docker container. 
+After it started, you will be logged in automatically.
+
+Afterwards you can run further commands on the CLI, like `composer update` or PHPUnit test suite.
+
+## Tests
+
+Our test related files are located in `test` folder. Tests are written using PHPUnit.
+
+Make sure you ran `composer update`, if you want to execute the test suite ([Getting Started](http://www.easyrdf.org/docs/getting-started)).
+
+To run all tests, open your terminal and run:
+
+`vendor/bin/phpunit`
+
+### Travis
+
+We use Travis to run tests automatically after new code is being received by Github (library and examples):
+
+Link: https://travis-ci.com/github/sweetyrdf/easyrdf
+
+After you made a pull request, use Travis to check the test result.
 
 ## Notes
 
-* Please create an [issue](https://github.com/sweetyrdf/easyrdf/issues) before starting work on any significant changes
-* We only accept code, which comes with tests, no matter if its a new feature or bug fix.
+* Don't rely on our test API, like functions or classes! They are only for internal use. If you want certain functionality be part of the public API, please create an issue.

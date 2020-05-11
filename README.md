@@ -19,7 +19,7 @@ This repository is set up in a way to lower the maintenance overhead in comparis
 
 Furthermore, this repository is held by an organization instead of a user. This allows more flexible maintenance, like add further maintainer or helper.
 
-**Contributions are welcome!** Please read [DEVELOPER.md](https://github.com/sweetyrdf/easyrdf/blob/master/DEVELOPER.md) ([Work In Progress](https://github.com/sweetyrdf/easyrdf/issues/3)) for further information.
+**Contributions are welcome!** Please read [CONTRIBUTING.md](https://github.com/sweetyrdf/easyrdf/blob/master/CONTRIBUTING.md) for further information.
 
 Further mainainers are possible, please send an email to [@k00ni](https://github.com/k00ni).
 
