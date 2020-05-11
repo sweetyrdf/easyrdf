@@ -1,10 +1,8 @@
 {
-    "name": "easyrdf/easyrdf",
-    "version": "0.10.0-alpha.1",
-    "description": "EasyRdf is a PHP library designed to make it easy to consume and produce RDF.",
+    "name": "sweetyrdf/easyrdf",
+    "description": "Successor of EasyRdf, which is a PHP library designed to make it easy to consume and produce RDF.",
     "type": "library",
     "keywords": ["RDF", "Semantic Web", "Linked Data", "Turtle", "RDFa", "SPARQL"],
-    "homepage": "http://www.easyrdf.org/",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -18,30 +16,32 @@
             "email": "indeyets@gmail.com",
             "homepage": "http://indeyets.ru/",
             "role": "Developer"
+        },
+        {
+            "name": "Konrad ABicht",
+            "email": "k.abicht@gmail.com",
+            "role": "Maintainer"
         }
     ],
     "support": {
-        "forum": "http://groups.google.com/group/easyrdf/",
-        "issues": "http://github.com/njh/easyrdf/issues",
-        "irc": "irc://chat.freenode.net/easyrdf"
+        "issues": "http://github.com/sweetyrdf/easyrdf/issues"
     },
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.5",
         "ext-mbstring": "*",
         "ext-pcre": "*"
     },
     "suggest": {
-        "ml/json-ld": "~1.0",
-        "semsol/arc2": "~2.2"
+        "ml/json-ld": "^1.1",
+        "semsol/arc2": "^2.5"
     },
     "require-dev": {
-        "ml/json-ld": "~1.0",
+        "ml/json-ld": "^1.1",
         "php-coveralls/php-coveralls": "^2.2",
         "phpunit/phpunit": "~4.8.36|^6|^7",
-        "sami/sami": "~2.0",
-        "semsol/arc2": "~2.2",
+        "semsol/arc2": "^2.5",
         "squizlabs/php_codesniffer": "~1.4.3",
-        "zendframework/zend-http": "~2.3"
+        "zendframework/zend-http": "^2.11"
     },
     "autoload": {
         "psr-4": {
