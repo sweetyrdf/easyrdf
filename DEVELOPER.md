@@ -1,6 +1,6 @@
 # Developers
 
-Please also read [https://github.com/sweetyrdf/easyrdf/blob/master/CONTRIBUTING.md].
+Please also read (CONTRIBUTING.md)[https://github.com/sweetyrdf/easyrdf/blob/master/CONTRIBUTING.md].
 
 ## Docker
 
@@ -8,7 +8,7 @@ To improve local development we have a Docker container on board. You can find i
 
 If you are on `Linux`, go to your terminal, switch to the `docker` folder and run:
 
-`make`
+> make
 
 This will build and start the docker container. 
 After it started, you will be logged in automatically.
@@ -23,7 +23,12 @@ Make sure you ran `composer update`, if you want to execute the test suite ([Get
 
 To run all tests, open your terminal and run:
 
-`vendor/bin/phpunit`
+> vendor/bin/phpunit
+
+### Local development
+
+**Note:** There are a few tests which need some time to finish, especially `test/EasyRdf/GraphTest::testParseLargeFile`.
+If it hinders your flow, use `phpunit` with `--filter` to avoid running these tests at all.
 
 ### Travis
 
@@ -33,6 +38,6 @@ Link: https://travis-ci.com/github/sweetyrdf/easyrdf
 
 After you made a pull request, use Travis to check the test result.
 
-## Notes
+## Important notes
 
 * Don't rely on our test API, like functions or classes! They are only for internal use. If you want certain functionality be part of the public API, please create an issue.
