@@ -2,8 +2,6 @@ language: php
 
 matrix:
   include:
-    - php: 5.4
-      dist: trusty
     - php: 5.5
       dist: trusty
     - php: 5.6
@@ -12,7 +10,6 @@ matrix:
     - php: 7.2
     - php: 7.3
     - php: 7.4
-    - php: nightly
 
 jobs:
   allow_failures:
@@ -32,12 +29,9 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq graphviz
 
-install: make composer-install
-
 script:
   - make lint
-  - make cs
-  - make test-lib
+  - vendor/bin/phpunit --coverage-clover gen/coverage/clover.xml
   
 after_success:
     # Submit coverage report to Coveralls servers, see .coveralls.yml
