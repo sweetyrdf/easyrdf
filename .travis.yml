@@ -41,4 +41,4 @@ script:
   
 after_success:
     # Submit coverage report to Coveralls servers, see .coveralls.yml
-    - travis_retry php coveralls.phar -v
+    - travis_retry php vendor/bin/php-coveralls -v
