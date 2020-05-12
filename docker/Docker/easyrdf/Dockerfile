@@ -16,6 +16,7 @@ COPY ./easyrdf.conf /etc/apache2/sites-enabled/000-default.conf
 
 # add custom PHP.ini settings
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+COPY ./custom.ini "$PHP_INI_DIR/custom.ini"
 
 COPY ./easyrdf.sh /easyrdf.sh
 RUN chmod +x /easyrdf.sh
