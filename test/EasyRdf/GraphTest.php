@@ -132,6 +132,24 @@ class GraphTest extends TestCase
         $this->assertSame(null, $name->getDatatype());
     }
 
+    /**
+     * Tests faulty behavior of issue https://github.com/sweetyrdf/easyrdf/issues/8
+     *
+     * If null is given as $baseUri, the script leads to a dead end and results in a fatal error:
+     *
+     *      Call to a member function setFragment() on null
+     */
+    public function testIssue8ParseRdfa()
+    {
+        $text = 'Invalid case reached: Either parameter $baseUri is empty or XML document does not provide a base URI.'
+            .' See https://github.com/sweetyrdf/easyrdf/issues/8 for more information';
+
+        $this->setExpectedException(Exception::class, $text);
+
+        $graph = new Graph();
+        $graph->parse('data', 'rdfa', null);
+    }
+
     public function testParseDataGuess()
     {
         $graph = new Graph();

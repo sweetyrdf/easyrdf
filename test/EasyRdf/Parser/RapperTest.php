@@ -153,7 +153,24 @@ class RapperTest extends TestCase
             $this->graph,
             $this->rdf_data,
             'unsupportedformat',
-            null
+            'http://test/' // we can't use null here, otherwise it would raise a baseUri related error
         );
+    }
+
+    /**
+     * Tests faulty behavior of issue #8.
+     *
+     * If baseUri parameter is empty, rapper command raises an error.
+     *
+     * @see https://github.com/sweetyrdf/easyrdf/issues/8
+     */
+    public function testParseIssue8()
+    {
+        $this->setExpectedException(
+            Exception::class,
+            'rapper command requires $baseUri set, when reading from standard input'
+        );
+
+        $this->parser->parse(new Graph(), readFixture('xml_literal.rdf'), 'rdfxml', null);
     }
 }

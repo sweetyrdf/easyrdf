@@ -88,6 +88,10 @@ class Rapper extends Json
     {
         parent::checkParseParams($graph, $data, $format, $baseUri);
 
+        if (empty($baseUri)) {
+            throw new Exception('rapper command requires $baseUri set, when reading from standard input.');
+        }
+
         $json = Utils::execCommandPipe(
             $this->rapperCmd,
             array(

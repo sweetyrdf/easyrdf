@@ -178,4 +178,20 @@ class RdfXmlTest extends TestCase
             $this->assertEquals('http://www.example.org/base#foo', $iri);
         }
     }
+
+    /**
+     * Tests faulty behavior of issue #8.
+     *
+     * Tests that this parser is not affected by an empty $baseUri parameter.
+     *
+     * @see https://github.com/sweetyrdf/easyrdf/issues/8
+     */
+    public function testParseIssue8()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $filename = 'rdfxml/gh157-base.rdf';
+
+        $this->parser->parse(new Graph(), readFixture($filename), 'rdfxml', null);
+    }
 }

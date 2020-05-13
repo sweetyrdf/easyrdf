@@ -719,6 +719,13 @@ class Rdfa extends Parser
             $this->baseUri = new ParsedUri($href);
         }
 
+        if (!$this->baseUri instanceof ParsedUri) {
+            throw new Exception(
+                'Invalid case reached: Either parameter $baseUri is empty or XML document does not provide a base URI.'
+                .' See https://github.com/sweetyrdf/easyrdf/issues/8 for more information.'
+            );
+        }
+        
         // Remove the fragment from the base URI
         $this->baseUri->setFragment(null);
 
