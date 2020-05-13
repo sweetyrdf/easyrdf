@@ -6,6 +6,8 @@ Unit tests are automatically run after code is being received by Github (library
 
 https://travis-ci.com/github/sweetyrdf/easyrdf
 
+More details for developers are in [DEVELOPER.md](https://github.com/sweetyrdf/easyrdf/blob/master/DEVELOPER.md).
+
 ### Pull requests for sweetyrdf/easyrdf
 
 Make sure you send the pull request to `sweetyrdf/easyrdf`. To do that, manually select it in the drop down menu of the "Open a pull request"-UI.

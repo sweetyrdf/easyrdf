@@ -2,6 +2,10 @@
 
 Please also read (CONTRIBUTING.md)[https://github.com/sweetyrdf/easyrdf/blob/master/CONTRIBUTING.md].
 
+## .editorconfig
+
+Please make sure your editor uses our `.editorconfig` file. It contains rules about our coding styles.
+
 ## Docker
 
 To improve local development we have a Docker container on board. You can find it in `/docker`.
@@ -10,7 +14,7 @@ If you are on `Linux`, go to your terminal, switch to the `docker` folder and ru
 
 > make
 
-This will build and start the docker container. 
+This will build and start the docker container.
 After it started, you will be logged in automatically.
 
 Afterwards you can run further commands on the CLI, like `composer update` or PHPUnit test suite.
