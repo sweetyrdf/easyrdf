@@ -110,11 +110,11 @@ class ArcTest extends TestCase
      * Tests that this parser is not affected by an empty $baseUri parameter.
      *
      * @see https://github.com/sweetyrdf/easyrdf/issues/8
+     *
+     * @doesNotPerformAssertions
      */
     public function testParseIssue8()
     {
-        $this->expectNotToPerformAssertions();
-
         $this->parser->parse(new Graph(), readFixture('foaf.rdf'), 'rdfxml', null);
     }
 }
