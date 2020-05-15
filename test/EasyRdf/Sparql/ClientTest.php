@@ -462,6 +462,76 @@ class ClientTest extends TestCase
         $this->assertContains('text/turtle', $types);
     }
 
+    /**
+     * Test for issue https://github.com/sweetyrdf/easyrdf/issues/9
+     *
+     * Sparql\Client calls $client->setHeaders with a name-value pair, regardless of
+     * whether $client is of type EasyRdf\Http\Client or Zend\Http\Client.
+     */
+    public function testIssue9EasyRdfHttpClient()
+    {
+        $accept = 'application/sparql-results+json,application/n-triples,application/x-httpd-php-source,application/json,application/ld+json,application/x-ntriples;q=0.9,application/ntriples;q=0.9,text/ntriples;q=0.9,text/plain;q=0.9,application/rdf+json;q=0.9,text/json;q=0.9,application/sparql-results+xml;q=0.8,text/turtle;q=0.8,application/rdf+xml;q=0.8,application/turtle;q=0.7,application/x-turtle;q=0.7,text/html;q=0.4,application/xhtml+xml;q=0.4';
+
+        /*
+         * setup mocks
+         */
+        // response
+        $response = $this->getMockBuilder(\EasyRdf\Http\Response::class)->disableOriginalConstructor()->getMock();
+        $response->method('getStatus')->willReturn(204); // no content
+        $response->method('isSuccessful')->willReturn(true);
+
+        // client
+        $easyRdfHttpClient = $this->getMockBuilder(\EasyRdf\Http\Client::class)->disableOriginalConstructor()->getMock();
+        $easyRdfHttpClient->method('request')->willReturn($response);
+        $easyRdfHttpClient
+            ->expects($this->exactly(1))
+            ->method('setHeaders')
+            // we want setHeaders to be called like     setHeaders('Accept', 'application...');
+            ->with($this->equalTo('Accept'), $this->equalTo($accept))
+        ;
+
+        Http::setDefaultHttpClient($easyRdfHttpClient);
+
+        $this->sparql = new Client('http://localhost:8080/sparql');
+
+        $this->sparql->query('test');
+    }
+
+    /**
+     * Test for issue https://github.com/sweetyrdf/easyrdf/issues/9
+     *
+     * Sparql\Client calls $client->setHeaders with a name-value pair, regardless of
+     * whether $client is of type EasyRdf\Http\Client or Zend\Http\Client.
+     */
+    public function testIssue9ZendHttpClient()
+    {
+        $accept = 'application/sparql-results+json,application/n-triples,application/x-httpd-php-source,application/json,application/ld+json,application/x-ntriples;q=0.9,application/ntriples;q=0.9,text/ntriples;q=0.9,text/plain;q=0.9,application/rdf+json;q=0.9,text/json;q=0.9,application/sparql-results+xml;q=0.8,text/turtle;q=0.8,application/rdf+xml;q=0.8,application/turtle;q=0.7,application/x-turtle;q=0.7,text/html;q=0.4,application/xhtml+xml;q=0.4';
+
+        /*
+         * setup mocks
+         */
+        // response
+        $response = $this->getMockBuilder(\EasyRdf\Http\Response::class)->disableOriginalConstructor()->getMock();
+        $response->method('getStatus')->willReturn(204); // no content
+        $response->method('isSuccessful')->willReturn(true);
+
+        // client
+        $easyRdfHttpClient = $this->getMockBuilder(\Zend\Http\Client::class)->disableOriginalConstructor()->getMock();
+        $easyRdfHttpClient->method('send')->willReturn($response);
+        $easyRdfHttpClient
+            ->expects($this->exactly(1))
+            ->method('setHeaders')
+            // we want setHeaders to be called like     setHeaders(['Accept', 'application...']);
+            ->with($this->equalTo(['Accept' => $accept]))
+        ;
+
+        Http::setDefaultHttpClient($easyRdfHttpClient);
+
+        $this->sparql = new Client('http://localhost:8080/sparql');
+
+        $this->sparql->query('test');
+    }
+
     private static function parseAcceptHeader($accept_str)
     {
         $types = array();
