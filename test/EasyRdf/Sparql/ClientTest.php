@@ -470,7 +470,7 @@ class ClientTest extends TestCase
      */
     public function testIssue9EasyRdfHttpClient()
     {
-        $accept = 'application/sparql-results+json,application/n-triples,application/x-httpd-php-source,application/json,application/ld+json,application/x-ntriples;q=0.9,application/ntriples;q=0.9,text/ntriples;q=0.9,text/plain;q=0.9,application/rdf+json;q=0.9,text/json;q=0.9,application/sparql-results+xml;q=0.8,text/turtle;q=0.8,application/rdf+xml;q=0.8,application/turtle;q=0.7,application/x-turtle;q=0.7,text/html;q=0.4,application/xhtml+xml;q=0.4';
+        $accept = 'application/ld+json,application/n-triples,application/sparql-results+json,application/json,application/x-httpd-php-source,application/x-ntriples;q=0.9,text/ntriples;q=0.9,application/ntriples;q=0.9,text/plain;q=0.9,application/rdf+json;q=0.9,text/json;q=0.9,text/turtle;q=0.8,application/sparql-results+xml;q=0.8,application/rdf+xml;q=0.8,application/turtle;q=0.7,application/x-turtle;q=0.7,application/xhtml+xml;q=0.4,text/html;q=0.4;
 
         /*
          * setup mocks
@@ -505,7 +505,7 @@ class ClientTest extends TestCase
      */
     public function testIssue9ZendHttpClient()
     {
-        $accept = 'application/sparql-results+json,application/n-triples,application/x-httpd-php-source,application/json,application/ld+json,application/x-ntriples;q=0.9,application/ntriples;q=0.9,text/ntriples;q=0.9,text/plain;q=0.9,application/rdf+json;q=0.9,text/json;q=0.9,application/sparql-results+xml;q=0.8,text/turtle;q=0.8,application/rdf+xml;q=0.8,application/turtle;q=0.7,application/x-turtle;q=0.7,text/html;q=0.4,application/xhtml+xml;q=0.4';
+        $accept = 'application/ld+json,application/n-triples,application/sparql-results+json,application/json,application/x-httpd-php-source,application/x-ntriples;q=0.9,text/ntriples;q=0.9,application/ntriples;q=0.9,text/plain;q=0.9,application/rdf+json;q=0.9,text/json;q=0.9,text/turtle;q=0.8,application/sparql-results+xml;q=0.8,application/rdf+xml;q=0.8,application/turtle;q=0.7,application/x-turtle;q=0.7,application/xhtml+xml;q=0.4,text/html;q=0.4';
 
         /*
          * setup mocks
