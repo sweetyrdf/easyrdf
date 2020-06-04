@@ -9,11 +9,14 @@ matrix:
     - php: 7.1
     - php: 7.2
     - php: 7.3
-    - php: 7.4
 
 jobs:
   allow_failures:
     - php: nightly
+  include:
+    - php: 7.4
+      env: LINTER_RUN=run
+      env: COVERAGE_FLAGS="--coverage-clover coverage/clover.xml"
 
 sudo: required
 
@@ -34,7 +37,8 @@ before_script:
 
 script:
   - make lint
-  - vendor/bin/phpunit --coverage-clover gen/coverage/clover.xml
+  - if [ "$LINTER_RUN" = "run" ]; then php vendor/bin/php-cs-fixer fix --verbose --dry-run ; fi;
+  - php vendor/bin/phpunit $COVERAGE_FLAGS
 
 after_success:
     # Submit coverage report to Coveralls servers, see .coveralls.yml

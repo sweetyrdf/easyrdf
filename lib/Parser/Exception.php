@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf\Parser;
 
 /**
@@ -31,7 +32,6 @@ namespace EasyRdf\Parser;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package    EasyRdf
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
@@ -41,7 +41,6 @@ namespace EasyRdf\Parser;
  *
  * All exceptions thrown by EasyRdf are an instance of this class.
  *
- * @package    EasyRdf
  * @copyright  Copyright (c) 2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
@@ -49,27 +48,27 @@ class Exception extends \EasyRdf\Exception
 {
     protected $parserLine;
     protected $parserColumn;
-    
+
     public function __construct($message, $line = null, $column = null)
     {
         $this->parserLine = $line;
         $this->parserColumn = $column;
 
-        if (!is_null($line)) {
+        if (null !== $line) {
             $message .= " on line $line";
-            if (!is_null($column)) {
+            if (null !== $column) {
                 $message .= ", column $column";
             }
         }
 
         parent::__construct($message);
     }
-    
+
     public function getParserLine()
     {
         return $this->parserLine;
     }
-    
+
     public function getParserColumn()
     {
         return $this->parserColumn;

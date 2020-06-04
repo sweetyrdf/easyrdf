@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf\Examples;
 
 /**
@@ -31,12 +32,10 @@ namespace EasyRdf\Examples;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package    EasyRdf
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
+require_once \dirname(__DIR__).\DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class SparqlqueryformTest extends \EasyRdf\TestCase
 {
@@ -52,17 +51,16 @@ class SparqlqueryformTest extends \EasyRdf\TestCase
     {
         $output = executeExample(
             'sparql_queryform.php',
-            array(
+            [
                 'endpoint' => 'http://dbpedia.org/sparql',
-                'query' =>
-                    'PREFIX dbo: <http://dbpedia.org/ontology/>
+                'query' => 'PREFIX dbo: <http://dbpedia.org/ontology/>
                     SELECT * WHERE {
                       ?country rdf:type dbo:Country . 
                       ?country rdfs:label ?label .
                       FILTER ( lang(?label) = "en" )
                     } ORDER BY ?label LIMIT 10',
-                'text' => 1
-            )
+                'text' => 1,
+            ]
         );
 
         $this->assertContains('http://dbpedia.org/resource/10th_century', $output);

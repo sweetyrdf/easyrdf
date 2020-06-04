@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf\Parser;
 
-/**
+/*
  * EasyRdf
  *
  * LICENSE
@@ -39,8 +40,8 @@ namespace EasyRdf\Parser;
 use EasyRdf\Graph;
 use EasyRdf\TestCase;
 
-require_once dirname(dirname(__DIR__)).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
+require_once \dirname(\dirname(__DIR__)).
+             \DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class RdfXmlTest extends TestCase
 {
@@ -77,7 +78,7 @@ class RdfXmlTest extends TestCase
         $this->assertClass('EasyRdf\Literal', $name);
         $this->assertStringEquals('Joe Bloggs', $name);
         $this->assertSame('en', $name->getLang());
-        $this->assertSame(null, $name->getDatatype());
+        $this->assertNull($name->getDatatype());
 
         $foaf = $this->graph->resource('http://www.example.com/joe/foaf.rdf');
         $this->assertNotNull($foaf);
@@ -114,7 +115,7 @@ class RdfXmlTest extends TestCase
             "  <rdf:Description rdf:about='http://example.org/foo'>\n".
             "    <rdf:foo>Hello World\n".
             "  </rdf:Description>\n".
-            "</rdf:RDF>",
+            '</rdf:RDF>',
             'rdfxml',
             'http://example.org/'
         );

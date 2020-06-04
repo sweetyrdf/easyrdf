@@ -37,9 +37,4 @@
         <directory suffix=".php">../lib/EasyRdf/</directory>
       </whitelist>
     </filter>
-
-    <logging>
-        <log type="junit" target="reports/test-results.xml" />
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
 </phpunit>

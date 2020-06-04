@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf\Sparql;
 
-/**
+/*
  * EasyRdf
  *
  * LICENSE
@@ -42,7 +43,6 @@ use EasyRdf\Resource;
 /**
  * Class for returned for SPARQL SELECT and ASK query responses.
  *
- * @package    EasyRdf
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
@@ -51,7 +51,7 @@ class Result extends \ArrayIterator
     private $type = null;
     private $boolean = null;
 
-    private $fields = array();
+    private $fields = [];
 
     /** A constant for the SPARQL Query Results XML Format namespace */
     const SPARQL_XML_RESULTS_NS = 'http://www.w3.org/2005/sparql-results#';
@@ -69,14 +69,12 @@ class Result extends \ArrayIterator
      */
     public function __construct($data, $mimeType)
     {
-        if ($mimeType == 'application/sparql-results+xml') {
+        if ('application/sparql-results+xml' == $mimeType) {
             $this->parseXml($data);
-        } elseif ($mimeType == 'application/sparql-results+json') {
+        } elseif ('application/sparql-results+json' == $mimeType) {
             $this->parseJson($data);
         } else {
-            throw new Exception(
-                "Unsupported SPARQL Query Results format: $mimeType"
-            );
+            throw new Exception("Unsupported SPARQL Query Results format: $mimeType");
         }
     }
 
@@ -85,7 +83,7 @@ class Result extends \ArrayIterator
      * ASK queries return a result of type 'boolean'.
      * SELECT query return a result of type 'bindings'.
      *
-     * @return string The query result type.
+     * @return string the query result type
      */
     public function getType()
     {
@@ -98,7 +96,7 @@ class Result extends \ArrayIterator
      * return either true or false. If the query was of some other
      * type then this method will return null.
      *
-     * @return boolean The result of the query.
+     * @return bool the result of the query
      */
     public function getBoolean()
     {
@@ -107,43 +105,43 @@ class Result extends \ArrayIterator
 
     /** Return true if the result of the query was true.
      *
-     * @return boolean True if the query result was true.
+     * @return bool true if the query result was true
      */
     public function isTrue()
     {
-        return $this->boolean == true;
+        return true == $this->boolean;
     }
 
     /** Return false if the result of the query was false.
      *
-     * @return boolean True if the query result was false.
+     * @return bool true if the query result was false
      */
     public function isFalse()
     {
-        return $this->boolean == false;
+        return false == $this->boolean;
     }
 
     /** Return the number of fields in a query result of type bindings.
      *
-     * @return integer The number of fields.
+     * @return int the number of fields
      */
     public function numFields()
     {
-        return count($this->fields);
+        return \count($this->fields);
     }
 
     /** Return the number of rows in a query result of type bindings.
      *
-     * @return integer The number of rows.
+     * @return int the number of rows
      */
     public function numRows()
     {
-        return count($this);
+        return \count($this);
     }
 
     /** Get the field names in a query result of type bindings.
      *
-     * @return array The names of the fields in the result.
+     * @return array the names of the fields in the result
      */
     public function getFields()
     {
@@ -155,51 +153,52 @@ class Result extends \ArrayIterator
      * This method is intended to be a debugging aid and will
      * return a pretty-print view of the query result.
      *
-     * @param  string  $format  Either 'text' or 'html'
+     * @param string $format Either 'text' or 'html'
      *
      * @throws Exception
+     *
      * @return string
      */
     public function dump($format = 'html')
     {
-        if ($this->type == 'bindings') {
+        if ('bindings' == $this->type) {
             $result = '';
-            if ($format == 'html') {
+            if ('html' == $format) {
                 $result .= "<table class='sparql-results' style='border-collapse:collapse'>";
-                $result .= "<tr>";
+                $result .= '<tr>';
                 foreach ($this->fields as $field) {
                     $result .= "<th style='border:solid 1px #000;padding:4px;".
                                "vertical-align:top;background-color:#eee;'>".
                                "?$field</th>";
                 }
-                $result .= "</tr>";
+                $result .= '</tr>';
                 foreach ($this as $row) {
-                    $result .= "<tr>";
+                    $result .= '<tr>';
                     foreach ($this->fields as $field) {
                         if (isset($row->$field)) {
                             $result .= "<td style='border:solid 1px #000;padding:4px;".
                                        "vertical-align:top'>".
-                                       $row->$field->dumpValue($format)."</td>";
+                                       $row->$field->dumpValue($format).'</td>';
                         } else {
-                            $result .= "<td>&nbsp;</td>";
+                            $result .= '<td>&nbsp;</td>';
                         }
                     }
-                    $result .= "</tr>";
+                    $result .= '</tr>';
                 }
-                $result .= "</table>";
+                $result .= '</table>';
             } else {
                 // First calculate the width of each comment
-                $colWidths = array();
+                $colWidths = [];
                 foreach ($this->fields as $field) {
-                    $colWidths[$field] = strlen($field);
+                    $colWidths[$field] = \strlen($field);
                 }
 
-                $textData = array();
+                $textData = [];
                 foreach ($this as $row) {
-                    $textRow = array();
+                    $textRow = [];
                     foreach ($row as $k => $v) {
                         $textRow[$k] = $v->dumpValue('text');
-                        $width = strlen($textRow[$k]);
+                        $width = \strlen($textRow[$k]);
                         if ($colWidths[$k] < $width) {
                             $colWidths[$k] = $width;
                         }
@@ -208,9 +207,9 @@ class Result extends \ArrayIterator
                 }
 
                 // Create a horizontal rule
-                $hr = "+";
+                $hr = '+';
                 foreach ($colWidths as $v) {
-                    $hr .= "-".str_repeat('-', $v).'-+';
+                    $hr .= '-'.str_repeat('-', $v).'-+';
                 }
 
                 // Output the field names
@@ -229,20 +228,18 @@ class Result extends \ArrayIterator
                     $result .= "\n";
                 }
                 $result .= "$hr\n";
-
             }
+
             return $result;
-        } elseif ($this->type == 'boolean') {
+        } elseif ('boolean' == $this->type) {
             $str = ($this->boolean ? 'true' : 'false');
-            if ($format == 'html') {
+            if ('html' == $format) {
                 return "<p>Result: <span style='font-weight:bold'>$str</span></p>";
             } else {
                 return "Result: $str";
             }
         } else {
-            throw new Exception(
-                "Failed to dump SPARQL Query Results format, unknown type: ". $this->type
-            );
+            throw new Exception('Failed to dump SPARQL Query Results format, unknown type: '.$this->type);
         }
     }
 
@@ -253,7 +250,7 @@ class Result extends \ArrayIterator
      */
     protected function newTerm($data)
     {
-        switch($data['type']) {
+        switch ($data['type']) {
             case 'bnode':
                 return new Resource('_:'.$data['value']);
             case 'uri':
@@ -262,10 +259,7 @@ class Result extends \ArrayIterator
             case 'typed-literal':
                 return Literal::create($data);
             default:
-                throw new Exception(
-                    "Failed to parse SPARQL Query Results format, unknown term type: ".
-                    $data['type']
-                );
+                throw new Exception('Failed to parse SPARQL Query Results format, unknown term type: '.$data['type']);
         }
     }
 
@@ -278,26 +272,25 @@ class Result extends \ArrayIterator
         $doc = new \DOMDocument();
         $doc->loadXML($data, LIBXML_PARSEHUGE);
 
-        # Check for valid root node.
-        if ($doc->hasChildNodes() == false or
-            $doc->childNodes->length != 1 or
-            $doc->firstChild->nodeName != 'sparql' or
-            $doc->firstChild->namespaceURI != self::SPARQL_XML_RESULTS_NS) {
-            throw new Exception(
-                "Incorrect root node in SPARQL XML Query Results format"
-            );
+        // Check for valid root node.
+        if (false == $doc->hasChildNodes() or
+            1 != $doc->childNodes->length or
+            'sparql' != $doc->firstChild->nodeName or
+            self::SPARQL_XML_RESULTS_NS != $doc->firstChild->namespaceURI) {
+            throw new Exception('Incorrect root node in SPARQL XML Query Results format');
         }
 
-        # Is it the result of an ASK query?
+        // Is it the result of an ASK query?
         $boolean = $doc->getElementsByTagName('boolean');
         if ($boolean->length) {
             $this->type = 'boolean';
             $value = $boolean->item(0)->nodeValue;
-            $this->boolean = $value == 'true' ? true : false;
+            $this->boolean = 'true' == $value ? true : false;
+
             return;
         }
 
-        # Get a list of variables from the header
+        // Get a list of variables from the header
         $head = $doc->getElementsByTagName('head');
         if ($head->length) {
             $variables = $head->item(0)->getElementsByTagName('variable');
@@ -306,7 +299,7 @@ class Result extends \ArrayIterator
             }
         }
 
-        # Is it the result of a SELECT query?
+        // Is it the result of a SELECT query?
         $resultstag = $doc->getElementsByTagName('results');
         if ($resultstag->length) {
             $this->type = 'bindings';
@@ -317,28 +310,27 @@ class Result extends \ArrayIterator
                 foreach ($bindings as $binding) {
                     $key = $binding->getAttribute('name');
                     foreach ($binding->childNodes as $node) {
-                        if ($node->nodeType != XML_ELEMENT_NODE) {
+                        if (XML_ELEMENT_NODE != $node->nodeType) {
                             continue;
                         }
                         $t->$key = $this->newTerm(
-                            array(
+                            [
                                 'type' => $node->nodeName,
                                 'value' => $node->nodeValue,
                                 'lang' => $node->getAttribute('xml:lang'),
-                                'datatype' => $node->getAttribute('datatype')
-                            )
+                                'datatype' => $node->getAttribute('datatype'),
+                            ]
                         );
                         break;
                     }
                 }
                 $this[] = $t;
             }
+
             return;
         }
 
-        throw new Exception(
-            "Failed to parse SPARQL XML Query Results format"
-        );
+        throw new Exception('Failed to parse SPARQL XML Query Results format');
     }
 
     /** Parse a SPARQL result in the JSON format into the object.
@@ -367,9 +359,7 @@ class Result extends \ArrayIterator
                 $this[] = $t;
             }
         } else {
-            throw new Exception(
-                "Failed to parse SPARQL JSON Query Results format"
-            );
+            throw new Exception('Failed to parse SPARQL JSON Query Results format');
         }
     }
 
@@ -378,11 +368,11 @@ class Result extends \ArrayIterator
      * If this is a boolean result then it will return 'true' or 'false'.
      * If it is a bindings type, then it will dump as a text based table.
      *
-     * @return string A string representation of the result.
+     * @return string a string representation of the result
      */
     public function __toString()
     {
-        if ($this->type == 'boolean') {
+        if ('boolean' == $this->type) {
             return $this->boolean ? 'true' : 'false';
         } else {
             return $this->dump('text');

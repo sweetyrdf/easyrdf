@@ -6,9 +6,9 @@
 // the example on a real web server.
 //
 
-$EXAMPLES_DIR = realpath(dirname(__FILE__) . '/../examples');
+$EXAMPLES_DIR = realpath(__DIR__.'/../examples');
 if (count($argv) <= 1) {
-    print "Error: Missing name of the example to run.\n";
+    echo "Error: Missing name of the example to run.\n";
     exit(-1);
 } else {
     $THIS_SCRIPT = array_shift($argv);
@@ -26,7 +26,7 @@ chdir($EXAMPLES_DIR);
 
 // Check that the example exists
 if (!file_exists($EXAMPLE_FILE)) {
-    print "Error: example does not exist: $EXAMPLE_FILE\n";
+    echo "Error: example does not exist: $EXAMPLE_FILE\n";
     exit(-1);
 }
 

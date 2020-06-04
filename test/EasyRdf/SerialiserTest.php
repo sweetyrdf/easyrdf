@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf;
 
 /**
@@ -31,16 +32,14 @@ namespace EasyRdf;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package    EasyRdf
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
+require_once \dirname(__DIR__).\DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class MockSerialiser extends Serialiser
 {
-    public function serialise(Graph $graph, $format, array $options = array())
+    public function serialise(Graph $graph, $format, array $options = [])
     {
         parent::checkSerialiseParams($format);
         // Serialising goes here
@@ -52,7 +51,7 @@ class SerialiserTest extends TestCase
 {
     /** @var Graph */
     private $graph;
-    /** @var Resource */
+    /** @var resource */
     private $resource;
     /** @var Serialiser */
     private $serialiser;

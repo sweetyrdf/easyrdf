@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf\Serialiser;
 
-/**
+/*
  * EasyRdf
  *
  * LICENSE
@@ -41,8 +42,8 @@ use EasyRdf\Literal;
 use EasyRdf\RdfNamespace;
 use EasyRdf\TestCase;
 
-require_once dirname(dirname(dirname(__FILE__))).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
+require_once \dirname(\dirname(__DIR__)).
+             \DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class JsonTest extends TestCase
 {

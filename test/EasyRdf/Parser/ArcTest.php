@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf\Parser;
 
-/**
+/*
  * EasyRdf
  *
  * LICENSE
@@ -39,8 +40,8 @@ namespace EasyRdf\Parser;
 use EasyRdf\Graph;
 use EasyRdf\TestCase;
 
-require_once dirname(dirname(__DIR__)).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
+require_once \dirname(\dirname(__DIR__)).
+             \DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class ArcTest extends TestCase
 {
@@ -58,7 +59,7 @@ class ArcTest extends TestCase
             $this->data = readFixture('foaf.rdf');
         } else {
             $this->markTestSkipped(
-                "ARC2 library is not available."
+                'ARC2 library is not available.'
             );
         }
     }
@@ -83,7 +84,7 @@ class ArcTest extends TestCase
         $this->assertClass('EasyRdf\Literal', $name);
         $this->assertStringEquals('Joe Bloggs', $name);
         $this->assertSame('en', $name->getLang());
-        $this->assertSame(null, $name->getDatatype());
+        $this->assertNull($name->getDatatype());
 
         $foaf = $this->graph->resource('http://www.example.com/joe/foaf.rdf');
         $this->assertNotNull($foaf);

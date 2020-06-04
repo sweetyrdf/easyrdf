@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf;
 
-/**
+/*
  * EasyRdf
  *
  * LICENSE
@@ -38,7 +39,7 @@ namespace EasyRdf;
 
 use EasyRdf\Http\MockClient;
 
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
+require_once \dirname(__DIR__).\DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class MockRdfParser
 {
@@ -49,6 +50,7 @@ class MockRdfParser
             'foaf:name',
             'Joseph Bloggs'
         );
+
         return true;
     }
 }
@@ -57,7 +59,7 @@ class MockRdfSerialiser
 {
     public function serialise($graph, $format = null)
     {
-        return "<rdf></rdf>";
+        return '<rdf></rdf>';
     }
 }
 
@@ -129,7 +131,7 @@ class GraphTest extends TestCase
         $this->assertClass('EasyRdf\Literal', $name);
         $this->assertSame('Joe Bloggs', $name->getValue());
         $this->assertSame('en', $name->getLang());
-        $this->assertSame(null, $name->getDatatype());
+        $this->assertNull($name->getDatatype());
     }
 
     /**
@@ -161,7 +163,7 @@ class GraphTest extends TestCase
         $this->assertClass('EasyRdf\Literal', $name);
         $this->assertSame('Joe Bloggs', $name->getValue());
         $this->assertSame('en', $name->getLang());
-        $this->assertSame(null, $name->getDatatype());
+        $this->assertNull($name->getDatatype());
     }
 
     public function testParseFile()
@@ -174,15 +176,15 @@ class GraphTest extends TestCase
         $this->assertClass('EasyRdf\Literal', $name);
         $this->assertSame('Joe Bloggs', $name->getValue());
         $this->assertSame('en', $name->getLang());
-        $this->assertSame(null, $name->getDatatype());
+        $this->assertNull($name->getDatatype());
     }
 
-	public function testParseLargeFile()
-	{
-		$graph = new Graph();
-		$count = $graph->parseFile(fixturePath('stw.rdf'));
-		$this->assertSame(109340, $count);
-	}
+    public function testParseLargeFile()
+    {
+        $graph = new Graph();
+        $count = $graph->parseFile(fixturePath('stw.rdf'));
+        $this->assertSame(109340, $count);
+    }
 
     public function testParseFileRelativeUri()
     {
@@ -256,7 +258,7 @@ class GraphTest extends TestCase
             '$resource should be either IRI, blank-node identifier or EasyRdf\Resource'
         );
         $graph = new Graph();
-        $graph->load(array());
+        $graph->load([]);
     }
 
     public function testLoadUnknownFormat()
@@ -276,7 +278,7 @@ class GraphTest extends TestCase
             'GET',
             'http://www.example.com/404',
             'Not Found',
-            array('status' => 404)
+            ['status' => 404]
         );
         $this->setExpectedException(
             'EasyRdf\Exception',
@@ -303,7 +305,7 @@ class GraphTest extends TestCase
             'GET',
             'http://www.example.com/',
             readFixture('foaf.json'),
-            array('headers' => array('Content-Type' => 'application/json'))
+            ['headers' => ['Content-Type' => 'application/json']]
         );
         $graph = new Graph('http://www.example.com/');
         $this->assertSame(14, $graph->load());
@@ -319,7 +321,7 @@ class GraphTest extends TestCase
             'GET',
             'http://www.example.com/',
             readFixture('foaf.nt'),
-            array('headers' => array('Content-Type' => 'text/plain; charset=utf8'))
+            ['headers' => ['Content-Type' => 'text/plain; charset=utf8']]
         );
         $graph = new Graph('http://www.example.com/');
         $this->assertSame(14, $graph->load());
@@ -390,7 +392,7 @@ class GraphTest extends TestCase
 
     public function testNewAndLoadError()
     {
-        $this->client->addMockOnce('GET', 'http://www.example.com/missing', 'Error text', array('status' => 404));
+        $this->client->addMockOnce('GET', 'http://www.example.com/missing', 'Error text', ['status' => 404]);
 
         try {
             Graph::newAndLoad('http://www.example.com/missing', 'turtle');
@@ -497,7 +499,7 @@ class GraphTest extends TestCase
             '$resource should be either IRI, blank-node identifier or EasyRdf\Resource'
         );
         $graph = new Graph();
-        $graph->resource(array());
+        $graph->resource([]);
     }
 
     public function testResourceWithType()
@@ -527,7 +529,7 @@ class GraphTest extends TestCase
         $graph = new Graph();
         $resource = $graph->resource(
             'http://www.foo.com/bar',
-            array('rdf:Type1', 'rdf:Type2')
+            ['rdf:Type1', 'rdf:Type2']
         );
 
         $types = $resource->types();
@@ -541,14 +543,14 @@ class GraphTest extends TestCase
         $data = readFixture('foaf.json');
         $graph = new Graph('http://example.com/joe/foaf', $data);
         $resources = $graph->resources();
-        $this->assertTrue(is_array($resources));
+        $this->assertTrue(\is_array($resources));
         $this->assertClass('EasyRdf\Resource', $resources['_:genid1']);
 
         $urls = array_keys($resources);
         sort($urls);
 
         $this->assertSame(
-            array(
+            [
                 '_:genid1',
                 'http://www.example.com/joe#me',
                 'http://www.example.com/joe/',
@@ -556,8 +558,8 @@ class GraphTest extends TestCase
                 'http://www.example.com/project',
                 'http://xmlns.com/foaf/0.1/Person',
                 'http://xmlns.com/foaf/0.1/PersonalProfileDocument',
-                'http://xmlns.com/foaf/0.1/Project'
-            ),
+                'http://xmlns.com/foaf/0.1/Project',
+            ],
             $urls
         );
     }
@@ -900,9 +902,9 @@ class GraphTest extends TestCase
         $all = $this->graph->all($this->uri, 'rdf:test|rdf:foobar');
         $this->assertCount(3, $all);
 
-        $strings = array_map("strval", $all);
+        $strings = array_map('strval', $all);
         $this->assertSame(
-            array('Test A', 'Test B', 'Test C'),
+            ['Test A', 'Test B', 'Test C'],
             $strings
         );
     }
@@ -914,7 +916,7 @@ class GraphTest extends TestCase
         $this->graph->addLiteral('http://example.com/', 'rdfs:label', 'My Homepage');
         $this->graph->addLiteral('http://literal.com/', 'rdfs:label', 'Not My Homepage');
         $this->assertEquals(
-            array(new Literal('My Homepage')),
+            [new Literal('My Homepage')],
             $this->graph->all('http://example.com/person', 'foaf:homepage/rdfs:label')
         );
     }
@@ -922,7 +924,7 @@ class GraphTest extends TestCase
     public function testAllPropertyPathNoMatch()
     {
         $this->assertEquals(
-            array(),
+            [],
             $this->graph->all('http://example.com/person', 'foaf:homepage/rdfs:label')
         );
     }
@@ -930,7 +932,7 @@ class GraphTest extends TestCase
     public function testAllNonExistantResource()
     {
         $this->assertSame(
-            array(),
+            [],
             $this->graph->all('foo:bar', 'foo:bar')
         );
     }
@@ -938,7 +940,7 @@ class GraphTest extends TestCase
     public function testAllNonExistantProperty()
     {
         $this->assertSame(
-            array(),
+            [],
             $this->graph->all($this->uri, 'foo:bar')
         );
     }
@@ -967,7 +969,7 @@ class GraphTest extends TestCase
             'InvalidArgumentException',
             '$propertyPath should be a string or EasyRdf\Resource and cannot be null'
         );
-        $this->graph->all($this->uri, array());
+        $this->graph->all($this->uri, []);
     }
 
     public function testAllOfType()
@@ -975,7 +977,7 @@ class GraphTest extends TestCase
         $data = readFixture('foaf.json');
         $graph = new Graph('http://example.com/joe/foaf', $data);
         $resources = $graph->allOfType('foaf:Person');
-        $this->assertTrue(is_array($resources));
+        $this->assertTrue(\is_array($resources));
         $this->assertCount(1, $resources);
         $this->assertSame(
             'http://www.example.com/joe#me',
@@ -987,7 +989,7 @@ class GraphTest extends TestCase
     {
         $graph = new Graph();
         $resources = $graph->allOfType('unknown:type');
-        $this->assertTrue(is_array($resources));
+        $this->assertTrue(\is_array($resources));
         $this->assertCount(0, $resources);
     }
 
@@ -1002,7 +1004,7 @@ class GraphTest extends TestCase
     public function testAllLiteralsEmpty()
     {
         $all = $this->graph->allLiterals($this->uri, 'rdf:type');
-        $this->assertTrue(is_array($all));
+        $this->assertTrue(\is_array($all));
         $this->assertCount(0, $all);
     }
 
@@ -1139,7 +1141,7 @@ class GraphTest extends TestCase
             'InvalidArgumentException',
             '$propertyPath should be a string or EasyRdf\Resource and cannot be null'
         );
-        $this->graph->join($this->uri, array(), 'Test C');
+        $this->graph->join($this->uri, [], 'Test C');
     }
 
     public function testAdd()
@@ -1175,12 +1177,12 @@ class GraphTest extends TestCase
         $title = $this->graph->get($this->uri, 'dc:title');
         $this->assertSame('English Title', $title->getValue());
         $this->assertSame('en', $title->getLang());
-        $this->assertSame(null, $title->getDataType());
+        $this->assertNull($title->getDataType());
     }
 
     public function testAddMultipleLiterals()
     {
-        $count = $this->graph->addLiteral($this->uri, 'rdf:test', array('Test C', 'Test D'));
+        $count = $this->graph->addLiteral($this->uri, 'rdf:test', ['Test C', 'Test D']);
         $this->assertSame(2, $count);
         $all = $this->graph->all($this->uri, 'rdf:test');
         $this->assertCount(4, $all);
@@ -1215,20 +1217,20 @@ class GraphTest extends TestCase
 
     public function testAddDateTime()
     {
-        $dt = new \DateTime("Fri 25 Jan 2013 19:43:19 GMT");
+        $dt = new \DateTime('Fri 25 Jan 2013 19:43:19 GMT');
         $count = $this->graph->add($this->uri, 'rdf:test2', $dt);
         $this->assertSame(1, $count);
 
         $literal = $this->graph->get($this->uri, 'rdf:test2');
         $this->assertClass('EasyRdf\Literal\DateTime', $literal);
         $this->assertStringEquals('2013-01-25T19:43:19Z', $literal);
-        $this->assertSame(null, $literal->getLang());
+        $this->assertNull($literal->getLang());
         $this->assertSame('xsd:dateTime', $literal->getDataType());
     }
 
     public function testAddLiteralDateTime()
     {
-        $dt = new \DateTime("Fri 25 Jan 2013 19:43:19 GMT");
+        $dt = new \DateTime('Fri 25 Jan 2013 19:43:19 GMT');
         $this->graph->addLiteral($this->uri, 'rdf:test2', $dt);
         $this->assertStringEquals(
             '2013-01-25T19:43:19Z',
@@ -1270,7 +1272,7 @@ class GraphTest extends TestCase
             'InvalidArgumentException',
             '$property should be a string or EasyRdf\Resource and cannot be null'
         );
-        $this->graph->add($this->uri, array(), 'Test C');
+        $this->graph->add($this->uri, [], 'Test C');
     }
 
     public function testAddInvalidObject()
@@ -1293,7 +1295,7 @@ class GraphTest extends TestCase
             'InvalidArgumentException',
             '$value is missing a \'type\' key'
         );
-        $this->graph->add($this->uri, 'rdf:foo', array('value' => 'bar'));
+        $this->graph->add($this->uri, 'rdf:foo', ['value' => 'bar']);
     }
 
     public function testAddMissingArrayValue()
@@ -1302,7 +1304,7 @@ class GraphTest extends TestCase
             'InvalidArgumentException',
             '$value is missing a \'value\' key'
         );
-        $this->graph->add($this->uri, 'rdf:foo', array('type' => 'literal'));
+        $this->graph->add($this->uri, 'rdf:foo', ['type' => 'literal']);
     }
 
     public function testAddInvalidArrayType()
@@ -1311,7 +1313,7 @@ class GraphTest extends TestCase
             'InvalidArgumentException',
             '$value does not have a valid type (foo)'
         );
-        $this->graph->add($this->uri, 'rdf:foo', array('type' => 'foo', 'value' => 'bar'));
+        $this->graph->add($this->uri, 'rdf:foo', ['type' => 'foo', 'value' => 'bar']);
     }
 
     public function testAddArrayWithLangAndDatatype()
@@ -1323,12 +1325,12 @@ class GraphTest extends TestCase
         $this->graph->add(
             $this->uri,
             'rdf:foo',
-            array(
+            [
                 'type' => 'literal',
                 'value' => 'Rat',
                 'lang' => 'en',
-                'datatype' => 'http://www.w3.org/2001/XMLSchema#string'
-            )
+                'datatype' => 'http://www.w3.org/2001/XMLSchema#string',
+            ]
         );
     }
 
@@ -1372,11 +1374,11 @@ class GraphTest extends TestCase
 
         $graph->delete('http://www.example.com/joe#me', 'rdf:test', 'Test A');
         $result = $graph->get('http://www.example.com/joe#me', 'rdf:test');
-        $this->assertStringEquals("Test B", $result);
+        $this->assertStringEquals('Test B', $result);
 
         $graph->delete('http://www.example.com/joe#me', 'rdf:test', 'Test B');
         $result = $graph->get('http://www.example.com/joe#me', 'rdf:test');
-        $this->assertStringEquals("Test C", $result);
+        $this->assertStringEquals('Test C', $result);
 
         $graph->delete('http://www.example.com/joe#me', 'rdf:test');
         $result = $graph->get('http://www.example.com/joe#me', 'rdf:test');
@@ -1431,7 +1433,7 @@ class GraphTest extends TestCase
         $this->assertCount(1, $all);
         $this->assertStringEquals($homepage, $all[0]);
 
-        # Check inverse too
+        // Check inverse too
         $all = $this->graph->all($homepage, '^foaf:homepage');
         $this->assertCount(1, $all);
         $this->assertStringEquals('http://example.com/#me', $all[0]);
@@ -1461,14 +1463,14 @@ class GraphTest extends TestCase
     {
         $this->assertStringEquals('Test A', $this->graph->get($this->uri, 'rdf:test'));
         $this->assertSame(2, $this->graph->delete($this->uri, 'rdf:test'));
-        $this->assertSame(array(), $this->graph->all($this->uri, 'rdf:test'));
+        $this->assertSame([], $this->graph->all($this->uri, 'rdf:test'));
     }
 
     public function testDeleteWithPropertyUri()
     {
         $this->assertStringEquals('Test A', $this->graph->get($this->uri, 'rdf:test'));
         $this->assertSame(2, $this->graph->delete($this->uri, '<http://www.w3.org/1999/02/22-rdf-syntax-ns#test>'));
-        $this->assertSame(array(), $this->graph->all($this->uri, 'rdf:test'));
+        $this->assertSame([], $this->graph->all($this->uri, 'rdf:test'));
     }
 
     public function testDeleteWithPropertyResource()
@@ -1476,7 +1478,7 @@ class GraphTest extends TestCase
         $prop = $this->graph->resource('http://www.w3.org/1999/02/22-rdf-syntax-ns#test');
         $this->assertStringEquals('Test A', $this->graph->get($this->uri, 'rdf:test'));
         $this->assertSame(2, $this->graph->delete($this->uri, $prop));
-        $this->assertSame(array(), $this->graph->all($this->uri, 'rdf:test'));
+        $this->assertSame([], $this->graph->all($this->uri, 'rdf:test'));
     }
 
     public function testDeleteWithUri()
@@ -1489,7 +1491,7 @@ class GraphTest extends TestCase
                 'http://www.w3.org/1999/02/22-rdf-syntax-ns#test'
             )
         );
-        $this->assertSame(array(), $this->graph->all($this->uri, 'rdf:test'));
+        $this->assertSame([], $this->graph->all($this->uri, 'rdf:test'));
     }
 
     public function testDeleteNonExistantProperty()
@@ -1521,7 +1523,7 @@ class GraphTest extends TestCase
             'InvalidArgumentException',
             '$property should be a string or EasyRdf\Resource and cannot be null'
         );
-        $this->graph->delete($this->uri, array());
+        $this->graph->delete($this->uri, []);
     }
 
     public function testDeletePropertyResource()
@@ -1563,7 +1565,7 @@ class GraphTest extends TestCase
     public function testDeleteLiteralArrayValue()
     {
         // Keys are deliberately in the wrong order
-        $testa = array('value' => 'Test A', 'type' => 'literal');
+        $testa = ['value' => 'Test A', 'type' => 'literal'];
         $this->assertSame(2, $this->graph->countValues($this->uri, 'rdf:test'));
         $this->assertSame(1, $this->graph->delete($this->uri, 'rdf:test', $testa));
         $this->assertSame(1, $this->graph->countValues($this->uri, 'rdf:test'));
@@ -1572,7 +1574,7 @@ class GraphTest extends TestCase
     public function testDeleteResourceArrayValue()
     {
         // Keys are deliberately in the wrong order
-        $res = array('value' => 'http://www.example.com/', 'type' => 'uri');
+        $res = ['value' => 'http://www.example.com/', 'type' => 'uri'];
         $this->graph->addResource($this->uri, 'foaf:homepage', 'http://www.example.com/');
         $this->assertSame(1, $this->graph->countValues($this->uri, 'foaf:homepage'));
         $this->assertSame(1, $this->graph->delete($this->uri, 'foaf:homepage', $res));
@@ -1651,16 +1653,16 @@ class GraphTest extends TestCase
     {
         Format::registerSerialiser('mock', 'EasyRdf\MockRdfSerialiser');
         $graph = new Graph();
-        $this->assertSame("<rdf></rdf>", $graph->serialise('mock'));
+        $this->assertSame('<rdf></rdf>', $graph->serialise('mock'));
     }
 
     public function testSerialiseByMime()
     {
         Format::registerSerialiser('mock', 'EasyRdf\MockRdfSerialiser');
-        Format::register('mock', 'Mock', null, array('mock/mime' => 1.0));
+        Format::register('mock', 'Mock', null, ['mock/mime' => 1.0]);
         $graph = new Graph();
         $this->assertSame(
-            "<rdf></rdf>",
+            '<rdf></rdf>',
             $graph->serialise('mock/mime')
         );
     }
@@ -1670,7 +1672,7 @@ class GraphTest extends TestCase
         $format = Format::register('mock', 'Mock Format');
         $format->setSerialiserClass('EasyRdf\MockRdfSerialiser');
         $graph = new Graph();
-        $this->assertSame("<rdf></rdf>", $graph->serialise($format));
+        $this->assertSame('<rdf></rdf>', $graph->serialise($format));
     }
 
     public function testIsEmpty()
@@ -1697,7 +1699,7 @@ class GraphTest extends TestCase
     public function testProperties()
     {
         $this->assertSame(
-            array('rdf:type', 'rdf:test'),
+            ['rdf:type', 'rdf:test'],
             $this->graph->properties($this->uri)
         );
     }
@@ -1705,7 +1707,7 @@ class GraphTest extends TestCase
     public function testPropertiesForNonExistantResource()
     {
         $this->assertSame(
-            array(),
+            [],
             $this->graph->properties('http://doesnotexist.com/')
         );
     }
@@ -1713,10 +1715,10 @@ class GraphTest extends TestCase
     public function testPropertyUris()
     {
         $this->assertSame(
-            array(
+            [
                 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
-                'http://www.w3.org/1999/02/22-rdf-syntax-ns#test'
-            ),
+                'http://www.w3.org/1999/02/22-rdf-syntax-ns#test',
+            ],
             $this->graph->propertyUris($this->uri)
         );
     }
@@ -1724,7 +1726,7 @@ class GraphTest extends TestCase
     public function testNoReversePropertyUris()
     {
         $this->assertSame(
-            array(),
+            [],
             $this->graph->reversePropertyUris('foaf:Document')
         );
     }
@@ -1732,9 +1734,9 @@ class GraphTest extends TestCase
     public function testReversePropertyUris()
     {
         $this->assertSame(
-            array(
-                'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
-            ),
+            [
+                'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+            ],
             $this->graph->reversePropertyUris('foaf:Person')
         );
     }
@@ -1742,7 +1744,7 @@ class GraphTest extends TestCase
     public function testPropertyUrisForNonExistantResource()
     {
         $this->assertSame(
-            array(),
+            [],
             $this->graph->propertyUris('http://doesnotexist.com/')
         );
     }
@@ -1949,8 +1951,8 @@ class GraphTest extends TestCase
 
     public function testTypesNotLiteral()
     {
-        $this->graph->addResource($this->uri, 'rdf:type', "foaf:Rat");
-        $this->graph->addLiteral($this->uri, 'rdf:type', "Literal");
+        $this->graph->addResource($this->uri, 'rdf:type', 'foaf:Rat');
+        $this->graph->addLiteral($this->uri, 'rdf:type', 'Literal');
         $types = $this->graph->types($this->uri);
         $this->assertCount(2, $types);
         $this->assertStringEquals('foaf:Person', $types[0]);
@@ -2083,27 +2085,27 @@ class GraphTest extends TestCase
     public function testToRdfPhp()
     {
         $this->assertSame(
-            array(
-                'http://example.com/#me' => array(
-                    'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' => array(
-                        array(
+            [
+                'http://example.com/#me' => [
+                    'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' => [
+                        [
                             'type' => 'uri',
-                            'value' => 'http://xmlns.com/foaf/0.1/Person'
-                        )
-                    ),
-                    'http://www.w3.org/1999/02/22-rdf-syntax-ns#test' => array(
-                        array(
+                            'value' => 'http://xmlns.com/foaf/0.1/Person',
+                        ],
+                    ],
+                    'http://www.w3.org/1999/02/22-rdf-syntax-ns#test' => [
+                        [
                             'type' => 'literal',
-                            'value' => 'Test A'
-                        ),
-                        array(
+                            'value' => 'Test A',
+                        ],
+                        [
                             'type' => 'literal',
                             'value' => 'Test B',
-                            'lang' => 'en'
-                        )
-                    )
-                )
-            ),
+                            'lang' => 'en',
+                        ],
+                    ],
+                ],
+            ],
             $this->graph->toRdfPhp()
         );
     }
@@ -2127,8 +2129,7 @@ class GraphTest extends TestCase
     public function testMagicGetNonExistant()
     {
         RdfNamespace::setDefault('rdf');
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->graph->foobar
         );
     }

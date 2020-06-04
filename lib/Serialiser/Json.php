@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf\Serialiser;
 
-/**
+/*
  * EasyRdf
  *
  * LICENSE
@@ -42,7 +43,6 @@ use EasyRdf\Graph;
  * Class to serialise an EasyRdf\Graph to RDF/JSON
  * with no external dependencies.
  *
- * @package    EasyRdf
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
@@ -54,21 +54,19 @@ class Json extends RdfPhp
      * http://n2.talis.com/wiki/RDF_JSON_Specification
      * docs/appendix-a-rdf-formats-json.md
      *
-     * @param Graph  $graph  An EasyRdf\Graph object.
-     * @param string $format The name of the format to convert to.
-     * @param array  $options
+     * @param Graph  $graph  an EasyRdf\Graph object
+     * @param string $format the name of the format to convert to
      *
-     * @return string The RDF in the new desired format.
+     * @return string the RDF in the new desired format
+     *
      * @throws Exception
      */
-    public function serialise(Graph $graph, $format, array $options = array())
+    public function serialise(Graph $graph, $format, array $options = [])
     {
         parent::checkSerialiseParams($format);
 
-        if ($format != 'json') {
-            throw new Exception(
-                "EasyRdf\\Serialiser\\Json does not support: {$format}"
-            );
+        if ('json' != $format) {
+            throw new Exception("EasyRdf\\Serialiser\\Json does not support: {$format}");
         }
 
         return json_encode(parent::serialise($graph, 'php'));

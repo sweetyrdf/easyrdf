@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf\Parser;
 
-/**
+/*
  * EasyRdf
  *
  * LICENSE
@@ -47,7 +48,6 @@ use EasyRdf\RdfNamespace;
  *
  * http://www.w3.org/TR/rdfa-core/
  *
- * @package    EasyRdf
  * @copyright  Copyright (c) 2012-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
@@ -69,10 +69,11 @@ class Rdfa extends Parser
     protected function addTriple($resource, $property, $value)
     {
         if ($this->debug) {
-            print "Adding triple: $resource -> $property -> ".$value['type'].':'.$value['value']."\n";
+            echo "Adding triple: $resource -> $property -> ".$value['type'].':'.$value['value']."\n";
         }
         $count = $this->graph->add($resource, $property, $value);
         $this->tripleCount += $count;
+
         return $count;
     }
 
@@ -84,7 +85,7 @@ class Rdfa extends Parser
         // Output a blank node for each item in the list
         foreach ($list as $item) {
             $newNode = $this->graph->newBNodeId();
-            $this->addTriple($current, $prop, array('type' => 'bnode', 'value' => $newNode));
+            $this->addTriple($current, $prop, ['type' => 'bnode', 'value' => $newNode]);
             $this->addTriple($newNode, 'rdf:first', $item);
 
             $current = $newNode;
@@ -95,19 +96,19 @@ class Rdfa extends Parser
         $this->addTriple(
             $current,
             $prop,
-            array('type' => 'uri', 'value' => RdfNamespace::expand('rdf:nil'))
+            ['type' => 'uri', 'value' => RdfNamespace::expand('rdf:nil')]
         );
     }
 
     protected function addToList($listMapping, $property, $value)
     {
         if ($this->debug) {
-            print "Adding to list: $property -> ".$value['type'].':'.$value['value']."\n";
+            echo "Adding to list: $property -> ".$value['type'].':'.$value['value']."\n";
         }
 
         // Create property in the list mapping if it doesn't already exist
         if (!isset($listMapping->$property)) {
-            $listMapping->$property = array();
+            $listMapping->$property = [];
         }
         array_push($listMapping->$property, $value);
     }
@@ -115,8 +116,8 @@ class Rdfa extends Parser
     protected function printNode($node, $depth)
     {
         $indent = str_repeat('  ', $depth);
-        print $indent;
-        switch($node->nodeType) {
+        echo $indent;
+        switch ($node->nodeType) {
             case XML_ELEMENT_NODE:
                 print 'node';
                 break;
@@ -151,14 +152,14 @@ class Rdfa extends Parser
                 print 'html';
                 break;
             default:
-                throw new \EasyRdf\Exception("unknown node type: ".$node->nodeType);
+                throw new \EasyRdf\Exception('unknown node type: '.$node->nodeType);
                 break;
         }
-        print ' '.$node->nodeName."\n";
+        echo ' '.$node->nodeName."\n";
 
         if ($node->hasAttributes()) {
             foreach ($node->attributes as $attr) {
-                print $indent.' '.$attr->nodeName." => ".$attr->nodeValue."\n";
+                echo $indent.' '.$attr->nodeName.' => '.$attr->nodeValue."\n";
             }
         }
     }
@@ -184,20 +185,20 @@ class Rdfa extends Parser
 
     protected function initialContext()
     {
-        $context = array(
-            'prefixes' => array(),
+        $context = [
+            'prefixes' => [],
             'vocab' => null,
             'subject' => $this->baseUri,
             'property' => null,
             'object' => null,
-            'terms' => array(),
-            'incompleteRels' => array(),
-            'incompleteRevs' => array(),
+            'terms' => [],
+            'incompleteRels' => [],
+            'incompleteRevs' => [],
             'listMapping' => null,
             'lang' => null,
             'path' => '',
-            'xmlns' => array(),
-        );
+            'xmlns' => [],
+        ];
 
         // Set the default prefix
         $context['prefixes'][''] = 'http://www.w3.org/1999/xhtml/vocab#';
@@ -213,21 +214,21 @@ class Rdfa extends Parser
     protected function expandCurie($node, &$context, $value)
     {
         if (preg_match('/^(\w*?):(.*)$/', $value, $matches)) {
-            list (, $prefix, $local) = $matches;
+            list(, $prefix, $local) = $matches;
             $prefix = strtolower($prefix);
-            if ($prefix === '_') {
+            if ('_' === $prefix) {
                 // It is a bnode
                 return $this->remapBnode(substr($value, 2));
             } elseif (empty($prefix) and $context['vocab']) {
                 // Empty prefix
-                return $context['vocab'] . $local;
+                return $context['vocab'].$local;
             } elseif (isset($context['prefixes'][$prefix])) {
-                return $context['prefixes'][$prefix] . $local;
+                return $context['prefixes'][$prefix].$local;
             } elseif ($uri = $node->lookupNamespaceURI($prefix)) {
-                return $uri . $local;
+                return $uri.$local;
             } elseif (!empty($prefix) and $uri = RdfNamespace::get($prefix)) {
                 // Expand using well-known prefixes
-                return $uri . $local;
+                return $uri.$local;
             }
         }
     }
@@ -240,11 +241,11 @@ class Rdfa extends Parser
         } elseif (preg_match(self::TERM_REGEXP, $value) and $isProp) {
             $term = strtolower($value);
             if ($context['vocab']) {
-                return $context['vocab'] . $value;
+                return $context['vocab'].$value;
             } elseif (isset($context['terms'][$term])) {
                 return $context['terms'][$term];
             }
-        } elseif (substr($value, 0, 2) === '_:' and $isProp) {
+        } elseif ('_:' === substr($value, 0, 2) and $isProp) {
             return null;
         } else {
             $uri = $this->expandCurie($node, $context, $value);
@@ -267,23 +268,24 @@ class Rdfa extends Parser
     protected function processUriList($node, $context, $values)
     {
         if (!$values) {
-            return array();
+            return [];
         }
 
-        $uris = array();
+        $uris = [];
         foreach (preg_split('/\s+/', $values) as $value) {
             $uri = $this->processUri($node, $context, $value, true);
             if ($uri) {
                 array_push($uris, $uri);
             }
         }
+
         return $uris;
     }
 
     protected function getUriAttribute($node, &$context, $attributes)
     {
-        if (!is_array($attributes)) {
-            $attributes = array($attributes);
+        if (!\is_array($attributes)) {
+            $attributes = [$attributes];
         }
 
         // Find the first attribute that returns a valid URI
@@ -310,11 +312,11 @@ class Rdfa extends Parser
         $typedResource = null;
         $object = null;
         $lang = $context['lang'];
-        $incompleteRels = array();
-        $incompleteRevs = array();
+        $incompleteRels = [];
+        $incompleteRevs = [];
 
-        if ($node->nodeType === XML_ELEMENT_NODE) {
-            $context['path'] .= '/' . $node->nodeName;
+        if (XML_ELEMENT_NODE === $node->nodeType) {
+            $context['path'] .= '/'.$node->nodeName;
 
             $content = $node->hasAttribute('content') ? $node->getAttribute('content') : null;
             $datatype = $node->hasAttribute('datatype') ? $node->getAttribute('datatype') : null;
@@ -328,7 +330,7 @@ class Rdfa extends Parser
                     $this->addTriple(
                         $this->baseUri,
                         'rdfa:usesVocabulary',
-                        array('type' => 'uri', 'value' => $context['vocab'])
+                        ['type' => 'uri', 'value' => $context['vocab']]
                     );
                 }
             }
@@ -336,31 +338,31 @@ class Rdfa extends Parser
             // Step 3: Set prefix mappings
             // Support for deprecated xmlns if present in document
             foreach ($context['xmlns'] as $prefix => $uri) {
-                if ($node->hasAttribute('xmlns:' . $prefix)) {
-                    $context['prefixes'][$prefix] = $node->getAttribute('xmlns:' . $prefix);
+                if ($node->hasAttribute('xmlns:'.$prefix)) {
+                    $context['prefixes'][$prefix] = $node->getAttribute('xmlns:'.$prefix);
                     if ($this->debug) {
-                        print "Prefix (xmlns): $prefix => $uri\n";
+                        echo "Prefix (xmlns): $prefix => $uri\n";
                     }
                 }
             }
             if ($node->hasAttribute('prefix')) {
                 $mappings = preg_split('/\s+/', $node->getAttribute('prefix'));
-                while (count($mappings)) {
+                while (\count($mappings)) {
                     $prefix = strtolower(array_shift($mappings));
                     $uri = array_shift($mappings);
 
-                    if (substr($prefix, -1) === ':') {
+                    if (':' === substr($prefix, -1)) {
                         $prefix = substr($prefix, 0, -1);
                     } else {
                         continue;
                     }
 
-                    if ($prefix === '_') {
+                    if ('_' === $prefix) {
                         continue;
                     } elseif (!empty($prefix)) {
                         $context['prefixes'][$prefix] = $uri;
                         if ($this->debug) {
-                            print "Prefix: $prefix => $uri\n";
+                            echo "Prefix: $prefix => $uri\n";
                         }
                     }
                 }
@@ -374,14 +376,14 @@ class Rdfa extends Parser
             }
 
             // HTML+RDFa 1.1: ignore rel and rev unless they contain CURIEs.
-            foreach (array('rel', 'rev') as $attr) {
+            foreach (['rel', 'rev'] as $attr) {
                 if ($node->hasAttribute('property') and $node->hasAttribute($attr)) {
                     // Quick check in case there are no CURIEs to deal with.
-                    if (strpos($node->getAttribute($attr), ':') === false) {
+                    if (false === strpos($node->getAttribute($attr), ':')) {
                         $node->removeAttribute($attr);
                     } else {
                         // Only keep CURIEs.
-                        $curies = array();
+                        $curies = [];
                         foreach (preg_split('/\s+/', $node->getAttribute($attr)) as $token) {
                             if (strpos($token, ':')) {
                                 $curies[] = $token;
@@ -397,13 +399,13 @@ class Rdfa extends Parser
 
             if (!$node->hasAttribute('rel') and !$node->hasAttribute('rev')) {
                 // Step 5: Establish a new subject if no rel/rev
-                if ($property and is_null($content) and is_null($datatype)) {
+                if ($property and null === $content and null === $datatype) {
                     $subject = $this->getUriAttribute($node, $context, 'about');
                     if ($typeof and !$subject) {
                         $typedResource = $this->getUriAttribute(
                             $node,
                             $context,
-                            array('resource', 'href', 'src')
+                            ['resource', 'href', 'src']
                         );
                         if (!$typedResource) {
                             $typedResource = $this->graph->newBNodeId();
@@ -414,14 +416,14 @@ class Rdfa extends Parser
                     $subject = $this->getUriAttribute(
                         $node,
                         $context,
-                        array('about', 'resource', 'href', 'src')
+                        ['about', 'resource', 'href', 'src']
                     );
                 }
 
                 // Establish a subject if there isn't one
-                # FIXME: refactor this
-                if (is_null($subject)) {
-                    if ($context['path'] === '/html/head') {
+                // FIXME: refactor this
+                if (null === $subject) {
+                    if ('/html/head' === $context['path']) {
                         $subject = $context['object'];
                     } elseif ($depth <= 2) {
                         $subject = $this->baseUri;
@@ -434,7 +436,6 @@ class Rdfa extends Parser
                         $subject = $context['object'];
                     }
                 }
-
             } else {
                 // Step 6
                 // If the current element does contain a @rel or @rev attribute, then the next step is to
@@ -445,7 +446,7 @@ class Rdfa extends Parser
                 $object = $this->getUriAttribute(
                     $node,
                     $context,
-                    array('resource', 'href', 'src')
+                    ['resource', 'href', 'src']
                 );
 
                 if ($typeof) {
@@ -455,15 +456,14 @@ class Rdfa extends Parser
                     $typedResource = $subject ? $subject : $object;
                 }
 
-                # FIXME: if the element is the root element of the document
-                # then act as if there is an empty @about present
+                // FIXME: if the element is the root element of the document
+                // then act as if there is an empty @about present
                 if (!$subject) {
                     $subject = $context['object'];
                 }
-
             }
 
-            # FIXME: better place for this?
+            // FIXME: better place for this?
             if ($typeof and $subject and !$typedResource) {
                 $typedResource = $subject;
             }
@@ -474,7 +474,7 @@ class Rdfa extends Parser
                     $this->addTriple(
                         $typedResource,
                         'rdf:type',
-                        array('type' => 'uri', 'value' => $type)
+                        ['type' => 'uri', 'value' => $type]
                     );
                 }
             }
@@ -489,7 +489,7 @@ class Rdfa extends Parser
             // Step 9: Generate triples with given object
             if ($subject and $object) {
                 foreach ($rels as $prop) {
-                    $obj = array('type' => 'uri', 'value' => $object);
+                    $obj = ['type' => 'uri', 'value' => $object];
                     if ($node->hasAttribute('inlist')) {
                         $this->addToList($listMapping, $prop, $obj);
                     } else {
@@ -501,7 +501,7 @@ class Rdfa extends Parser
                     $this->addTriple(
                         $object,
                         $prop,
-                        array('type' => 'uri', 'value' => $subject)
+                        ['type' => 'uri', 'value' => $subject]
                     );
                 }
             } elseif ($rels or $revs) {
@@ -510,15 +510,15 @@ class Rdfa extends Parser
                 if ($rels) {
                     if ($node->hasAttribute('inlist')) {
                         foreach ($rels as $prop) {
-                            # FIXME: add support for incomplete lists
+                            // FIXME: add support for incomplete lists
                             if (!isset($listMapping->$prop)) {
-                                $listMapping->$prop = array();
+                                $listMapping->$prop = [];
                             }
                         }
                     } else {
                         $incompleteRels = $rels;
                         if ($this->debug) {
-                            print "Incomplete rels: ".implode(',', $rels)."\n";
+                            echo 'Incomplete rels: '.implode(',', $rels)."\n";
                         }
                     }
                 }
@@ -526,36 +526,36 @@ class Rdfa extends Parser
                 if ($revs) {
                     $incompleteRevs = $revs;
                     if ($this->debug) {
-                        print "Incomplete revs: ".implode(',', $revs)."\n";
+                        echo 'Incomplete revs: '.implode(',', $revs)."\n";
                     }
                 }
             }
 
             // Step 11: establish current property value
             if ($subject and $property) {
-                $value = array();
+                $value = [];
 
                 if ($datatype) {
                     $datatype = $this->processUri($node, $context, $datatype, true);
                 }
 
-                if ($content !== null) {
+                if (null !== $content) {
                     $value['value'] = $content;
                 } elseif ($node->hasAttribute('datetime')) {
                     $value['value'] = $node->getAttribute('datetime');
                     $datetime = true;
-                } elseif ($datatype === '') {
+                } elseif ('' === $datatype) {
                     $value['value'] = $node->textContent;
-                } elseif ($datatype === self::RDF_XML_LITERAL) {
+                } elseif (self::RDF_XML_LITERAL === $datatype) {
                     $value['value'] = '';
                     foreach ($node->childNodes as $child) {
                         $value['value'] .= $child->C14N();
                     }
-                } elseif (is_null($datatype) and empty($rels) and empty($revs)) {
+                } elseif (null === $datatype and empty($rels) and empty($revs)) {
                     $value['value'] = $this->getUriAttribute(
                         $node,
                         $context,
-                        array('resource', 'href', 'src')
+                        ['resource', 'href', 'src']
                     );
 
                     if ($value['value']) {
@@ -576,7 +576,7 @@ class Rdfa extends Parser
                     $value['type'] = 'literal';
                     if ($datatype) {
                         $value['datatype'] = $datatype;
-                    } elseif (isset($datetime) or $node->nodeName === 'time') {
+                    } elseif (isset($datetime) or 'time' === $node->nodeName) {
                         $value['datatype'] = $this->guessTimeDatatype($value['value']);
                     }
 
@@ -601,7 +601,7 @@ class Rdfa extends Parser
                     $this->addTriple(
                         $context['subject'],
                         $prop,
-                        array('type' => 'uri', 'value' => $subject)
+                        ['type' => 'uri', 'value' => $subject]
                     );
                 }
 
@@ -609,7 +609,7 @@ class Rdfa extends Parser
                     $this->addTriple(
                         $subject,
                         $prop,
-                        array('type' => 'uri', 'value' => $context['subject'])
+                        ['type' => 'uri', 'value' => $context['subject']]
                     );
                 }
             }
@@ -643,8 +643,8 @@ class Rdfa extends Parser
             $newContext['lang'] = $lang;
 
             foreach ($node->childNodes as $child) {
-                if ($child->nodeType === XML_ELEMENT_NODE) {
-                    $this->processNode($child, $newContext, $depth+1);
+                if (XML_ELEMENT_NODE === $child->nodeType) {
+                    $this->processNode($child, $newContext, $depth + 1);
                 }
             }
         }
@@ -654,7 +654,7 @@ class Rdfa extends Parser
             foreach ($listMapping as $prop => $list) {
                 if ($context['listMapping'] !== $listMapping) {
                     if ($this->debug) {
-                        print "Need to create triples for $prop => ".count($list)." items\n";
+                        echo "Need to create triples for $prop => ".\count($list)." items\n";
                     }
                     $this->generateList($subject, $prop, $list);
                 }
@@ -671,16 +671,15 @@ class Rdfa extends Parser
      * @param string $baseUri the base URI of the data being parsed
      *
      * @throws \EasyRdf\Exception
-     * @return integer             The number of triples added to the graph
+     *
+     * @return int The number of triples added to the graph
      */
     public function parse($graph, $data, $format, $baseUri)
     {
         parent::checkParseParams($graph, $data, $format, $baseUri);
 
-        if ($format != 'rdfa') {
-            throw new \EasyRdf\Exception(
-                "EasyRdf\\Parser\\Rdfa does not support: {$format}"
-            );
+        if ('rdfa' != $format) {
+            throw new \EasyRdf\Exception("EasyRdf\\Parser\\Rdfa does not support: {$format}");
         }
 
         // Initialise evaluation context.
@@ -694,7 +693,7 @@ class Rdfa extends Parser
         // if XML parsing fails.
         if ($doc->loadXML($data, LIBXML_NONET)) {
             if ($this->debug) {
-                print "Document was parsed as XML.";
+                echo 'Document was parsed as XML.';
             }
             // Collect all xmlns namespaces defined throughout the document.
             $sxe = simplexml_import_dom($doc);
@@ -703,13 +702,13 @@ class Rdfa extends Parser
         } else {
             $doc->loadHTML($data);
             if ($this->debug) {
-                print "Document was parsed as HTML.";
+                echo 'Document was parsed as HTML.';
             }
         }
 
         // Establish the base for both XHTML and HTML documents.
         $xpath = new \DOMXPath($doc);
-        $xpath->registerNamespace('xh', "http://www.w3.org/1999/xhtml");
+        $xpath->registerNamespace('xh', 'http://www.w3.org/1999/xhtml');
         $nodeList = $xpath->query('/xh:html/xh:head/xh:base');
         if ($node = $nodeList->item(0) and $href = $node->getAttribute('href')) {
             $this->baseUri = new ParsedUri($href);
@@ -720,12 +719,9 @@ class Rdfa extends Parser
         }
 
         if (!$this->baseUri instanceof ParsedUri) {
-            throw new Exception(
-                'Invalid case reached: Either parameter $baseUri is empty or XML document does not provide a base URI.'
-                .' See https://github.com/sweetyrdf/easyrdf/issues/8 for more information.'
-            );
+            throw new Exception('Invalid case reached: Either parameter $baseUri is empty or XML document does not provide a base URI.'.' See https://github.com/sweetyrdf/easyrdf/issues/8 for more information.');
         }
-        
+
         // Remove the fragment from the base URI
         $this->baseUri->setFragment(null);
 
