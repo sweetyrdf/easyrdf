@@ -43,7 +43,7 @@ use EasyRdf\ParsedUri;
 use EasyRdf\RdfNamespace;
 
 /**
- * Class to parse Turtle with no external dependencies.
+ * Class to parse Turtle with no external dependancies.
  *
  * It is a translation from Java to PHP of the Sesame Turtle Parser:
  * http://bit.ly/TurtleParser
@@ -59,6 +59,7 @@ use EasyRdf\RdfNamespace;
 class Turtle extends Ntriples
 {
     protected $data;
+    protected $index;
     protected $namespaces;
     protected $subject;
     protected $predicate;
@@ -66,9 +67,6 @@ class Turtle extends Ntriples
     
     protected $line;
     protected $column;
-
-    protected $bytePos;
-    protected $dataLength;
 
     /**
      * Constructor
@@ -98,7 +96,8 @@ class Turtle extends Ntriples
             );
         }
 
-        $this->data = $data;
+        $this->data = preg_split('//u', $data, null, PREG_SPLIT_NO_EMPTY);
+        $this->index = 0;
         $this->namespaces = array();
         $this->subject = null;
         $this->predicate = null;
@@ -106,9 +105,6 @@ class Turtle extends Ntriples
         
         $this->line = 1;
         $this->column = 1;
-
-        $this->bytePos = 0;
-        $this->dataLength = null;
 
         $this->resetBnodeMap();
 
@@ -233,8 +229,7 @@ class Turtle extends Ntriples
     }
 
     /**
-     * Parse triples [6] modified to use a pointer instead of
-     * manipulating the input buffer directly.
+     * Parse triples [6]
      * @ignore
      */
     protected function parseTriples()
@@ -244,16 +239,15 @@ class Turtle extends Ntriples
         // If the first character is an open bracket we need to decide which of
         // the two parsing methods for blank nodes to use
         if ($c == '[') {
-            $c = $this->read();
+            $this->read();
             $this->skipWSC();
             $c = $this->peek();
             if ($c == ']') {
-                $c = $this->read();
+                $this->read();
                 $this->subject = $this->createBNode();
                 $this->skipWSC();
                 $this->parsePredicateObjectList();
             } else {
-                $this->unskipWS();
                 $this->unread('[');
                 $this->subject = $this->parseImplicitBlank();
             }
@@ -1172,41 +1166,35 @@ class Turtle extends Ntriples
     /**
      * Read a single character from the input buffer.
      * Returns -1 when the end of the file is reached.
-     * Does not manipulate the data variable. Keeps track of the
-     * byte position instead.
      * @ignore
      */
     protected function read()
     {
-        $char = $this->peek();
-        if ($char == -1) {
+        if ($this->index < count($this->data)) {
+            $c = $this->data[$this->index];
+            // Keep tracks of which line we are on (0A = Line Feed)
+            if ($c == "\x0A") {
+                $this->line += 1;
+                $this->column = 1;
+            } else {
+                $this->column += 1;
+            }
+            $this->index += 1;
+            return $c;
+        } else {
             return -1;
         }
-        $this->bytePos += strlen($char);
-        // Keep tracks of which line we are on (0A = Line Feed)
-        if ($char == "\x0A") {
-            $this->line += 1;
-            $this->column = 1;
-        } else {
-            $this->column += 1;
-        }
-        return $char;
     }
 
     /**
      * Gets the next character to be returned by read()
-     * without moving the pointer position. Speeds up the
-     * mb_substr() call by only giving it the next 4 bytes to parse.
+     * without removing it from the input buffer.
      * @ignore
      */
     protected function peek()
     {
-        if (!$this->dataLength) {
-            $this->dataLength = strlen($this->data);
-        }
-        if ($this->dataLength > $this->bytePos) {
-            $slice = substr($this->data, $this->bytePos, 4);
-            return mb_substr($slice, 0, 1, "UTF-8");
+        if ($this->index < count($this->data)) {
+            return $this->data[$this->index];
         } else {
             return -1;
         }
@@ -1215,38 +1203,16 @@ class Turtle extends Ntriples
 
     /**
      * Steps back, restoring the previous character read() to the input buffer
-     */
-    protected function unread($chars)
-    {
-        $this->column -= mb_strlen($chars, "UTF-8");
-        $this->bytePos -= strlen($chars);
-        if ($this->bytePos < 0) {
-            $this->bytePos = 0;
-        }
-        if ($this->column < 1) {
-            $this->column = 1;
-        }
-    }
-
-    /**
-     * Reverse skips through whitespace in 4 byte increments.
-     * (Keeps the byte pointer accurate when unreading.)
      * @ignore
      */
-    protected function unskipWS()
+    protected function unread($c)
     {
-        if ($this->bytePos - 4 > 0) {
-            $slice = substr($this->data, $this->bytePos - 4, 4);
-            while ($slice != '') {
-                if (!self::isWhitespace(mb_substr($slice, -1, 1, "UTF-8"))) {
-                    return;
-                }
-                $slice = substr($slice, 0, -1);
-                $this->bytePos -= 1;
-            }
-            // This 4 byte slice was full of whitespace.
-            // We need to check that there isn't more in the next slice.
-            $this->unSkipWS();
+        # FIXME: deal with unreading new lines
+        $len = mb_strlen($c, "UTF-8");
+        $this->column -= $len;
+        $this->index -= $len;
+        foreach (preg_split('//u', $c, null, PREG_SPLIT_NO_EMPTY) as $h => $i) {
+            $this->data[$this->index + $h] = $i;
         }
     }
 
