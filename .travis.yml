@@ -10,14 +10,13 @@ matrix:
     - php: 7.2
     - php: 7.3
     - php: 7.4
+    # special case: run linter and check coding styles
+    - php: 7.4
+      env: LINTER_RUN=run COVERAGE_FLAGS="--coverage-clover coverage/clover.xml"
 
 jobs:
   allow_failures:
     - php: nightly
-  include:
-    - php: 7.4
-      env: LINTER_RUN=run
-      env: COVERAGE_FLAGS="--coverage-clover coverage/clover.xml"
 
 git:
     depth: 1
