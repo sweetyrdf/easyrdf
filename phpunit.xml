@@ -35,6 +35,7 @@
     <filter>
       <whitelist addUncoveredFilesFromWhitelist="true">
         <directory suffix=".php">../lib/EasyRdf/</directory>
+        <directory suffix=".php">../examples/</directory>
       </whitelist>
     </filter>
 </phpunit>

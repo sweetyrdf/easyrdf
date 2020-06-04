@@ -63,11 +63,11 @@ The latest _stable_ version of EasyRdf can be [downloaded from the EasyRdf websi
 Links
 -----
 
-* [EasyRdf Homepage](http://www.easyrdf.org/)
-* [API documentation](http://www.easyrdf.org/docs/api)
-* [Change Log](http://github.com/njh/easyrdf/blob/master/CHANGELOG.md)
-* [Source Code](http://github.com/njh/easyrdf)
-* [Issue Tracker](http://github.com/njh/easyrdf/issues)
+* [EasyRdf Homepage **(outdated)**](http://www.easyrdf.org/)
+* [API documentation **(outdated)**](http://www.easyrdf.org/docs/api)
+* [Change Log **(outdated)**](http://github.com/sweetyrdf/easyrdf/blob/master/CHANGELOG.md)
+* [Source Code](http://github.com/sweetyrdf/easyrdf)
+* [Issue Tracker](http://github.com/sweetyrdf/easyrdf/issues)
 
 
 Requirements
@@ -94,21 +94,21 @@ Features
 More Examples
 -------------
 
-* [`basic.php`](https://github.com/njh/easyrdf/blob/master/examples/basic.php#slider) - Basic "Hello World" type example
-* [`basic_sparql.php`](https://github.com/njh/easyrdf/blob/master/examples/basic_sparql.php#slider) - Example of making a SPARQL `SELECT` query
-* [`converter.php`](https://github.com/njh/easyrdf/blob/master/examples/converter.php#slider) - Convert RDF from one format to another
-* [`dump.php`](https://github.com/njh/easyrdf/blob/master/examples/dump.php#slider) - Display the contents of a graph
-* [`foafinfo.php`](https://github.com/njh/easyrdf/blob/master/examples/foafinfo.php#slider) - Display the basic information in a FOAF document
-* [`foafmaker.php`](https://github.com/njh/easyrdf/blob/master/examples/foafmaker.php#slider) - Construct a FOAF document with a choice of serialisations
-* [`graph_direct.php`](https://github.com/njh/easyrdf/blob/master/examples/graph_direct.php#slider) - Example of using `EasyRdf\Graph` directly without `EasyRdf\Resource`
-* [`graphstore.php`](https://github.com/njh/easyrdf/blob/master/examples/graphstore.php#slider) - Store and retrieve data from a SPARQL 1.1 Graph Store
-* [`graphviz.php`](https://github.com/njh/easyrdf/blob/master/examples/graphviz.php#slider) - GraphViz rendering example
-* [`html_tag_helpers.php`](https://github.com/njh/easyrdf/blob/master/examples/html_tag_helpers.php#slider) - Rails Style html tag helpers to make the EasyRdf examples simpler
-* [`httpget.php`](https://github.com/njh/easyrdf/blob/master/examples/httpget.php#slider) - No RDF, just test `EasyRdf\Http\Client`
-* [`serialise.php`](https://github.com/njh/easyrdf/blob/master/examples/serialise.php#slider) - Basic serialisation example
-* [`sparql_queryform.php`](https://github.com/njh/easyrdf/blob/master/examples/sparql_queryform.php#slider) - Form to submit SPARQL queries and display the result
-* [`uk_postcode.php`](https://github.com/njh/easyrdf/blob/master/examples/uk_postcode.php#slider) - Example of resolving UK postcodes using uk-postcodes.com
-* [`zend_framework.php`](https://github.com/njh/easyrdf/blob/master/examples/zend_framework.php#slider) - Example of using `Zend\Http\Client` with EasyRdf
+* [`basic.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/basic.php#slider) - Basic "Hello World" type example
+* [`basic_sparql.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/basic_sparql.php#slider) - Example of making a SPARQL `SELECT` query
+* [`converter.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/converter.php#slider) - Convert RDF from one format to another
+* [`dump.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/dump.php#slider) - Display the contents of a graph
+* [`foafinfo.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/foafinfo.php#slider) - Display the basic information in a FOAF document
+* [`foafmaker.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/foafmaker.php#slider) - Construct a FOAF document with a choice of serialisations
+* [`graph_direct.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/graph_direct.php#slider) - Example of using `EasyRdf\Graph` directly without `EasyRdf\Resource`
+* [`graphstore.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/graphstore.php#slider) - Store and retrieve data from a SPARQL 1.1 Graph Store
+* [`graphviz.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/graphviz.php#slider) - GraphViz rendering example
+* [`html_tag_helpers.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/html_tag_helpers.php#slider) - Rails Style html tag helpers to make the EasyRdf examples simpler
+* [`httpget.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/httpget.php#slider) - No RDF, just test `EasyRdf\Http\Client`
+* [`serialise.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/serialise.php#slider) - Basic serialisation example
+* [`sparql_queryform.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/sparql_queryform.php#slider) - Form to submit SPARQL queries and display the result
+* [`uk_postcode.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/uk_postcode.php#slider) - Example of resolving UK postcodes using uk-postcodes.com
+* [`zend_framework.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/zend_framework.php#slider) - Example of using `Zend\Http\Client` with EasyRdf
 
 
 
