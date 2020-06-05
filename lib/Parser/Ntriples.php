@@ -83,7 +83,7 @@ class Ntriples extends Parser
 
         while (preg_match('/\\\\U([0-9A-F]{8})/', $str, $matches) ||
         preg_match('/\\\\u([0-9A-F]{4})/', $str, $matches)) {
-            // can be replaced with mb_chr() in PHP >=7.2 
+            //TODO - lines 87-105 can be replaced with mb_chr() in PHP >=7.2 
             $no = hexdec($matches[1]);
             if ($no < 128) {                // 0x80
                 $char = chr($no);
@@ -131,11 +131,30 @@ class Ntriples extends Parser
     }
 
     /**
+     * Parses the RDF triple's object.
+     * 
+     * Extracted to a separate method only for better code readability of the 
+     * parse() method.
+     * 
+     * For performance reasons (avoiding unnecessary memory copying) takes the
+     * $matches parameter by reference and assumes its values follow the regex
+     * used in the parse() method (which ends up with a pretty ugly API - see
+     * the $matches parameter description).
+     * 
+     * @param array $matches an array providing the RDF triple object value 
+     *   in the fourth element, datatype in sixth element and lang tag in 
+     *   seventh element
+     * @param type $lineNum 
+     * @return array 
+     * @throws Exception
      * @ignore
      */
-    protected function parseNtriplesObject(&$matches, $lineNum)
+    private function parseNtriplesObject(&$matches, $lineNum)
     {
-        switch ($matches[3][0]) {
+        if (!is_array($matches) || !isset($matches[3])) {
+            throw new Exception('Invalid $matches parameter provided');
+        }
+        switch (substr($matches[3], 0, 1)) {
             case '"':
                 $ret = array(
                     'type' => 'literal',
@@ -165,7 +184,7 @@ class Ntriples extends Parser
                     'value' => $this->unescapeString(substr($matches[3], 1, -1))
                 );
             default:
-                throw new Exception("Failed to parse object: " . $matches[3], $lineNum);
+                throw new Exception("Failed to parse triple's object value: " . $matches[3], $lineNum);
         }
     }
 

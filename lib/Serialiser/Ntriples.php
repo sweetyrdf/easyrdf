@@ -56,11 +56,52 @@ class Ntriples extends Serialiser
      * Characters forbidden in n-triples literals according to
      * https://www.w3.org/TR/n-triples/#grammar-production-IRIREF
      * 
-     * Initialized by the first escapeIri() method call.
-     * 
      * @var string[]
      */
-    static private $iriEscapeMap;
+    static private $iriEscapeMap = array(
+        "<" => "\\u003C",
+        ">" => "\\u003E",
+        '"' => "\\u0022",
+        "{" => "\\u007B",
+        "}" => "\\u007D",
+        "|" => "\\u007C",
+        "^" => "\\u005E",
+        "`" => "\\u0060",
+        "\\" => "\\u005C",
+        "\x00" => "\\u0030",
+        "\x01" => "\\u0031",
+        "\x02" => "\\u0032",
+        "\x03" => "\\u0033",
+        "\x04" => "\\u0034",
+        "\x05" => "\\u0035",
+        "\x06" => "\\u0036",
+        "\x07" => "\\u0037",
+        "\x08" => "\\u0038",
+        "\x09" => "\\u0039",
+        "\x0A" => "\\u0031",
+        "\x0B" => "\\u0031",
+        "\x0C" => "\\u0031",
+        "\x0D" => "\\u0031",
+        "\x0E" => "\\u0031",
+        "\x0F" => "\\u0031",
+        "\x10" => "\\u0031",
+        "\x11" => "\\u0031",
+        "\x12" => "\\u0031",
+        "\x13" => "\\u0031",
+        "\x14" => "\\u0032",
+        "\x15" => "\\u0032",
+        "\x16" => "\\u0032",
+        "\x17" => "\\u0032",
+        "\x18" => "\\u0032",
+        "\x19" => "\\u0032",
+        "\x1A" => "\\u0032",
+        "\x1B" => "\\u0032",
+        "\x1C" => "\\u0032",
+        "\x1D" => "\\u0032",
+        "\x1E" => "\\u0033",
+        "\x1F" => "\\u0033",
+        "\x20" => "\\u0033"
+    );
 
     /**
      * Characters forbidden in n-triples literals according to
@@ -81,17 +122,6 @@ class Ntriples extends Serialiser
 
     public static function escapeIri($str)
     {
-        if (self::$iriEscapeMap === null) {
-            // the only forbidden characters according to 
-            // https://www.w3.org/TR/n-triples/#grammar-production-IRIREF
-            self::$iriEscapeMap = array();
-            foreach (array('<', '>', '"', '{', '}', '|', '^', '`', '\\') as $i) {
-                self::$iriEscapeMap[$i] = sprintf('\\u%04X', ord($i));
-            }
-            for ($i = 0; $i <= 32; $i++) {
-                self::$iriEscapeMap[chr($i)] = sprintf('\\u%04X', ord($i));
-            }
-        }
         return strtr($str, self::$iriEscapeMap);
     }
 
