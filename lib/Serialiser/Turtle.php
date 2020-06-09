@@ -45,7 +45,7 @@ use EasyRdf\Serialiser;
 
 /**
  * Class to serialise an EasyRdf\Graph to Turtle
- * with no external dependencies.
+ * with no external dependancies.
  *
  * http://www.w3.org/TR/turtle/
  *
@@ -66,8 +66,7 @@ class Turtle extends Serialiser
      */
     public static function escapeIri($resourceIri)
     {
-        $escapedIri = str_replace('>', '\\>', $resourceIri);
-        return "<$escapedIri>";
+        return '<' . Ntriples::escapeIri($resourceIri) . '>';
     }
 
     /**
@@ -81,23 +80,7 @@ class Turtle extends Serialiser
      */
     public static function quotedString($value)
     {
-        if (preg_match('/[\t\n\r]/', $value)) {
-            $escaped = str_replace(array('\\', '"""'), array('\\\\', '\\"""'), $value);
-
-            // Check if the last character is a trailing double quote, if so, escape it.
-            $pos = strrpos($escaped, '"');
-
-            if ($pos !== false && $pos + 1 == strlen($escaped)) {
-                $escaped = substr($escaped, 0, -1);
-
-                $escaped .= '\"';
-            }
-
-            return '"""'.$escaped.'"""';
-        } else {
-            $escaped = str_replace(array('\\', '"'), array('\\\\', '\\"'), $value);
-            return '"'.$escaped.'"';
-        }
+        return '"' . Ntriples::escapeLiteral($value) . '"';
     }
 
     /**

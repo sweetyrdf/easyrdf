@@ -322,7 +322,7 @@ class GraphTest extends TestCase
             array('headers' => array('Content-Type' => 'text/plain; charset=utf8'))
         );
         $graph = new Graph('http://www.example.com/');
-        $this->assertSame(14, $graph->load());
+        $this->assertSame(15, $graph->load());
         $this->assertStringEquals(
             'Joe Bloggs',
             $graph->get('http://www.example.com/joe#me', 'foaf:name')

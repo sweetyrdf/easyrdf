@@ -90,7 +90,7 @@ class NtriplesArray extends Ntriples
                         $triples,
                         array(
                             's' => $this->serialiseResource($resource),
-                            'p' => "<" . $this->escapeString($property) . ">",
+                            'p' => "<" . self::escapeIri($property) . ">",
                             'o' => $this->serialiseValue($value)
                         )
                     );
