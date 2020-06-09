@@ -48,6 +48,26 @@ class SparqlqueryformTest extends \EasyRdf\TestCase
         $this->assertContains('PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;', $output);
     }
 
+    public function testDbpediaCountries()
+    {
+        $output = executeExample(
+            'sparql_queryform.php',
+            array(
+                'endpoint' => 'http://dbpedia.org/sparql',
+                'query' =>
+                    'PREFIX dbo: <http://dbpedia.org/ontology/> '.
+                    'SELECT * WHERE {'.
+                    '  ?country rdf:type dbo:Country . '.
+                    '  ?country rdfs:label ?label .'.
+                    '  ?country dct:subject dbc:Member_states_of_the_United_Nations .'.
+                    '  FILTER ( lang(?label) = "en" ) '.
+                    '} ORDER BY ?label LIMIT 100'
+            )
+        );
+        $this->assertContains('>http://dbpedia.org/resource/China</a>', $output);
+        $this->assertContains('>&quot;China&quot;@en</span>', $output);
+    }
+
     public function testDbpediaCountriesText()
     {
         $output = executeExample(
@@ -55,12 +75,13 @@ class SparqlqueryformTest extends \EasyRdf\TestCase
             array(
                 'endpoint' => 'http://dbpedia.org/sparql',
                 'query' =>
-                    'PREFIX dbo: <http://dbpedia.org/ontology/>
-                    SELECT * WHERE {
-                      ?country rdf:type dbo:Country . 
-                      ?country rdfs:label ?label .
-                      FILTER ( lang(?label) = "en" )
-                    } ORDER BY ?label LIMIT 10',
+                    'PREFIX dbo: <http://dbpedia.org/ontology/> '.
+                    'SELECT * WHERE {'.
+                    '  ?country rdf:type dbo:Country . '.
+                    '  ?country rdfs:label ?label .'.
+                    '  ?country dct:subject dbc:Member_states_of_the_United_Nations .'.
+                    '  FILTER ( lang(?label) = "en" ) '.
+                    '} ORDER BY ?label LIMIT 100',
                 'text' => 1
             )
         );

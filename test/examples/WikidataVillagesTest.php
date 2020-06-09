@@ -1,5 +1,5 @@
 <?php
-namespace EasyRdf\Literal;
+namespace EasyRdf\Examples;
 
 /**
  * EasyRdf
@@ -35,59 +35,36 @@ namespace EasyRdf\Literal;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-use EasyRdf\Literal;
 
-/**
- * Class that represents an RDF Literal of datatype xsd:hexBinary
- *
- * @package    EasyRdf
- * @link       http://www.w3.org/TR/xmlschema-2/#hexBinary
- * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
- * @license    http://www.opensource.org/licenses/bsd-license.php
- */
-class HexBinary extends Literal
+require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
+
+class VillagesTest extends \EasyRdf\TestCase
 {
-    /** Constructor for creating a new xsd:hexBinary literal
-     *
-     * @param  mixed  $value     The value of the literal (already encoded as hexadecimal)
-     * @param  string $lang      Should be null (literals with a datatype can't have a language)
-     * @param  string $datatype  Optional datatype (default 'xsd:hexBinary')
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function __construct($value, $lang = null, $datatype = null)
+    public function testIndex()
     {
-        // Normalise the canonical representation, as specified here:
-        // http://www.w3.org/TR/xmlschema-2/#hexBinary-canonical-repr
-        $value = strtoupper($value);
-
-        // Validate the data
-        if (preg_match('/[^A-F0-9]/', $value)) {
-            throw new \InvalidArgumentException(
-                "Literal of type xsd:hexBinary contains non-hexadecimal characters"
-            );
-        }
-
-        parent::__construct(strtoupper($value), null, 'xsd:hexBinary');
+        $output = executeExample('wikidata_villages.php');
+        $this->assertContains('<title>EasyRdf Village Info Example</title>', $output);
+        $this->assertContains('<h1>EasyRdf Village Info Example</h1>', $output);
+        $this->assertContains('?id=Q33980">Ceres</a></li>', $output);
+        $this->assertContains('?id=Q1011990">Strathkinness</a></li>', $output);
     }
 
-    /** Constructor for creating a new literal object from a binary blob
-     *
-     * @param  string $binary  The binary data
-     *
-     * @return self
-     */
-    public static function fromBinary($binary)
+    public function testCeres()
     {
-        return new self(bin2hex($binary));
-    }
-
-    /** Decode the hexadecimal string into a binary blob
-     *
-     * @return string The binary blob
-     */
-    public function toBinary()
-    {
-        return pack("H*", $this->value);
+        $output = executeExample(
+            'wikidata_villages.php',
+            array('id' => 'Q33980')
+        );
+        $this->assertContains('<h2>Ceres</h2>', $output);
+        $this->assertContains('<p>village in Fife, Scotland', $output);
+        $this->assertContains(
+            '<img src="http://commons.wikimedia.org/wiki/Special:FilePath/Ceres%20in%20Fife.JPG"',
+            $output
+        );
+        $this->assertContains(
+            "src='http://www.openlinkmap.org/small.php?lat=56.29205&lon=-2.971445",
+            $output
+        );
+        $this->assertContains('<a href="https://en.wikipedia.org/wiki/Ceres,_Fife">', $output);
     }
 }

@@ -218,7 +218,7 @@ class Response
     /**
      * Get a specific header as string, or null if it is not set
      *
-     * @param string$header
+     * @param string $header
      *
      * @return string|array|null
      */
@@ -285,10 +285,10 @@ class Response
         // Split headers part to lines
         $headerLines = preg_split('|[\r\n]+|m', $headerLines);
         $status = array_shift($headerLines);
-        if (preg_match("|^HTTP/([\d\.x]+) (\d+) ([^\r\n]+)|", $status, $m)) {
+        if (preg_match("|^HTTP\/([\d\.x]+) (\d+) ?([^\r\n]*)|", $status, $m)) {
             $version = $m[1];
             $status = $m[2];
-            $message = $m[3];
+            $message = $m[3] ? $m[3] : null;
         } else {
             throw new Exception(
                 "Failed to parse HTTP response status line."
