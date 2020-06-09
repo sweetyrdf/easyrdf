@@ -86,7 +86,7 @@ class SparqlqueryformTest extends \EasyRdf\TestCase
             )
         );
 
-        $this->assertContains('http://dbpedia.org/resource/10th_century', $output);
-        $this->assertContains('&quot;10th century&quot;@en', $output);
+        $this->assertContains('http://dbpedia.org/resource/Germany', $output);
+        $this->assertContains('&quot;Germany&quot;@en', $output);
     }
 }
