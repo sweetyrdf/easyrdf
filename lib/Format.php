@@ -602,7 +602,7 @@ Format::register(
 Format::register(
     'turtle',
     'Turtle Terse RDF Triple Language',
-    'http://www.dajobe.org/2004/01/turtle',
+    'https://www.w3.org/TR/turtle/',
     array(
         'text/turtle' => 0.8,
         'application/turtle' => 0.7,
@@ -614,9 +614,11 @@ Format::register(
 Format::register(
     'rdfxml',
     'RDF/XML',
-    'http://www.w3.org/TR/rdf-syntax-grammar',
+    'http://www.w3.org/TR/rdf-syntax-grammar/',
     array(
-        'application/rdf+xml' => 0.8
+        'application/rdf+xml' => 0.8,
+        'text/xml' => 0.5,
+        'application/xml' => 0.5
     ),
     array('rdf', 'xrdf')
 );

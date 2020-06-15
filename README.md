@@ -3,11 +3,11 @@
 [![Build Status](https://travis-ci.com/sweetyrdf/easyrdf.svg?branch=master)](https://travis-ci.com/sweetyrdf/easyrdf)
 [![Coverage Status](https://coveralls.io/repos/github/sweetyrdf/easyrdf/badge.svg?branch=master)](https://coveralls.io/github/sweetyrdf/easyrdf?branch=master)
 
-:exclamation: This is a forked version of [EasyRdf](https://github.com/njh/easyrdf). 
+:exclamation: This is a forked version of [EasyRdf](https://github.com/easyrdf/easyrdf).
 
 ## Why this fork?
 
-EasyRdf is in maintenance mode since 2017 ([link](https://github.com/njh/easyrdf/issues/282)) and is not actively maintained since. There are 6+ pull requests pending with fixes and new features. Its sad to see another RDF PHP project die slowly, so i decided to clean house and give the code a new home ([further info](https://github.com/njh/easyrdf/issues/320)).
+EasyRdf is in maintenance mode since 2017 ([link](https://github.com/easyrdf/easyrdf/issues/282)) and is not actively maintained since. There are 6+ pull requests pending with fixes and new features. Its sad to see another RDF PHP project die slowly, so i decided to clean house and give the code a new home ([further info](https://github.com/easyrdf/easyrdf/issues/320)).
 
 #### What can you expect as a user?
 
@@ -110,6 +110,37 @@ More Examples
 * [`uk_postcode.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/uk_postcode.php#slider) - Example of resolving UK postcodes using uk-postcodes.com
 * [`zend_framework.php`](https://github.com/sweetyrdf/easyrdf/blob/master/examples/zend_framework.php#slider) - Example of using `Zend\Http\Client` with EasyRdf
 
+* [`artistinfo.php`](/examples/artistinfo.php#slider) - Example of mapping an RDF class type to a PHP Class
+* [`basic.php`](/examples/basic.php#slider) - Basic "Hello World" type example
+* [`basic_sparql.php`](/examples/basic_sparql.php#slider) - Example of making a SPARQL `SELECT` query
+* [`converter.php`](/examples/converter.php#slider) - Convert RDF from one format to another
+* [`dump.php`](/examples/dump.php#slider) - Display the contents of a graph
+* [`foafinfo.php`](/examples/foafinfo.php#slider) - Display the basic information in a FOAF document
+* [`foafmaker.php`](/examples/foafmaker.php#slider) - Construct a FOAF document with a choice of serialisations
+* [`graph_direct.php`](/examples/graph_direct.php#slider) - Example of using `EasyRdf\Graph` directly without `EasyRdf\Resource`
+* [`graphstore.php`](/examples/graphstore.php#slider) - Store and retrieve data from a SPARQL 1.1 Graph Store
+* [`graphviz.php`](/examples/graphviz.php#slider) - GraphViz rendering example
+* [`html_tag_helpers.php`](/examples/html_tag_helpers.php#slider) - Rails Style html tag helpers to make the EasyRdf examples simpler
+* [`httpget.php`](/examples/httpget.php#slider) - No RDF, just test `EasyRdf\Http\Client`
+* [`open_graph_protocol.php`](/examples/open_graph_protocol.php#slider) - Extract Open Graph Protocol metadata from a webpage
+* [`serialise.php`](/examples/serialise.php#slider) - Basic serialisation example
+* [`sparql_queryform.php`](/examples/sparql_queryform.php#slider) - Form to submit SPARQL queries and display the result
+* [`uk_postcode.php`](/examples/uk_postcode.php#slider) - Example of resolving UK postcodes using uk-postcodes.com
+* [`wikidata_villages.php`](/examples/wikidata_villages.php#slider) - Fetch and information about villages in Fife from Wikidata
+* [`zend_framework.php`](/examples/zend_framework.php#slider) - Example of using `Zend\Http\Client` with EasyRdf
+
+
+Running Examples
+----------------
+
+The easiest way of trying out some of the examples is to use the PHP command to
+run a local web server on your computer.
+
+```
+php -S localhost:8080 -t examples
+```
+
+Then open the following URL in your browser: http://localhost:8080/
 
 
 Licensing

@@ -1360,7 +1360,7 @@ class GraphTest extends TestCase
     }
 
     /**
-     * @see https://github.com/njh/easyrdf/issues/239
+     * @see https://github.com/easyrdf/easyrdf/issues/239
      */
     public function testDeleteAndGetProperty()
     {

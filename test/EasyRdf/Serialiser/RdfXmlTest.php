@@ -288,7 +288,6 @@ class RdfXmlTest extends TestCase
             "<foaf:age rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">59</foaf:age>",
             $xml
         );
-
     }
 
     public function testSerialiseRdfXmlWithUnknownProperty()
@@ -493,7 +492,7 @@ class RdfXmlTest extends TestCase
     }
 
     /**
-     * @see https://github.com/njh/easyrdf/issues/209
+     * @see https://github.com/easyrdf/easyrdf/issues/209
      */
     public function testIssue209()
     {
