@@ -202,7 +202,7 @@ class RdfXmlTest extends TestCase
      *
      * @see https://github.com/sweetyrdf/easyrdf/issues/15
      */
-    public function testParseIssueS15()
+    public function testParseIssue15()
     {
         $graph = new Graph();
         $this->parser->parse($graph, readFixture('rdfxml/issue15.rdf'), 'rdfxml', null);
