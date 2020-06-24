@@ -1244,11 +1244,10 @@ class Graph
         $properties = array();
         if (isset($this->index[$resource])) {
             foreach ($this->index[$resource] as $property => $value) {
-                $short = RdfNamespace::shorten($property);
-                if (!$short) {
-                    $short = RdfNamespace::shorten($property, true);
+                $short = RdfNamespace::shorten($property, true);
+                if ($short) {
+                    $properties[] = $short;
                 }
-                $properties[] = $short;
             }
         }
         return $properties;
