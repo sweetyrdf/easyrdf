@@ -800,7 +800,7 @@ class RdfXml extends Parser
 
         /* parse */
 
-        $resource = fopen('data://text/plain,' . $data, 'r');
+        $resource = fopen('data://text/plain,' . urlencode($data), 'r');
 
         while ($data = fread($resource, 1024 * 1024)) {
             if (!xml_parse($this->xmlParser, $data, feof($resource))) {

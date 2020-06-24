@@ -194,4 +194,21 @@ class RdfXmlTest extends TestCase
 
         $this->parser->parse(new Graph(), readFixture($filename), 'rdfxml', null);
     }
+
+    /**
+     * Tests faulty behavior of issue #15.
+     *
+     * RDF-XML containing URL-encode special characters is parsed properly
+     *
+     * @see https://github.com/sweetyrdf/easyrdf/issues/15
+     */
+    public function testParseIssue15()
+    {
+        $graph = new Graph();
+        $this->parser->parse($graph, readFixture('rdfxml/issue15.rdf'), 'rdfxml', null);
+        $resource = $graph->resource('https://vocabs.acdh.oeaw.ac.at/archeoaisets/clarin-vlo');
+        $value = $resource->getLiteral('http://purl.org/dc/terms/created');
+        $this->assertEquals('2019-10-07T11:15:48.188959+00:00', (string) $value);
+    }
+    
 }
