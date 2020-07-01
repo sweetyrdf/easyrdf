@@ -296,6 +296,7 @@ class Isomorphic
      */
     private static function hashNodes($statements, $nodes, $groundedHahes)
     {
+        $hash = null;
         $hashes = $groundedHahes;
         $ungroundedHashes = array();
         $hashNeeded = true;

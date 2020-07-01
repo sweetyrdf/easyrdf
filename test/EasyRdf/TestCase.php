@@ -55,16 +55,19 @@ class TestCase extends \PHPUnit\Framework\TestCase
         self::assertSame($class, get_class($object));
     }
 
-    // Forward compatibility layer for PHPUnit 6/7
-    public function setExpectedException($exceptionName, $exceptionMessage = '', $exceptionCode = null)
+    /**
+     * Relict from the PHP 5.x days to provide a forward compatibility layer for PHPUnit 6/7.
+     *
+     * @todo remove this function and adapt all related code parts to use
+     *          - expectException
+     *          - expectExceptionMessage
+     *       separate.
+     */
+    public function setExpectedException($exceptionName, $exceptionMessage = '')
     {
-        if (method_exists($this, 'expectException')) {
-            $this->expectException($exceptionName);
-            if ($exceptionMessage) {
-                $this->expectExceptionMessage($exceptionMessage);
-            }
-        } else {
-            parent::setExpectedException($exceptionName, $exceptionMessage);
+        $this->expectException($exceptionName);
+        if ($exceptionMessage) {
+            $this->expectExceptionMessage($exceptionMessage);
         }
     }
 }

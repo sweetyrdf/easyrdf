@@ -55,6 +55,9 @@ class Integer extends Literal
      */
     public function __construct($value, $lang = null, $datatype = null)
     {
+        // a workaround to avoid error by PHPStan ($lang is not used).
+        $lang = $lang ?? null;
+
         parent::__construct($value, null, $datatype);
     }
 

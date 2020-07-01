@@ -64,6 +64,27 @@ class HexBinaryTest extends TestCase
         $this->assertSame('Hello', $literal->toBinary());
     }
 
+    /**
+     * Tests behavior if a different $datatype was given.
+     */
+    public function testConstructDifferentDatatype()
+    {
+        $literal = new HexBinary('48656C6C6F', null, 'xsd:dateTime');
+        $this->assertSame('xsd:hexBinary', $literal->getDatatype());
+        $this->assertSame('Hello', $literal->toBinary());
+    }
+
+    /**
+     * Tests behavior if a different $lang was given.
+     */
+    public function testConstructDifferentLang()
+    {
+        $literal = new HexBinary('48656C6C6F', 'de_DE');
+        $this->assertSame('xsd:hexBinary', $literal->getDatatype());
+        $this->assertNull($literal->getLang());
+        $this->assertSame('Hello', $literal->toBinary());
+    }
+
     public function testConstructLowercase()
     {
         $literal = new HexBinary('48656c6C6f');

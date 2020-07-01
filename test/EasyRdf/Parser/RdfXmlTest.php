@@ -210,5 +210,5 @@ class RdfXmlTest extends TestCase
         $value = $resource->getLiteral('http://purl.org/dc/terms/created');
         $this->assertEquals('2019-10-07T11:15:48.188959+00:00', (string) $value);
     }
-    
+
 }

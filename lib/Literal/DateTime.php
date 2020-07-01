@@ -35,7 +35,6 @@ namespace EasyRdf\Literal;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-use EasyRdf\Literal;
 
 /**
  * Class that represents an RDF Literal of datatype xsd:dateTime
@@ -58,8 +57,11 @@ class DateTime extends Date
      * @param  string $lang      Should be null (literals with a datatype can't have a language)
      * @param  string $datatype  Optional datatype (default 'xsd:dateTime')
      */
-    public function __construct($value = null, $lang = null, $datatype = null)
+    public function __construct($value = null, $lang = null, $datatype = 'xsd:dateTime')
     {
+        // a workaround to avoid error by PHPStan ($lang is not used).
+        $lang = $lang ?? null;
+
         // If $value is null, use 'now'
         if (is_null($value)) {
             $value = new \DateTime('now');
@@ -71,7 +73,7 @@ class DateTime extends Date
             $value = preg_replace('/[\+\-]00(\:?)00$/', 'Z', $atom);
         }
 
-        Literal::__construct($value, null, $datatype);
+        parent::__construct($value, null, $datatype);
     }
 
     /** Parses a string using DateTime and creates a new literal

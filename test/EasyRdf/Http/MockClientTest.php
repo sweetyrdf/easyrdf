@@ -159,7 +159,7 @@ class MockClientTest extends TestCase
     {
         $response = new Response(234, array('Foo' => 'bar'), 'x');
         $this->client->addMock('GET', '/test', $response);
-        $r = $this->get('http://example.com/test', array('throw' => false));
+        $r = $this->get('http://example.com/test');
         $this->assertSame(234, $r->getStatus());
         $this->assertSame('bar', $r->getHeader('Foo'));
         $this->assertSame('x', $r->getBody());

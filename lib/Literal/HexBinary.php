@@ -50,13 +50,18 @@ class HexBinary extends Literal
     /** Constructor for creating a new xsd:hexBinary literal
      *
      * @param  mixed  $value     The value of the literal (already encoded as hexadecimal)
-     * @param  string $lang      Should be null (literals with a datatype can't have a language)
-     * @param  string $datatype  Optional datatype (default 'xsd:hexBinary')
+     * @param  string $lang      Value will be ignored because literals with a datatype can't have a language
+     * @param  string $datatype  Fixed to 'xsd:hexBinary'. Any value will be ignored.
      *
      * @throws \InvalidArgumentException
      */
     public function __construct($value, $lang = null, $datatype = null)
     {
+        // a workaround to avoid error by PHPStan ($lang is not used).
+        $lang = $lang ?? null;
+
+        $datatype = 'xsd:hexBinary';
+
         // Normalise the canonical representation, as specified here:
         // http://www.w3.org/TR/xmlschema-2/#hexBinary-canonical-repr
         $value = strtoupper($value);
@@ -68,7 +73,7 @@ class HexBinary extends Literal
             );
         }
 
-        parent::__construct(strtoupper($value), null, 'xsd:hexBinary');
+        parent::__construct(strtoupper($value), null, $datatype);
     }
 
     /** Constructor for creating a new literal object from a binary blob

@@ -80,6 +80,9 @@ class Literal
      */
     public static function create($value, $lang = null, $datatype = null)
     {
+        // a workaround to avoid error by PHPStan ($lang is not used).
+        $lang = $lang ?? null;
+
         if (Utils::isAssociativeArray($value)) {
             if (isset($value['xml:lang'])) {
                 $lang = $value['xml:lang'];

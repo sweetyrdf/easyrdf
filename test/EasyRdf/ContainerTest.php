@@ -40,6 +40,8 @@ require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class ContainerTest extends TestCase
 {
+    protected $graph;
+
     public function setUp()
     {
         $this->graph = new Graph();
