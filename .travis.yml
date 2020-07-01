@@ -31,8 +31,8 @@ before_script:
 
 script:
   - make lint
-  - vendor/bin/phpstan analyze -c phpstan.neon -l 1 lib test
-  - vendor/bin/phpunit --coverage-clover gen/coverage/clover.xml
+  - composer phpstan
+  - composer phpstan-with-coverage
 
 after_success:
     # Submit coverage report to Coveralls servers, see .coveralls.yml

@@ -6,11 +6,6 @@ SOURCE_FILES = lib/*.php \
 TEST_FILES = test/*/*Test.php \
              test/*/*/*Test.php
 
-# Run test suite
-.PHONY: test
-test:
-	vendor/bin/phpunit
-
 # Perform basic PHP syntax check on all files
 lint: $(EXAMPLE_FILES) $(SOURCE_FILES) $(TEST_FILES)
 	@for file in $^; do  \
