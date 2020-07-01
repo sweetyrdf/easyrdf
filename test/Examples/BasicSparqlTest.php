@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -36,32 +39,34 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class UkpostcodeTest extends \EasyRdf\TestCase
+class BasicSparqlTest extends TestCase
 {
-    public function testNoParams()
+    public function testCountries()
     {
-        $output = executeExample('uk_postcode.php');
-        $this->assertContains('<title>EasyRdf UK Postcode Resolver</title>', $output);
-        $this->assertContains('<h1>EasyRdf UK Postcode Resolver</h1>', $output);
-    }
-
-    public function testW1A1AA()
-    {
-        $output = executeExample(
-            'uk_postcode.php',
-            array('postcode' => 'W1A1AA')
-        );
-        $this->assertContains('<tr><th>Longitude:</th><td>-0.143799</td></tr>', $output);
-        $this->assertContains('<tr><th>Latitude:</th><td>51.518561</td></tr>', $output);
-        $this->assertContains('<tr><th>Easting:</th><td>528887.0</td></tr>', $output);
-        $this->assertContains('<tr><th>Northing:</th><td>181593.0</td></tr>', $output);
-        $this->assertContains('<tr><th>District:</th><td>City of Westminster</td></tr>', $output);
-        $this->assertContains('<tr><th>Ward:</th><td>West End</td></tr>', $output);
+        $output = executeExample('basic_sparql.php');
+        $this->assertContains('<title>EasyRdf Basic Sparql Example</title>', $output);
+        $this->assertContains('<h1>EasyRdf Basic Sparql Example</h1>', $output);
+        $this->assertContains('<h2>List of countries</h2>', $output);
         $this->assertContains(
-            "src='https://www.openlinkmap.org/small.php?lat=51.518561&lon=-0.143799&zoom=14'",
+            '<li><a href="http://dbpedia.org/resource/China">China</a></li>',
             $output
         );
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/India">India</a></li>',
+            $output
+        );
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/United_States">United States</a></li>',
+            $output
+        );
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/United_Kingdom">United Kingdom</a></li>',
+            $output
+        );
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/Zimbabwe">Zimbabwe</a></li>',
+            $output
+        );
+        $this->assertRegExp('|Total number of countries: (\d+)|', $output);
     }
 }

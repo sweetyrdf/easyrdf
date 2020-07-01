@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Literal;
+
+namespace Test\EasyRdf\Literal;
 
 /**
  * EasyRdf
@@ -36,10 +37,8 @@ namespace EasyRdf\Literal;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-
+use EasyRdf\Literal\Integer;
+use Test\EasyRdf\TestCase;
 
 class IntegerTest extends TestCase
 {

@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf\Sparql;
 
 /**
@@ -37,13 +38,10 @@ namespace EasyRdf\Sparql;
  */
 
 use EasyRdf\Http;
-use EasyRdf\Http\MockClient;
 use EasyRdf\Literal;
 use EasyRdf\Resource;
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-
+use Test\EasyRdf\TestCase;
+use Test\EasyRdf\Http\MockClient;
 
 class ClientTest extends TestCase
 {

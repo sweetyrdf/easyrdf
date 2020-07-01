@@ -1,8 +1,11 @@
 <?php
-namespace EasyRdf\Http;
 
-use EasyRdf\Exception;
+namespace Test\EasyRdf\Http;
+
 use EasyRdf\Format;
+use EasyRdf\Http\Client;
+use EasyRdf\Http\Exception;
+use EasyRdf\Http\Response;
 
 /**
  * EasyRdf
@@ -38,7 +41,6 @@ use EasyRdf\Format;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
 class MockClient extends Client
 {
     private $mocks = array();

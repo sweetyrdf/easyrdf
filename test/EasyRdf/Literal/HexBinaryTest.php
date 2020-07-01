@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Literal;
+
+namespace Test\EasyRdf\Literal;
 
 /**
  * EasyRdf
@@ -38,10 +39,8 @@ namespace EasyRdf\Literal;
 
 use EasyRdf\Format;
 use EasyRdf\Graph;
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-
+use EasyRdf\Literal\HexBinary;
+use Test\EasyRdf\TestCase;
 
 class HexBinaryTest extends TestCase
 {

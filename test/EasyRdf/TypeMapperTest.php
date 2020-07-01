@@ -1,5 +1,9 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
+
+use EasyRdf\Resource;
+use EasyRdf\TypeMapper;
 
 /**
  * EasyRdf
@@ -35,9 +39,6 @@ namespace EasyRdf;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
-
 class MyTypeClass extends Resource
 {
     public function myMethod()
@@ -45,8 +46,6 @@ class MyTypeClass extends Resource
         return true;
     }
 }
-
-
 class TypeMapperTest extends TestCase
 {
     public function setUp()

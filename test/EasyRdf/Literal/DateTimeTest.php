@@ -36,10 +36,9 @@ namespace EasyRdf\Literal;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-
+use DateTime;
+use EasyRdf\Literal\DateTime as EasyRdfDateTime;
+use Test\EasyRdf\TestCase;
 
 class DateTimeTest extends TestCase
 {
@@ -48,7 +47,7 @@ class DateTimeTest extends TestCase
 
     public function testConstruct()
     {
-        $literal = new DateTime('2011-07-18T18:45:43Z');
+        $literal = new EasyRdfDateTime('2011-07-18T18:45:43Z');
         $this->assertStringEquals('2011-07-18T18:45:43Z', $literal);
         $this->assertClass('DateTime', $literal->getValue());
         $this->assertSame(null, $literal->getLang());
@@ -58,15 +57,15 @@ class DateTimeTest extends TestCase
     public function testConstructNoValue()
     {
         $now = strtotime('now');
-        $literal = new DateTime();
+        $literal = new EasyRdfDateTime();
         $check = strtotime(strval($literal));
         $this->assertLessThan(2, $check-$now);
     }
 
     public function testConstructFromDateTimeBST()
     {
-        $dt = new \DateTime('2010-09-08T07:06:05+0100');
-        $literal = new DateTime($dt);
+        $dt = new DateTime('2010-09-08T07:06:05+0100');
+        $literal = new EasyRdfDateTime($dt);
         $this->assertStringEquals('2010-09-08T07:06:05+01:00', $literal);
         $this->assertClass('DateTime', $literal->getValue());
         $this->assertEquals($dt, $literal->getValue());
@@ -76,8 +75,8 @@ class DateTimeTest extends TestCase
 
     public function testConstructFromDateTimeUTC()
     {
-        $dt = new \DateTime('2010-09-08T07:06:05Z');
-        $literal = new DateTime($dt);
+        $dt = new DateTime('2010-09-08T07:06:05Z');
+        $literal = new EasyRdfDateTime($dt);
         $this->assertStringEquals('2010-09-08T07:06:05Z', $literal);
         $this->assertClass('DateTime', $literal->getValue());
         $this->assertEquals($dt, $literal->getValue());
@@ -87,7 +86,7 @@ class DateTimeTest extends TestCase
 
     public function testParseUTC()
     {
-        $literal = DateTime::parse('Mon 18 Jul 2011 18:45:43 UTC');
+        $literal = EasyRdfDateTime::parse('Mon 18 Jul 2011 18:45:43 UTC');
         $this->assertStringEquals('2011-07-18T18:45:43Z', $literal);
         $this->assertClass('DateTime', $literal->getValue());
         $this->assertSame(null, $literal->getLang());
@@ -96,7 +95,7 @@ class DateTimeTest extends TestCase
 
     public function testParseBST()
     {
-        $literal = DateTime::parse('Mon 18 Jul 2011 18:45:43 BST');
+        $literal = EasyRdfDateTime::parse('Mon 18 Jul 2011 18:45:43 BST');
         $this->assertStringEquals('2011-07-18T18:45:43+01:00', $literal);
         $this->assertClass('DateTime', $literal->getValue());
         $this->assertSame(null, $literal->getLang());
@@ -107,14 +106,14 @@ class DateTimeTest extends TestCase
 
     public function setUp()
     {
-        $this->dt = new DateTime('2010-09-08T07:06:05Z');
+        $this->dt = new EasyRdfDateTime('2010-09-08T07:06:05Z');
     }
 
     public function testFormat()
     {
         $this->assertSame(
             'Wed, 08 Sep 10 07:06:05 +0000',
-            $this->dt->format(\DateTime::RFC822)
+            $this->dt->format(DateTime::RFC822)
         );
     }
 

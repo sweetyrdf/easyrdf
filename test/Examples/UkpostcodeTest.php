@@ -1,12 +1,15 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
  *
  * LICENSE
  *
- * Copyright (c) 2013 Nicholas J Humfrey.  All rights reserved.
+ * Copyright (c) 2009-2013 Nicholas J Humfrey.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -36,32 +39,30 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class ParseRssTest extends \EasyRdf\TestCase
+class UkpostcodeTest extends TestCase
 {
     public function testNoParams()
     {
-        $output = executeExample('parse_rss.php');
-        $this->assertContains('<title>EasyRdf RSS 1.0 Parsing example</title>', $output);
-        $this->assertContains('<h1>EasyRdf RSS 1.0 Parsing example</h1>', $output);
+        $output = executeExample('uk_postcode.php');
+        $this->assertContains('<title>EasyRdf UK Postcode Resolver</title>', $output);
+        $this->assertContains('<h1>EasyRdf UK Postcode Resolver</h1>', $output);
     }
 
-    public function testCeres()
+    public function testW1A1AA()
     {
         $output = executeExample(
-            'parse_rss.php',
-            array('uri' => 'http://planetrdf.com/index.rdf')
+            'uk_postcode.php',
+            array('postcode' => 'W1A1AA')
         );
+        $this->assertContains('<tr><th>Longitude:</th><td>-0.143799</td></tr>', $output);
+        $this->assertContains('<tr><th>Latitude:</th><td>51.518561</td></tr>', $output);
+        $this->assertContains('<tr><th>Easting:</th><td>528887.0</td></tr>', $output);
+        $this->assertContains('<tr><th>Northing:</th><td>181593.0</td></tr>', $output);
+        $this->assertContains('<tr><th>District:</th><td>City of Westminster</td></tr>', $output);
+        $this->assertContains('<tr><th>Ward:</th><td>West End</td></tr>', $output);
         $this->assertContains(
-            '<p>Channel: <a href="http://planetrdf.com/">Planet RDF</a></p>',
+            "src='https://www.openlinkmap.org/small.php?lat=51.518561&lon=-0.143799&zoom=14'",
             $output
         );
-        $this->assertContains(
-            "<p>Description: It's triples all the way down</p>",
-            $output
-        );
-        $this->assertContains('<li><a href="http://', $output);
-        $this->assertContains('</a></li>', $output);
     }
 }

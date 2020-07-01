@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
 
 /**
  * EasyRdf
@@ -36,9 +37,12 @@ namespace EasyRdf;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
+use EasyRdf\Graph;
+use EasyRdf\Http;
 use EasyRdf\Http\MockClient;
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
+use EasyRdf\Literal;
+use EasyRdf\RdfNamespace;
+use EasyRdf\Resource;
 
 class ResourceTest extends TestCase
 {
@@ -277,9 +281,6 @@ class ResourceTest extends TestCase
         $res = new Resource('http://example.com/testToString');
         $this->assertStringEquals('http://example.com/testToString', $res);
     }
-
-
-
 
     /*
      *

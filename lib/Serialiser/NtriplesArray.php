@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf\Serialiser;
 
 /**
@@ -36,8 +37,8 @@ namespace EasyRdf\Serialiser;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 use EasyRdf\Exception;
-use EasyRdf\Format;
 use EasyRdf\Graph;
+use EasyRdf\Serialiser\Ntriples;
 
 /**
  * Class to serialise an EasyRdf\Graph to an array of triples.
@@ -48,7 +49,6 @@ use EasyRdf\Graph;
  */
 class NtriplesArray extends Ntriples
 {
-
     /**
      * Sort an array of triples into a consistent order
      *
@@ -67,7 +67,6 @@ class NtriplesArray extends Ntriples
         }
     }
 
-
     /**
      * Serialise an EasyRdf\Graph into an array of N-Triples objects
      *
@@ -80,7 +79,7 @@ class NtriplesArray extends Ntriples
      */
     public function serialise(Graph $graph, $format, array $options = array())
     {
-        parent::checkSerialiseParams($format);
+        $this->checkSerialiseParams($format);
 
         $triples = array();
         foreach ($graph->toRdfPhp() as $resource => $properties) {
@@ -104,6 +103,3 @@ class NtriplesArray extends Ntriples
         return $triples;
     }
 }
-
-Format::register('ntriples-array', 'PHP Array of Triples');
-Format::registerSerialiser('ntriples-array', 'EasyRdf\Serialiser\NtriplesArray');

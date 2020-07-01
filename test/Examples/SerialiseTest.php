@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Examples;
 
 /**
  * EasyRdf
@@ -36,9 +37,7 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class SerialiseTest extends \EasyRdf\TestCase
+class SerialiseTest extends TestCase
 {
     public function testNtriples()
     {

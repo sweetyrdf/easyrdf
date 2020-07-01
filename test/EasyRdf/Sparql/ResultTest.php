@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf\Sparql;
 
 /**
@@ -38,11 +39,7 @@ namespace EasyRdf\Sparql;
 
 use EasyRdf\Literal;
 use EasyRdf\Resource;
-use EasyRdf\TestCase;
-
-require_once realpath(dirname(__FILE__) . '/../../') . '/TestHelper.php';
-
-
+use Test\EasyRdf\TestCase;
 class ResultTest extends TestCase
 {
     public function testSelectAllXml()

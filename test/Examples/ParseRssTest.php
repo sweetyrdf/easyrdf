@@ -1,12 +1,15 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
  *
  * LICENSE
  *
- * Copyright (c) 2009-2013 Nicholas J Humfrey.  All rights reserved.
+ * Copyright (c) 2013 Nicholas J Humfrey.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -36,35 +39,30 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class VillagesTest extends \EasyRdf\TestCase
+class ParseRssTest extends TestCase
 {
-    public function testIndex()
+    public function testNoParams()
     {
-        $output = executeExample('wikidata_villages.php');
-        $this->assertContains('<title>EasyRdf Village Info Example</title>', $output);
-        $this->assertContains('<h1>EasyRdf Village Info Example</h1>', $output);
-        $this->assertContains('?id=Q33980">Ceres</a></li>', $output);
-        $this->assertContains('?id=Q1011990">Strathkinness</a></li>', $output);
+        $output = executeExample('parse_rss.php');
+        $this->assertContains('<title>EasyRdf RSS 1.0 Parsing example</title>', $output);
+        $this->assertContains('<h1>EasyRdf RSS 1.0 Parsing example</h1>', $output);
     }
 
     public function testCeres()
     {
         $output = executeExample(
-            'wikidata_villages.php',
-            array('id' => 'Q33980')
+            'parse_rss.php',
+            array('uri' => 'http://planetrdf.com/index.rdf')
         );
-        $this->assertContains('<h2>Ceres</h2>', $output);
-        $this->assertContains('<p>village in Fife, Scotland', $output);
         $this->assertContains(
-            '<img src="http://commons.wikimedia.org/wiki/Special:FilePath/Ceres%20in%20Fife.JPG"',
+            '<p>Channel: <a href="http://planetrdf.com/">Planet RDF</a></p>',
             $output
         );
         $this->assertContains(
-            "src='http://www.openlinkmap.org/small.php?lat=56.29205&lon=-2.971445",
+            "<p>Description: It's triples all the way down</p>",
             $output
         );
-        $this->assertContains('<a href="https://en.wikipedia.org/wiki/Ceres,_Fife">', $output);
+        $this->assertContains('<li><a href="http://', $output);
+        $this->assertContains('</a></li>', $output);
     }
 }

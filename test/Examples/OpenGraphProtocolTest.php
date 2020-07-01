@@ -1,12 +1,15 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
  *
  * LICENSE
  *
- * Copyright (c) 2009-2013 Nicholas J Humfrey.  All rights reserved.
+ * Copyright (c) 2020 Nicholas J Humfrey.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,40 +35,18 @@ namespace EasyRdf\Examples;
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package    EasyRdf
- * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
+ * @copyright  Copyright (c) 2020 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class BasicSparqlTest extends \EasyRdf\TestCase
+class OpenGraphProtocolTest extends TestCase
 {
-    public function testCountries()
+    public function testRottenTomatoes()
     {
-        $output = executeExample('basic_sparql.php');
-        $this->assertContains('<title>EasyRdf Basic Sparql Example</title>', $output);
-        $this->assertContains('<h1>EasyRdf Basic Sparql Example</h1>', $output);
-        $this->assertContains('<h2>List of countries</h2>', $output);
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/China">China</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/India">India</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/United_States">United States</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/United_Kingdom">United Kingdom</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/Zimbabwe">Zimbabwe</a></li>',
-            $output
-        );
-        $this->assertRegExp('|Total number of countries: (\d+)|', $output);
+        $output = executeExample('open_graph_protocol.php');
+        $this->assertContains('<dd><a href="https://www.rottentomatoes.com/m/oceans_eleven"', $output);
+        $this->assertContains('<dt>Title:</dt> <dd>Ocean\'s Eleven (2001)</dd>', $output);
+        $this->assertContains('<dt>Description:</dt> <dd>A rag-tag group of con artists and ex-cons', $output);
+        $this->assertContains('src="https://resizing.flixster.com/DjVRv9J4roj7G', $output);
     }
 }

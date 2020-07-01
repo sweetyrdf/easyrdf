@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Http;
+
+namespace Test\EasyRdf\Http;
 
 /**
  * EasyRdf
@@ -37,11 +38,7 @@ namespace EasyRdf\Http;
  */
 
 use EasyRdf\Resource;
-use EasyRdf\TestCase;
-
-require_once realpath(dirname(__FILE__) . '/../../') . '/TestHelper.php';
-
-
+use Test\EasyRdf\TestCase;;
 class ClientTest extends TestCase
 {
     /**

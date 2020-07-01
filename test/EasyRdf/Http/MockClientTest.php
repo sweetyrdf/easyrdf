@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Http;
+
+namespace Test\EasyRdf\Http;
 
 /**
  * EasyRdf
@@ -36,12 +37,7 @@ namespace EasyRdf\Http;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-require_once __DIR__.'/MockClient.php';
-
-
+use Test\EasyRdf\TestCase;
 class MockClientTest extends TestCase
 {
     /** @var MockClient */

@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -36,41 +39,12 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class FoafinfoTest extends \EasyRdf\TestCase
+class BasicTest extends TestCase
 {
-    public function testNoParams()
+    public function testPageRendersCorrectly()
     {
-        $output = executeExample('foafinfo.php');
-        $this->assertContains('<title>EasyRdf FOAF Info Example</title>', $output);
-        $this->assertContains('<h1>EasyRdf FOAF Info Example</h1>', $output);
-        $this->assertContains(
-            '<input type="text" name="uri" id="uri" value="http://njh.me/foaf.rdf" size="50" />',
-            $output
-        );
-    }
-
-    public function testNjh()
-    {
-        $output = executeExample(
-            'foafinfo.php',
-            array('uri' => 'http://njh.me/foaf.rdf')
-        );
-
-        $this->assertContains('<title>EasyRdf FOAF Info Example</title>', $output);
-        $this->assertContains('<h1>EasyRdf FOAF Info Example</h1>', $output);
-        $this->assertContains("<dt>Name:</dt><dd>Nicholas J Humfrey</dd>", $output);
-        $this->assertContains(
-            "<dt>Homepage:</dt><dd><a href=\"http://www.aelius.com/njh/\">http://www.aelius.com/njh/</a></dd>",
-            $output
-        );
-
-        $this->assertContains("<h2>Known Persons</h2>", $output);
-        $this->assertContains(">Patrick Sinclair</a></li>", $output);
-        $this->assertContains(">Yves Raimond</a></li>", $output);
-
-        $this->assertContains("<h2>Interests</h2>", $output);
-        $this->assertContains(">RDF</a></li>", $output);
+        $output = executeExample('basic.php');
+        $this->assertContains('<title>Basic FOAF example</title>', $output);
+        $this->assertContains('My name is: Nicholas J Humfrey', $output);
     }
 }

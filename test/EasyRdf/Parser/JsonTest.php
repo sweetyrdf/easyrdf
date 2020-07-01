@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Parser;
+
+namespace Test\EasyRdf\Parser;
 
 /**
  * EasyRdf
@@ -38,11 +39,8 @@ namespace EasyRdf\Parser;
 
 use EasyRdf\Format;
 use EasyRdf\Graph;
-use EasyRdf\TestCase;
-
-require_once dirname(dirname(__DIR__)).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
-
+use EasyRdf\Parser\Json;
+use Test\EasyRdf\TestCase;
 class JsonTest extends TestCase
 {
     /** @var Json */

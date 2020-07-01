@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
+
+use \PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
  * EasyRdf
@@ -35,21 +38,16 @@ namespace EasyRdf;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-// Backward compatibility layer for PHPUnit 4
-if (!class_exists('\PHPUnit\Framework\Error\Error', true)) {
-    class_alias('PHPUnit_Framework_Error', '\PHPUnit\Framework\Error\Error');
-}
-
-class TestCase extends \PHPUnit\Framework\TestCase
+class TestCase extends PHPUnitTestCase
 {
-
     public static function assertStringEquals($str1, $str2, $message = null)
     {
         self::assertSame(strval($str1), strval($str2), (string) $message);
     }
 
-    // Note: this differs from assertInstanceOf because it disallows subclasses
+    /**
+     * Note: this differs from assertInstanceOf because it disallows subclasses
+     */
     public static function assertClass($class, $object)
     {
         self::assertSame($class, get_class($object));

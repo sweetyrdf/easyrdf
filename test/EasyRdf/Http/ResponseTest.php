@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Http;
+
+namespace Test\EasyRdf\Http;
 
 /**
  * EasyRdf
@@ -36,13 +37,7 @@ namespace EasyRdf\Http;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-/**
- * Test helper
- */
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-
+use Test\EasyRdf\TestCase;
 class ResponseTest extends TestCase
 {
     public function testGetVersion()

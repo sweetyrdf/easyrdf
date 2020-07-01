@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Parser;
+
+namespace Test\EasyRdf\Parser;
 
 /**
  * EasyRdf
@@ -36,13 +37,11 @@ namespace EasyRdf\Parser;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
+use EasyRdf\Exception;
 use EasyRdf\Graph;
-use EasyRdf\TestCase;
-
-require_once dirname(dirname(__DIR__)).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
-
-require_once realpath(__DIR__.'/..').'/Serialiser/NtriplesArray.php';
+use EasyRdf\Parser\Ntriples;
+use EasyRdf\Parser\Rdfa;
+use Test\EasyRdf\TestCase;
 
 class RdfaTest extends TestCase
 {
@@ -59,7 +58,6 @@ class RdfaTest extends TestCase
         $this->ntriplesParser = new Ntriples();
         $this->baseUri = 'http://rdfa.info/test-suite/test-cases/rdfa1.1/xhtml5/';
     }
-
 
     protected function parseRdfa($filename)
     {

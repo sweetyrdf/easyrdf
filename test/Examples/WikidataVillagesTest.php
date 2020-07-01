@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -36,32 +39,33 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class GraphdirectTest extends \EasyRdf\TestCase
+class VillagesTest extends TestCase
 {
-    public function test()
+    public function testIndex()
     {
-        $output = executeExample('graph_direct.php');
-        $this->assertContains('<title>Example of using EasyRdf\\Graph directly</title>', $output);
+        $output = executeExample('wikidata_villages.php');
+        $this->assertContains('<title>EasyRdf Village Info Example</title>', $output);
+        $this->assertContains('<h1>EasyRdf Village Info Example</h1>', $output);
+        $this->assertContains('?id=Q33980">Ceres</a></li>', $output);
+        $this->assertContains('?id=Q1011990">Strathkinness</a></li>', $output);
+    }
 
-        $this->assertContains('<b>Name:</b> Joe Bloggs <br />', $output);
-        $this->assertContains('<b>Names:</b> Joe Bloggs Joseph Bloggs <br />', $output);
-
-        $this->assertContains('<b>Label:</b> Nick <br />', $output);
+    public function testCeres()
+    {
+        $output = executeExample(
+            'wikidata_villages.php',
+            array('id' => 'Q33980')
+        );
+        $this->assertContains('<h2>Ceres</h2>', $output);
+        $this->assertContains('<p>village in Fife, Scotland', $output);
         $this->assertContains(
-            '<b>Properties:</b> rdf:type, foaf:name, rdfs:label <br />',
+            '<img src="http://commons.wikimedia.org/wiki/Special:FilePath/Ceres%20in%20Fife.JPG"',
             $output
         );
         $this->assertContains(
-            '<b>PropertyUris:</b> http://www.w3.org/1999/02/22-rdf-syntax-ns#type, '.
-            'http://xmlns.com/foaf/0.1/name, http://www.w3.org/2000/01/rdf-schema#label <br />',
+            "src='http://www.openlinkmap.org/small.php?lat=56.29205&lon=-2.971445",
             $output
         );
-        $this->assertContains(
-            '<b>People:</b> http://example.com/joe, http://njh.me/ <br />',
-            $output
-        );
-        $this->assertContains('<b>Unknown:</b>  <br />', $output);
+        $this->assertContains('<a href="https://en.wikipedia.org/wiki/Ceres,_Fife">', $output);
     }
 }

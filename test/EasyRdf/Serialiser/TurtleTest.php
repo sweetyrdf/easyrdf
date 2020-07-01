@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf\Serialiser;
 
 /**
@@ -36,13 +37,16 @@ namespace EasyRdf\Serialiser;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
+use DateTime;
+use EasyRdf\Format;
 use EasyRdf\Graph;
 use EasyRdf\Literal;
 use EasyRdf\RdfNamespace;
-use EasyRdf\TestCase;
+use EasyRdf\Serialiser\NtriplesArray;
+use Test\EasyRdf\TestCase;
 
-require_once dirname(dirname(dirname(__FILE__))).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
+Format::register('ntriples-array', 'PHP Array of Triples');
+Format::registerSerialiser('ntriples-array', NtriplesArray::class);
 
 class TurtleTest extends TestCase
 {
@@ -603,7 +607,7 @@ class TurtleTest extends TestCase
     public function testSerialiseDateTimeDatatype()
     {
         $doc = $this->graph->resource('http://example.com/');
-        $doc->set('dc:date', new Literal\DateTime('2012-11-04T13:01:26+01:00'));
+        $doc->set('dc:date', new DateTime('2012-11-04T13:01:26+01:00'));
 
         $turtle = $this->serialiser->serialise($this->graph, 'turtle');
         $this->assertSame(
