@@ -31,7 +31,7 @@ before_script:
 
 script:
   - make lint
-  - vendor/bin/phpstan analyze -c phpstan.neon
+  - vendor/bin/phpstan analyze -c phpstan.neon -l 1 lib test
   - vendor/bin/phpunit --coverage-clover gen/coverage/clover.xml
 
 after_success:

@@ -2,11 +2,5 @@ parameters:
     fileExtensions:
         - php
 
-    level: 1
-
-    paths:
-        - lib
-        - test
-
     parallel:
         maximumNumberOfProcesses: 5
