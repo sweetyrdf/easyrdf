@@ -25,6 +25,7 @@ cache:
 before_install:
   - sudo apt-get update -q -y
   - sudo apt-get install -q -y graphviz raptor2-utils
+  - bash .travis.install_and_start_fuseki.sh
 
 before_script:
   - travis_retry composer install --no-interaction --prefer-dist

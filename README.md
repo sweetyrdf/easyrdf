@@ -73,7 +73,7 @@ Links
 Requirements
 ------------
 
-* PHP 5.5 or higher
+* PHP 7.0 or higher
 
 
 Features
