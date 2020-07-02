@@ -33,7 +33,7 @@ before_script:
 script:
   - make lint
   - composer phpstan
-  - composer phpstan-with-coverage
+  - composer phpunit-with-coverage
 
 after_success:
     # Submit coverage report to Coveralls servers, see .coveralls.yml
