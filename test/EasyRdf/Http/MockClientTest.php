@@ -39,7 +39,6 @@ namespace Test\EasyRdf\Http;
 
 use EasyRdf\Http\Response;
 use Test\EasyRdf\TestCase;
-
 class MockClientTest extends TestCase
 {
     /** @var MockClient */

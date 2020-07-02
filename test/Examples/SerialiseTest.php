@@ -1,6 +1,8 @@
 <?php
 
-namespace Test\EasyRdf\Examples;
+namespace Test\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -36,7 +38,6 @@ namespace Test\EasyRdf\Examples;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
 class SerialiseTest extends TestCase
 {
     public function testNtriples()

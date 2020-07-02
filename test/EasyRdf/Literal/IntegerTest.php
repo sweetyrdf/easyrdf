@@ -39,7 +39,6 @@ namespace Test\EasyRdf\Literal;
 
 use EasyRdf\Literal\Integer;
 use Test\EasyRdf\TestCase;
-
 class IntegerTest extends TestCase
 {
     public function testConstruct0()

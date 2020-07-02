@@ -39,7 +39,6 @@ namespace Test\EasyRdf\Literal;
 
 use EasyRdf\Literal\Boolean;
 use Test\EasyRdf\TestCase;
-
 class BooleanTest extends TestCase
 {
     public function testConstructStringTrue()

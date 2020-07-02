@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\EasyRdf\Examples;
+namespace Test\Examples;
 
 use Test\EasyRdf\TestCase;
 
@@ -38,7 +38,6 @@ use Test\EasyRdf\TestCase;
  * @copyright  Copyright (c) 2020 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
 class OpenGraphProtocolTest extends TestCase
 {
     public function testRottenTomatoes()

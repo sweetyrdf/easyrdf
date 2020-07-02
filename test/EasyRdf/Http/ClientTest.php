@@ -40,7 +40,6 @@ namespace Test\EasyRdf\Http;
 use EasyRdf\Http\Client;
 use EasyRdf\Resource;
 use Test\EasyRdf\TestCase;
-
 class ClientTest extends TestCase
 {
     /**

@@ -39,7 +39,6 @@ namespace Test\EasyRdf\Literal;
 
 use EasyRdf\Literal\HTML;
 use Test\EasyRdf\TestCase;
-
 class HTMLTest extends TestCase
 {
     public function testConstruct()

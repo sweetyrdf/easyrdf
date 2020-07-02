@@ -42,7 +42,6 @@ use EasyRdf\Graph;
 use EasyRdf\Parser\Ntriples;
 use EasyRdf\Parser\Rdfa;
 use Test\EasyRdf\TestCase;
-
 class RdfaTest extends TestCase
 {
     /** @var Rdfa */

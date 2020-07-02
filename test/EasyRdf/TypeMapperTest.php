@@ -3,7 +3,6 @@
 namespace Test\EasyRdf;
 
 use EasyRdf\Graph;
-use EasyRdf\Resource;
 use EasyRdf\TypeMapper;
 
 /**
@@ -40,14 +39,6 @@ use EasyRdf\TypeMapper;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-class MyTypeClass extends Resource
-{
-    public function myMethod()
-    {
-        return true;
-    }
-}
 
 class TypeMapperTest extends TestCase
 {

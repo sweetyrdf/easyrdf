@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyRdf\Serialiser;
+namespace Test\EasyRdf\Serialiser;
 
 /**
  * EasyRdf
@@ -41,10 +41,9 @@ use EasyRdf\Graph;
 use EasyRdf\Literal;
 use EasyRdf\RdfNamespace;
 use EasyRdf\Resource;
+use EasyRdf\Serialiser\Ntriples;
 use Test\EasyRdf\TestCase;
 
-require_once dirname(dirname(dirname(__FILE__))).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
 class NtriplesTest extends TestCase
 {
     /** @var Ntriples */

@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\EasyRdf;
+namespace Test\EasyRdf\Parser;
 
-use EasyRdf\Exception;
+use EasyRdf\Parser;
 
 /**
  * EasyRdf
@@ -38,14 +38,13 @@ use EasyRdf\Exception;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class ExceptionTest extends TestCase
+
+class MockParser extends Parser
 {
-    public function testException()
+    public function parse($graph, $data, $format, $baseUri)
     {
-        $this->setExpectedException(
-            'EasyRdf\Exception',
-            'Test'
-        );
-        throw new Exception('Test');
+        parent::checkParseParams($graph, $data, $format, $baseUri);
+        // Parsing goes here
+        return true;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\EasyRdf\Examples;
+namespace Test\Examples;
 
 use Test\EasyRdf\TestCase;
 
@@ -39,7 +39,7 @@ use Test\EasyRdf\TestCase;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-class VillagesTest extends TestCase
+class WikidataVillagesTest extends TestCase
 {
     public function testIndex()
     {

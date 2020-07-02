@@ -55,7 +55,8 @@
             "test/TestHelper.php"
         ],
         "psr-4": {
-            "Test\\EasyRdf\\": "test/EasyRdf"
+            "Test\\EasyRdf\\": "test/EasyRdf",
+            "Test\\Examples\\": "test/Examples"
         }
     },
     "scripts": {

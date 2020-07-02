@@ -45,7 +45,6 @@ use EasyRdf\Resource;
 use Error;
 use PHPUnit\Framework\Error\Error as PHPUnitError;
 use Test\EasyRdf\Http\MockClient;
-
 class ResourceTest extends TestCase
 {
     /** @var Graph */

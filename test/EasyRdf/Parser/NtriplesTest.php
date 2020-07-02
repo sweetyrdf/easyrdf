@@ -40,7 +40,6 @@ namespace Test\EasyRdf\Parser;
 use EasyRdf\Graph;
 use EasyRdf\Parser\Ntriples;
 use Test\EasyRdf\TestCase;
-
 class NtriplesTest extends TestCase
 {
     /** @var Ntriples */

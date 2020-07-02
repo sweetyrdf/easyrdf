@@ -41,7 +41,6 @@ use EasyRdf\Exception;
 use EasyRdf\Graph;
 use EasyRdf\Parser\Rapper;
 use Test\EasyRdf\TestCase;
-
 class RapperTest extends TestCase
 {
     /** @var Rapper */

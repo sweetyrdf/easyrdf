@@ -56,7 +56,7 @@ class Rapper extends Json
      *
      * @param string $rapperCmd Optional path to the rapper command to use.
      *
-     * @throws \EasyRdf\Exception
+     * @throws Exception
      */
     public function __construct($rapperCmd = 'rapper')
     {
@@ -72,6 +72,8 @@ class Rapper extends Json
         } else {
             $this->rapperCmd = $rapperCmd;
         }
+
+        parent::__construct();
     }
 
     /**

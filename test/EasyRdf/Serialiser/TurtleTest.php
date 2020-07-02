@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyRdf\Serialiser;
+namespace Test\EasyRdf\Serialiser;
 
 /**
  * EasyRdf
@@ -41,13 +41,13 @@ use DateTime;
 use EasyRdf\Format;
 use EasyRdf\Graph;
 use EasyRdf\Literal;
+use EasyRdf\Serialiser\Turtle;
 use EasyRdf\RdfNamespace;
 use EasyRdf\Serialiser\NtriplesArray;
 use Test\EasyRdf\TestCase;
 
 Format::register('ntriples-array', 'PHP Array of Triples');
 Format::registerSerialiser('ntriples-array', NtriplesArray::class);
-
 class TurtleTest extends TestCase
 {
     /** @var Turtle */

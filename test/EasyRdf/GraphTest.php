@@ -51,27 +51,8 @@ use EasyRdf\Literal\DateTime as LiteralDateTime;
 use Error;
 use PHPUnit\Framework\Error\Error as PHPUnitError;
 use Test\EasyRdf\Http\MockClient;
-
-class MockRdfParser
-{
-    public function parse($graph, $data, $format, $baseUri)
-    {
-        $graph->add(
-            'http://www.example.com/joe#me',
-            'foaf:name',
-            'Joseph Bloggs'
-        );
-        return true;
-    }
-}
-
-class MockRdfSerialiser
-{
-    public function serialise($graph, $format = null)
-    {
-        return "<rdf></rdf>";
-    }
-}
+use Test\EasyRdf\Parser\MockRdfParser;
+use Test\EasyRdf\Serialiser\MockRdfSerialiser;
 
 class GraphTest extends TestCase
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace Test\EasyRdf;
+namespace Test\EasyRdf\Serialiser;
 
-use EasyRdf\Exception;
+use EasyRdf\Graph;
+use EasyRdf\Serialiser;
 
 /**
  * EasyRdf
@@ -38,14 +39,12 @@ use EasyRdf\Exception;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class ExceptionTest extends TestCase
+class MockSerialiser extends Serialiser
 {
-    public function testException()
+    public function serialise(Graph $graph, $format, array $options = array())
     {
-        $this->setExpectedException(
-            'EasyRdf\Exception',
-            'Test'
-        );
-        throw new Exception('Test');
+        parent::checkSerialiseParams($format);
+        // Serialising goes here
+        return true;
     }
 }

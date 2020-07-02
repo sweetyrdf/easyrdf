@@ -39,7 +39,6 @@ namespace Test\EasyRdf\Literal;
 
 use EasyRdf\Literal\XML;
 use Test\EasyRdf\TestCase;
-
 class XMLTest extends TestCase
 {
     public function testConstruct()

@@ -42,7 +42,6 @@ use EasyRdf\Graph;
 use EasyRdf\GraphStore;
 use EasyRdf\Http;
 use Test\EasyRdf\Http\MockClient;
-
 class GraphStoreTest extends TestCase
 {
     /** @var GraphStore */

@@ -40,7 +40,6 @@ namespace Test\EasyRdf\Literal;
 use DateTime;
 use EasyRdf\Literal\Date;
 use Test\EasyRdf\TestCase;
-
 class DateTest extends TestCase
 {
     public function testConstructFromString()

@@ -39,7 +39,6 @@ use EasyRdf\RdfNamespace;
  * @copyright  Copyright (c) 2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
 class ContainerTest extends TestCase
 {
     protected $graph;

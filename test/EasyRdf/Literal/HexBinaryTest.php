@@ -41,7 +41,6 @@ use EasyRdf\Format;
 use EasyRdf\Graph;
 use EasyRdf\Literal\HexBinary;
 use Test\EasyRdf\TestCase;
-
 class HexBinaryTest extends TestCase
 {
     public function setup()

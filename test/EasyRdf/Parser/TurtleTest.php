@@ -42,7 +42,6 @@ use EasyRdf\Graph;
 use EasyRdf\Parser\Ntriples;
 use EasyRdf\Parser\Turtle;
 use Test\EasyRdf\TestCase;
-
 class TurtleTest extends TestCase
 {
     /** @var Turtle */

@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyRdf\Sparql;
+namespace Test\EasyRdf\Sparql;
 
 /**
  * EasyRdf
@@ -40,15 +40,16 @@ namespace EasyRdf\Sparql;
 use EasyRdf\Http;
 use EasyRdf\Literal;
 use EasyRdf\Resource;
+use EasyRdf\Sparql\Client;
 use Test\EasyRdf\TestCase;
 use Test\EasyRdf\Http\MockClient;
 
 class ClientTest extends TestCase
 {
-    /** @var  MockClient */
+    /** @var MockClient */
     private $client;
 
-    /** @var  Client */
+    /** @var Client */
     private $sparql;
 
     public function setUp()

@@ -5,6 +5,7 @@ namespace Test\EasyRdf;
 use EasyRdf\Format;
 use EasyRdf\Graph;
 use EasyRdf\Parser;
+use Test\EasyRdf\Parser\MockParser;
 
 /**
  * EasyRdf
@@ -40,15 +41,7 @@ use EasyRdf\Parser;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class MockParser extends Parser
-{
-    public function parse($graph, $data, $format, $baseUri)
-    {
-        parent::checkParseParams($graph, $data, $format, $baseUri);
-        // Parsing goes here
-        return true;
-    }
-}
+
 class ParserTest extends TestCase
 {
     private $graph;

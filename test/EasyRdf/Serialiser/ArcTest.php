@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyRdf\Serialiser;
+namespace Test\EasyRdf\Serialiser;
 
 /**
  * EasyRdf
@@ -38,10 +38,9 @@ namespace EasyRdf\Serialiser;
  */
 
 use EasyRdf\Graph;
+use EasyRdf\Serialiser\Arc;
 use Test\EasyRdf\TestCase;
 
-require_once dirname(dirname(dirname(__FILE__))).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
 class ArcTest extends TestCase
 {
     /** @var Graph */

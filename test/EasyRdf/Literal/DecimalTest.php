@@ -39,7 +39,6 @@ namespace Test\EasyRdf\Literal;
 
 use EasyRdf\Literal\Decimal;
 use Test\EasyRdf\TestCase;
-
 class DecimalTest extends TestCase
 {
     public function testConstruct15()

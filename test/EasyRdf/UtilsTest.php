@@ -40,7 +40,6 @@ use EasyRdf\Utils;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
 class UtilsTest extends TestCase
 {
     public function testCameliseSimple()

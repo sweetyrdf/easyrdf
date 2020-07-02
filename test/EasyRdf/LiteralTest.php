@@ -42,13 +42,7 @@ use Exception;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class MyDatatypeClass extends Literal
-{
-    public function __toString()
-    {
-        return "!".strval($this->value)."!";
-    }
-}
+
 class LiteralTest extends TestCase
 {
     public function setUp()

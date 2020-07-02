@@ -1,5 +1,5 @@
 <?php
-namespace EasyRdf\Literal;
+namespace Test\EasyRdf\Literal;
 
 /**
  * EasyRdf
@@ -39,7 +39,6 @@ namespace EasyRdf\Literal;
 use DateTime;
 use EasyRdf\Literal\DateTime as EasyRdfDateTime;
 use Test\EasyRdf\TestCase;
-
 class DateTimeTest extends TestCase
 {
     /** @var DateTime */

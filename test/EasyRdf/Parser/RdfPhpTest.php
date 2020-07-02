@@ -40,7 +40,6 @@ namespace Test\EasyRdf\Parser;
 use EasyRdf\Graph;
 use EasyRdf\Parser\RdfPhp;
 use Test\EasyRdf\TestCase;
-
 class RdfPhpTest extends TestCase
 {
     /** @var RdfPhp */

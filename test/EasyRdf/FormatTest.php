@@ -3,6 +3,8 @@
 namespace Test\EasyRdf;
 
 use EasyRdf\Format;
+use Test\EasyRdf\Parser\MockParser;
+use Test\EasyRdf\Serialiser\MockSerialiser;
 
 /**
  * EasyRdf
@@ -38,14 +40,6 @@ use EasyRdf\Format;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-class MockParserClass
-{
-}
-
-class MockSerialiserClass
-{
-}
 
 class FormatTest extends TestCase
 {
@@ -421,9 +415,9 @@ class FormatTest extends TestCase
 
     public function testSetParserClass()
     {
-        $this->format->setParserClass(MockParserClass::class);
+        $this->format->setParserClass(MockParser::class);
         $this->assertSame(
-            MockParserClass::class,
+            MockParser::class,
             $this->format->getParserClass()
         );
     }
@@ -451,27 +445,27 @@ class FormatTest extends TestCase
 
     public function testRegisterParser()
     {
-        Format::registerParser('my', MockParserClass::class);
+        Format::registerParser('my', MockParser::class);
         $this->assertSame(
-            MockParserClass::class,
+            MockParser::class,
             $this->format->getParserClass()
         );
     }
 
     public function testRegisterParserForUnknownFormat()
     {
-        Format::registerParser('testRegisterParser', MockParserClass::class);
+        Format::registerParser('testRegisterParser', MockParser::class);
         $format = Format::getFormat('testRegisterParser');
         $this->assertNotNull($format);
-        $this->assertSame(MockParserClass::class, $format->getParserClass());
+        $this->assertSame(MockParser::class, $format->getParserClass());
     }
 
     public function testNewParser()
     {
-        $this->format->setParserClass(MockParserClass::class);
+        $this->format->setParserClass(MockParser::class);
         $parser = $this->format->newParser();
         $this->assertInternalType('object', $parser);
-        $this->assertClass(MockParserClass::class, $parser);
+        $this->assertClass(MockParser::class, $parser);
     }
 
     public function testNewParserNull()
@@ -486,9 +480,9 @@ class FormatTest extends TestCase
 
     public function testSetSerialiserClass()
     {
-        $this->format->setSerialiserClass('EasyRdf\MockSerialiserClass');
+        $this->format->setSerialiserClass(MockSerialiser::class);
         $this->assertSame(
-            'EasyRdf\MockSerialiserClass',
+            MockSerialiser::class,
             $this->format->getSerialiserClass()
         );
     }
@@ -516,10 +510,10 @@ class FormatTest extends TestCase
 
     public function testNewSerialiser()
     {
-        $this->format->setSerialiserClass(MockSerialiserClass::class);
+        $this->format->setSerialiserClass(MockSerialiser::class);
         $serialiser = $this->format->newSerialiser();
         $this->assertInternalType('object', $serialiser);
-        $this->assertClass(MockSerialiserClass::class, $serialiser);
+        $this->assertClass(MockSerialiser::class, $serialiser);
     }
 
     public function testNewSerialiserNull()
@@ -534,9 +528,9 @@ class FormatTest extends TestCase
 
     public function testRegisterSerialiser()
     {
-        Format::registerSerialiser('my', 'EasyRdf\MockSerialiserClass');
+        Format::registerSerialiser('my', MockSerialiser::class);
         $this->assertSame(
-            'EasyRdf\MockSerialiserClass',
+            MockSerialiser::class,
             $this->format->getSerialiserClass()
         );
     }
@@ -545,12 +539,12 @@ class FormatTest extends TestCase
     {
         Format::registerSerialiser(
             'testRegisterSerialiser',
-            'EasyRdf\MockSerialiserClass'
+            MockSerialiser::class
         );
         $format = Format::getFormat('testRegisterSerialiser');
         $this->assertNotNull($format);
         $this->assertSame(
-            'EasyRdf\MockSerialiserClass',
+            MockSerialiser::class,
             $format->getSerialiserClass()
         );
     }

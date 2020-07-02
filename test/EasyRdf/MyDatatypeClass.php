@@ -2,7 +2,7 @@
 
 namespace Test\EasyRdf;
 
-use EasyRdf\Exception;
+use EasyRdf\Literal;
 
 /**
  * EasyRdf
@@ -38,14 +38,11 @@ use EasyRdf\Exception;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class ExceptionTest extends TestCase
+
+class MyDatatypeClass extends Literal
 {
-    public function testException()
+    public function __toString()
     {
-        $this->setExpectedException(
-            'EasyRdf\Exception',
-            'Test'
-        );
-        throw new Exception('Test');
+        return "!".strval($this->value)."!";
     }
 }

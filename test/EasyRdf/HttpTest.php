@@ -39,7 +39,6 @@ namespace Test\EasyRdf;
 
 use EasyRdf\Http;
 use Test\EasyRdf\Http\MockClient;
-
 class HttpTest extends TestCase
 {
     public function testSetDefaultHttpClient()
