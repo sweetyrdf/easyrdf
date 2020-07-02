@@ -37,7 +37,9 @@ namespace Test\EasyRdf\Http;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
+use EasyRdf\Http\Response;
 use Test\EasyRdf\TestCase;
+
 class MockClientTest extends TestCase
 {
     /** @var MockClient */

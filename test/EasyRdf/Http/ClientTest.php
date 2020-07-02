@@ -37,8 +37,10 @@ namespace Test\EasyRdf\Http;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
+use EasyRdf\Http\Client;
 use EasyRdf\Resource;
-use Test\EasyRdf\TestCase;;
+use Test\EasyRdf\TestCase;
+
 class ClientTest extends TestCase
 {
     /**

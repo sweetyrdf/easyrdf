@@ -39,10 +39,12 @@ namespace Test\EasyRdf;
 
 use EasyRdf\Graph;
 use EasyRdf\Http;
-use EasyRdf\Http\MockClient;
 use EasyRdf\Literal;
 use EasyRdf\RdfNamespace;
 use EasyRdf\Resource;
+use Error;
+use PHPUnit\Framework\Error\Error as PHPUnitError;
+use Test\EasyRdf\Http\MockClient;
 
 class ResourceTest extends TestCase
 {
@@ -737,13 +739,13 @@ class ResourceTest extends TestCase
     {
         $this->setupTestGraph();
         if (version_compare(PHP_VERSION, '7.4.x-dev', '>')) {
-            $class = '\Error';
+            $class = Error::class;
         } else {
-            $class = '\PHPUnit\Framework\Error\Error';
+            $class = PHPUnitError::class;
         }
         $this->setExpectedException(
             $class,
-            'Object of class EasyRdf\ResourceTest could not be converted to string'
+            'Object of class Test\EasyRdf\ResourceTest could not be converted to string'
         );
         $this->resource->add('rdf:foo', $this);
     }

@@ -41,6 +41,7 @@ use EasyRdf\Http\Response;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
+
 class MockClient extends Client
 {
     private $mocks = array();

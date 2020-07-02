@@ -2,6 +2,9 @@
 
 namespace Test\EasyRdf;
 
+use EasyRdf\Graph;
+use EasyRdf\Isomorphic;
+
 /**
  * EasyRdf
  *

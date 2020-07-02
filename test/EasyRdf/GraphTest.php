@@ -47,6 +47,7 @@ use EasyRdf\ParsedUri;
 use EasyRdf\RdfNamespace;
 use EasyRdf\Resource;
 use EasyRdf\Utils;
+use EasyRdf\Literal\DateTime as LiteralDateTime;
 use Error;
 use PHPUnit\Framework\Error\Error as PHPUnitError;
 use Test\EasyRdf\Http\MockClient;
@@ -1231,7 +1232,7 @@ class GraphTest extends TestCase
         $this->assertSame(1, $count);
 
         $literal = $this->graph->get($this->uri, 'rdf:test2');
-        $this->assertClass('EasyRdf\LiteralDateTime', $literal);
+        $this->assertClass(LiteralDateTime::class, $literal);
         $this->assertStringEquals('2013-01-25T19:43:19Z', $literal);
         $this->assertSame(null, $literal->getLang());
         $this->assertSame('xsd:dateTime', $literal->getDataType());
