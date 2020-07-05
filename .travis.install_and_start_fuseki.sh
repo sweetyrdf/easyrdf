@@ -5,7 +5,7 @@ set -v
 # script copied from https://github.com/RDFLib/rdflib/blob/master/.travis.fuseki_install_optional.sh
 # by RDFLib/rdflib
 
-uri="http://archive.apache.org/dist/jena/binaries/apache-jena-fuseki-2.4.0.tar.gz"
+uri="http://archive.apache.org/dist/jena/binaries/apache-jena-fuseki-3.14.0.tar.gz"
 
 if wget "$uri" &&
        tar -zxf *jena*fuseki*.tar.gz &&
