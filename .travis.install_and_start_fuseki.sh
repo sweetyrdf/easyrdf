@@ -12,7 +12,7 @@ if wget "$uri" &&
        mv *jena*fuseki*/ fuseki &&
        cd fuseki ; then
     # normal SPARQLStore & Dataset tests:
-    bash fuseki-server --port 3030 --debug --update --mem /db &>fuseki.log &
+    bash fuseki-server --port 3030 --debug --update --mem /ds &>fuseki.log &
     sleep 2
     cd ..
 else
