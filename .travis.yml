@@ -2,8 +2,8 @@ language: php
 
 os: linux
 
-# ubuntu 18.04
-dist: bionic
+# ubuntu 16.04
+dist: xenial
 
 php:
   - 7.0
