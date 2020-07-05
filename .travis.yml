@@ -6,9 +6,13 @@ matrix:
     - php: 7.1
     - php: 7.2
     - php: 7.3
-    - php: 7.4
 
 jobs:
+  include:
+    - php: 7.3
+      env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: 7.4
+      env: LINTER_RUN=run COVERAGE_RUN=run
   allow_failures:
     - php: nightly
 
@@ -28,12 +32,13 @@ before_install:
   - bash .travis.install_and_start_fuseki.sh
 
 before_script:
-  - travis_retry composer install --no-interaction --prefer-dist
+  - travis_retry composer install --no-interaction --prefer-dist $COMPOSER_FLAGS
 
 script:
-  - make lint
-  - composer phpstan
-  - composer phpunit-with-coverage
+  - if [ "$LINTER_RUN" = "run" ]; then make lint ; fi;
+  - if [ "$LINTER_RUN" = "run" ]; then composer phpstan ; fi;
+  - if [ "$COVERAGE_RUN" = "run" ]; then composer phpunit-with-coverage ; fi;
+  - if [ "$COVERAGE_RUN" != "run" ]; then composer phpunit ; fi;
 
 after_success:
     # Submit coverage report to Coveralls servers, see .coveralls.yml
