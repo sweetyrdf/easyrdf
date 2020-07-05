@@ -32,7 +32,7 @@ before_install:
   - bash .travis.install_and_start_fuseki.sh
 
 before_script:
-  - travis_retry composer install --no-interaction --prefer-dist $COMPOSER_FLAGS
+  - travis_retry composer update --no-interaction --prefer-dist $COMPOSER_FLAGS
 
 script:
   - if [ "$LINTER_RUN" = "run" ]; then make lint ; fi;
