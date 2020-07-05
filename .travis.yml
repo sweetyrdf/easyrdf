@@ -42,4 +42,4 @@ script:
 
 after_success:
     # Submit coverage report to Coveralls servers, see .coveralls.yml
-    - if [ "$COVERAGE_RUN" != "run" ]; then travis_retry php vendor/bin/php-coveralls -v ; fi;
+    - if [ "$COVERAGE_RUN" = "run" ]; then travis_retry php vendor/bin/php-coveralls -v ; fi;
