@@ -35,7 +35,7 @@
     <!-- Files to be included in the coverage report -->
     <filter>
       <whitelist addUncoveredFilesFromWhitelist="true">
-        <directory suffix=".php">../lib/EasyRdf/</directory>
+        <directory suffix=".php">../lib</directory>
         <directory suffix=".php">../examples/</directory>
       </whitelist>
     </filter>
