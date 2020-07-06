@@ -1,5 +1,9 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Serialiser;
+
+use EasyRdf\Graph;
+use EasyRdf\Serialiser;
 
 /**
  * EasyRdf
@@ -35,15 +39,12 @@ namespace EasyRdf\Examples;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class BasicTest extends \EasyRdf\TestCase
+class MockSerialiser extends Serialiser
 {
-    public function testPageRendersCorrectly()
+    public function serialise(Graph $graph, $format, array $options = array())
     {
-        $output = executeExample('basic.php');
-        $this->assertContains('<title>Basic FOAF example</title>', $output);
-        $this->assertContains('My name is: Nicholas J Humfrey', $output);
+        parent::checkSerialiseParams($format);
+        // Serialising goes here
+        return true;
     }
 }

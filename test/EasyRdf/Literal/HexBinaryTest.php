@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Literal;
+
+namespace Test\EasyRdf\Literal;
 
 /**
  * EasyRdf
@@ -38,11 +39,8 @@ namespace EasyRdf\Literal;
 
 use EasyRdf\Format;
 use EasyRdf\Graph;
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-
-
+use EasyRdf\Literal\HexBinary;
+use Test\EasyRdf\TestCase;
 class HexBinaryTest extends TestCase
 {
     public function setup()
@@ -61,6 +59,27 @@ class HexBinaryTest extends TestCase
         $this->assertSame('48656C6C6F', $literal->getValue());
         $this->assertSame(null, $literal->getLang());
         $this->assertSame('xsd:hexBinary', $literal->getDatatype());
+        $this->assertSame('Hello', $literal->toBinary());
+    }
+
+    /**
+     * Tests behavior if a different $datatype was given.
+     */
+    public function testConstructDifferentDatatype()
+    {
+        $literal = new HexBinary('48656C6C6F', null, 'xsd:dateTime');
+        $this->assertSame('xsd:hexBinary', $literal->getDatatype());
+        $this->assertSame('Hello', $literal->toBinary());
+    }
+
+    /**
+     * Tests behavior if a different $lang was given.
+     */
+    public function testConstructDifferentLang()
+    {
+        $literal = new HexBinary('48656C6C6F', 'de_DE');
+        $this->assertSame('xsd:hexBinary', $literal->getDatatype());
+        $this->assertNull($literal->getLang());
         $this->assertSame('Hello', $literal->toBinary());
     }
 

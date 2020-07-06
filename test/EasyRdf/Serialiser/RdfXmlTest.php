@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Serialiser;
+
+namespace Test\EasyRdf\Serialiser;
 
 /**
  * EasyRdf
@@ -40,10 +41,8 @@ use EasyRdf\Graph;
 use EasyRdf\Literal;
 use EasyRdf\Resource;
 use EasyRdf\RdfNamespace;
-use EasyRdf\TestCase;
-
-require_once dirname(dirname(dirname(__FILE__))).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
+use EasyRdf\Serialiser\RdfXml;
+use Test\EasyRdf\TestCase;
 
 class RdfXmlTest extends TestCase
 {
@@ -419,12 +418,12 @@ class RdfXmlTest extends TestCase
             $this->serialiser->serialise($this->graph, 'rdfxml')
         );
     }
-    
+
     public function testSerialiseTriplesWithoutType()
     {
         $this->graph->add('http://example.com/joe', 'foaf:knows', 'http://example.com/bob');
         $this->graph->addLiteral('http://example.com/joe', 'rdf:label', 'le Joe', 'fr-FR');
-        
+
         $this->assertSame(
             "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n".
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n".
@@ -437,13 +436,13 @@ class RdfXmlTest extends TestCase
             $this->serialiser->serialise($this->graph, 'rdfxml')
         );
     }
-    
+
     public function testSerialiseTriplesWithType()
     {
         $this->graph->add('http://example.com/joe', 'rdf:type', 'foaf:Person');
         $this->graph->add('http://example.com/joe', 'foaf:knows', 'http://example.com/bob');
         $this->graph->addLiteral('http://example.com/joe', 'rdf:label', 'le Joe', 'fr-FR');
-        
+
         $this->assertSame(
             "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n".
             "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n".

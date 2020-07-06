@@ -27,7 +27,7 @@
         "issues": "http://github.com/sweetyrdf/easyrdf/issues"
     },
     "require": {
-        "php": ">=5.5",
+        "php": ">=7.0",
         "ext-mbstring": "*",
         "ext-pcre": "*"
     },
@@ -38,7 +38,8 @@
     "require-dev": {
         "ml/json-ld": "^1.1",
         "php-coveralls/php-coveralls": "^2.2",
-        "phpunit/phpunit": "~4.8.36|^6|^7",
+        "phpstan/phpstan": "^0.9",
+        "phpunit/phpunit": "^6|^7",
         "sami/sami": ">=3.3",
         "semsol/arc2": "^2.4",
         "squizlabs/php_codesniffer": "~1.4.3",
@@ -48,5 +49,19 @@
         "psr-4": {
             "EasyRdf\\": "lib"
         }
+    },
+    "autoload-dev": {
+        "files": [
+            "test/TestHelper.php"
+        ],
+        "psr-4": {
+            "Test\\EasyRdf\\": "test/EasyRdf",
+            "Test\\Examples\\": "test/Examples"
+        }
+    },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon -l 1 -vvv lib test",
+        "phpunit": "vendor/bin/phpunit",
+        "phpunit-with-coverage": "vendor/bin/phpunit --coverage-clover gen/coverage/clover.xml"
     }
 }

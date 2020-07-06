@@ -51,13 +51,6 @@ use EasyRdf\Parser;
 class RdfPhp extends Parser
 {
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Parse RDF/PHP into an EasyRdf\Graph
      *
      * @param Graph  $graph   the graph to load the data into

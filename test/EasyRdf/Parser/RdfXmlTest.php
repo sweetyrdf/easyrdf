@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Parser;
+
+namespace Test\EasyRdf\Parser;
 
 /**
  * EasyRdf
@@ -37,11 +38,8 @@ namespace EasyRdf\Parser;
  */
 
 use EasyRdf\Graph;
-use EasyRdf\TestCase;
-
-require_once dirname(dirname(__DIR__)).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
-
+use EasyRdf\Parser\RdfXml;
+use Test\EasyRdf\TestCase;
 class RdfXmlTest extends TestCase
 {
     /** @var RdfXml */
@@ -210,5 +208,5 @@ class RdfXmlTest extends TestCase
         $value = $resource->getLiteral('http://purl.org/dc/terms/created');
         $this->assertEquals('2019-10-07T11:15:48.188959+00:00', (string) $value);
     }
-    
+
 }

@@ -80,6 +80,8 @@ class Response
      */
     private $body;
 
+    private $version;
+
     /**
      * Constructor.
      *

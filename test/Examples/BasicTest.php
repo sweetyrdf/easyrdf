@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\EasyRdf;
+namespace Test\Examples;
 
-use EasyRdf\Exception;
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -38,14 +38,12 @@ use EasyRdf\Exception;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class ExceptionTest extends TestCase
+class BasicTest extends TestCase
 {
-    public function testException()
+    public function testPageRendersCorrectly()
     {
-        $this->setExpectedException(
-            'EasyRdf\Exception',
-            'Test'
-        );
-        throw new Exception('Test');
+        $output = executeExample('basic.php');
+        $this->assertContains('<title>Basic FOAF example</title>', $output);
+        $this->assertContains('My name is: Nicholas J Humfrey', $output);
     }
 }

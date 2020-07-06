@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -35,33 +38,39 @@ namespace EasyRdf\Examples;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class UkpostcodeTest extends \EasyRdf\TestCase
+class FoafinfoTest extends TestCase
 {
     public function testNoParams()
     {
-        $output = executeExample('uk_postcode.php');
-        $this->assertContains('<title>EasyRdf UK Postcode Resolver</title>', $output);
-        $this->assertContains('<h1>EasyRdf UK Postcode Resolver</h1>', $output);
-    }
-
-    public function testW1A1AA()
-    {
-        $output = executeExample(
-            'uk_postcode.php',
-            array('postcode' => 'W1A1AA')
-        );
-        $this->assertContains('<tr><th>Longitude:</th><td>-0.143799</td></tr>', $output);
-        $this->assertContains('<tr><th>Latitude:</th><td>51.518561</td></tr>', $output);
-        $this->assertContains('<tr><th>Easting:</th><td>528887.0</td></tr>', $output);
-        $this->assertContains('<tr><th>Northing:</th><td>181593.0</td></tr>', $output);
-        $this->assertContains('<tr><th>District:</th><td>City of Westminster</td></tr>', $output);
-        $this->assertContains('<tr><th>Ward:</th><td>West End</td></tr>', $output);
+        $output = executeExample('foafinfo.php');
+        $this->assertContains('<title>EasyRdf FOAF Info Example</title>', $output);
+        $this->assertContains('<h1>EasyRdf FOAF Info Example</h1>', $output);
         $this->assertContains(
-            "src='https://www.openlinkmap.org/small.php?lat=51.518561&lon=-0.143799&zoom=14'",
+            '<input type="text" name="uri" id="uri" value="http://njh.me/foaf.rdf" size="50" />',
             $output
         );
+    }
+
+    public function testNjh()
+    {
+        $output = executeExample(
+            'foafinfo.php',
+            array('uri' => 'http://njh.me/foaf.rdf')
+        );
+
+        $this->assertContains('<title>EasyRdf FOAF Info Example</title>', $output);
+        $this->assertContains('<h1>EasyRdf FOAF Info Example</h1>', $output);
+        $this->assertContains("<dt>Name:</dt><dd>Nicholas J Humfrey</dd>", $output);
+        $this->assertContains(
+            "<dt>Homepage:</dt><dd><a href=\"http://www.aelius.com/njh/\">http://www.aelius.com/njh/</a></dd>",
+            $output
+        );
+
+        $this->assertContains("<h2>Known Persons</h2>", $output);
+        $this->assertContains(">Patrick Sinclair</a></li>", $output);
+        $this->assertContains(">Yves Raimond</a></li>", $output);
+
+        $this->assertContains("<h2>Interests</h2>", $output);
+        $this->assertContains(">RDF</a></li>", $output);
     }
 }

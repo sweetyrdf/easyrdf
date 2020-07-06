@@ -43,33 +43,6 @@ error_reporting(E_ALL | E_STRICT);
 // Set time zone to UTC for running tests
 date_default_timezone_set('UTC');
 
-/*
- * Determine the root, lib, and test directories
- */
-$easyrdfRoot      = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..');
-$easyrdfLibDir    = $easyrdfRoot . DIRECTORY_SEPARATOR . 'lib';
-$easyrdfTestDir   = $easyrdfRoot . DIRECTORY_SEPARATOR . 'test';
-
-/*
- * Prepend the lib and test directories to the  include_path.
- */
-$path = array(
-    $easyrdfLibDir,
-    $easyrdfTestDir,
-    get_include_path()
-);
-set_include_path(implode(PATH_SEPARATOR, $path));
-
-/*
- * Unset global variables that are no longer needed.
- */
-unset($easyrdfRoot, $easyrdfLibDir, $easyrdfTestDir, $path);
-
-
-require_once __DIR__.'/EasyRdf/TestCase.php';
-require_once __DIR__.'/EasyRdf/Http/MockClient.php';
-
-
 /**
  * Helper function: get path to a fixture file
  *

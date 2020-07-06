@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyRdf\Sparql;
 
 /**
@@ -78,6 +79,8 @@ class Result extends \ArrayIterator
                 "Unsupported SPARQL Query Results format: $mimeType"
             );
         }
+
+        parent::__construct();
     }
 
     /** Get the query result type (boolean/bindings)

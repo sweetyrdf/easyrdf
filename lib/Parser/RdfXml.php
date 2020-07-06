@@ -58,6 +58,7 @@ class RdfXml extends Parser
     private $nsp;
     private $sStack;
     private $sCount;
+    private $xmlParser;
 
     /**
      * Constructor
@@ -625,6 +626,8 @@ class RdfXml extends Parser
     /** @ignore */
     protected function endState4($t)
     {
+        $subS = [];
+
         /* empty p | pClose after cdata | pClose after collection */
         if ($s = $this->getParentS()) {
             $b = isset($s['p_x_base']) && $s['p_x_base'] ?
@@ -805,7 +808,7 @@ class RdfXml extends Parser
         while ($data = fread($resource, 1024 * 1024)) {
             if (!xml_parse($this->xmlParser, $data, feof($resource))) {
                 $message = xml_error_string(xml_get_error_code($this->xmlParser));
-                
+
                 throw new Exception(
                     sprintf('XML error: "%s"', $message),
                     xml_get_current_line_number($this->xmlParser),

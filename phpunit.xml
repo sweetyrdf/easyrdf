@@ -2,6 +2,7 @@
 <phpunit
     backupGlobals="false"
     backupStaticAttributes="false"
+    bootstrap="vendor/autoload.php"
     colors="true"
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
@@ -34,13 +35,8 @@
     <!-- Files to be included in the coverage report -->
     <filter>
       <whitelist addUncoveredFilesFromWhitelist="true">
-        <directory suffix=".php">../lib/EasyRdf/</directory>
-        <directory suffix=".php">../examples/</directory>
+        <directory suffix=".php">lib</directory>
+        <directory suffix=".php">examples</directory>
       </whitelist>
     </filter>
-
-    <logging>
-        <log type="junit" target="reports/test-results.xml" />
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
 </phpunit>

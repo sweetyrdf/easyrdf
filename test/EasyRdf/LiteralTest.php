@@ -1,5 +1,12 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
+
+use DateTime;
+use EasyRdf\Literal;
+use EasyRdf\ParsedUri;
+use EasyRdf\RdfNamespace;
+use Exception;
 
 /**
  * EasyRdf
@@ -35,16 +42,6 @@ namespace EasyRdf;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class MyDatatypeClass extends Literal
-{
-    public function __toString()
-    {
-        return "!".strval($this->value)."!";
-    }
-}
 
 class LiteralTest extends TestCase
 {
@@ -230,7 +227,7 @@ class LiteralTest extends TestCase
 
     public function testCreateWithDateTime()
     {
-        $dt = new \DateTime('2010-09-08T07:06:05Z');
+        $dt = new DateTime('2010-09-08T07:06:05Z');
         $literal = Literal::create($dt);
         $this->assertStringEquals('2010-09-08T07:06:05Z', $literal);
         $this->assertEquals($dt, $literal->getValue());
@@ -416,9 +413,9 @@ class LiteralTest extends TestCase
 
     public function testConstructCustomClass()
     {
-        Literal::setDatatypeMapping('ex:mytype', 'EasyRdf\MyDatatypeClass');
+        Literal::setDatatypeMapping('ex:mytype', MyDatatypeClass::class);
         $literal = new MyDatatypeClass('foobar');
-        $this->assertClass('EasyRdf\MyDatatypeClass', $literal);
+        $this->assertClass(MyDatatypeClass::class, $literal);
         $this->assertStringEquals('!foobar!', $literal);
         $this->assertSame('foobar', $literal->getValue());
         $this->assertSame('ex:mytype', $literal->getDatatype());
@@ -427,9 +424,9 @@ class LiteralTest extends TestCase
 
     public function testCreateCustomClass()
     {
-        Literal::setDatatypeMapping('ex:mytype', 'EasyRdf\MyDatatypeClass');
+        Literal::setDatatypeMapping('ex:mytype', MyDatatypeClass::class);
         $literal = Literal::create('foobar', null, 'ex:mytype');
-        $this->assertClass('EasyRdf\MyDatatypeClass', $literal);
+        $this->assertClass(MyDatatypeClass::class, $literal);
         $this->assertStringEquals('!foobar!', $literal);
         $this->assertSame('foobar', $literal->getValue());
         $this->assertSame('ex:mytype', $literal->getDatatype());
@@ -442,7 +439,7 @@ class LiteralTest extends TestCase
             'InvalidArgumentException',
             '$datatype should be a string and cannot be null or empty'
         );
-        Literal::setDatatypeMapping(null, 'EasyRdf\MyDatatypeClass');
+        Literal::setDatatypeMapping(null, MyDatatypeClass::class);
     }
 
     public function testSetDatatypeMappingEmpty()
@@ -451,7 +448,7 @@ class LiteralTest extends TestCase
             'InvalidArgumentException',
             '$datatype should be a string and cannot be null or empty'
         );
-        Literal::setDatatypeMapping('', 'EasyRdf\MyDatatypeClass');
+        Literal::setDatatypeMapping('', MyDatatypeClass::class);
     }
 
     public function testSetDatatypeMappingNonString()
@@ -460,7 +457,7 @@ class LiteralTest extends TestCase
             'InvalidArgumentException',
             '$datatype should be a string and cannot be null or empty'
         );
-        Literal::setDatatypeMapping(array(), 'EasyRdf\MyDatatypeClass');
+        Literal::setDatatypeMapping(array(), MyDatatypeClass::class);
     }
 
     public function testSetDatatypeMappingClassNull()

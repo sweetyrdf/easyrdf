@@ -1,5 +1,9 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
+
+use EasyRdf\Graph;
+use EasyRdf\RdfNamespace;
 
 /**
  * EasyRdf
@@ -35,8 +39,6 @@ namespace EasyRdf;
  * @copyright  Copyright (c) 2009-2014 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
 
 class NamespaceTest extends TestCase
 {

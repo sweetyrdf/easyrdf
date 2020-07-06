@@ -58,8 +58,11 @@ class Date extends Literal
      * @param  string $lang      Should be null (literals with a datatype can't have a language)
      * @param  string $datatype  Optional datatype (default 'xsd:date')
      */
-    public function __construct($value = null, $lang = null, $datatype = null)
+    public function __construct($value = null, $lang = null, $datatype = 'xsd:date')
     {
+        // a workaround to avoid error by PHPStan ($lang is not used).
+        $lang = $lang ?? null;
+
         // If $value is null, use today's date
         if (is_null($value)) {
             $value = new \DateTime('today');

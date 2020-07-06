@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Serialiser;
+
+namespace Test\EasyRdf\Serialiser;
 
 /**
  * EasyRdf
@@ -37,10 +38,8 @@ namespace EasyRdf\Serialiser;
  */
 
 use EasyRdf\Graph;
-use EasyRdf\TestCase;
-
-require_once dirname(dirname(dirname(__FILE__))).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
+use EasyRdf\Serialiser\Arc;
+use Test\EasyRdf\TestCase;
 
 class ArcTest extends TestCase
 {

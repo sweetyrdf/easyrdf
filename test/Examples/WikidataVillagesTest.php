@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -36,45 +39,33 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class SerialiseTest extends \EasyRdf\TestCase
+class WikidataVillagesTest extends TestCase
 {
-    public function testNtriples()
+    public function testIndex()
     {
-        $output = executeExample(
-            'serialise.php',
-            array('format' => 'ntriples')
-        );
-        $this->assertContains('<title>EasyRdf Serialiser Example</title>', $output);
-        $this->assertContains(
-            '&lt;http://www.example.com/joe#me&gt; '.
-            '&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; '.
-            '&lt;http://xmlns.com/foaf/0.1/Person&gt; .',
-            $output
-        );
+        $output = executeExample('wikidata_villages.php');
+        $this->assertContains('<title>EasyRdf Village Info Example</title>', $output);
+        $this->assertContains('<h1>EasyRdf Village Info Example</h1>', $output);
+        $this->assertContains('?id=Q33980">Ceres</a></li>', $output);
+        $this->assertContains('?id=Q1011990">Strathkinness</a></li>', $output);
     }
 
-    public function testRdfXml()
+    public function testCeres()
     {
         $output = executeExample(
-            'serialise.php',
-            array('format' => 'rdfxml')
+            'wikidata_villages.php',
+            array('id' => 'Q33980')
         );
-        $this->assertContains('<title>EasyRdf Serialiser Example</title>', $output);
+        $this->assertContains('<h2>Ceres</h2>', $output);
+        $this->assertContains('<p>village in Fife, Scotland', $output);
         $this->assertContains(
-            '&lt;foaf:Person rdf:about=&quot;http://www.example.com/joe#me&quot;&gt;',
+            '<img src="http://commons.wikimedia.org/wiki/Special:FilePath/Ceres%20in%20Fife.JPG"',
             $output
         );
-    }
-
-    public function testPhp()
-    {
-        $output = executeExample(
-            'serialise.php',
-            array('format' => 'php')
+        $this->assertContains(
+            "src='http://www.openlinkmap.org/small.php?lat=56.29205&lon=-2.971445",
+            $output
         );
-        $this->assertContains('<title>EasyRdf Serialiser Example</title>', $output);
-        $this->assertContains("'value' =&gt; 'http://xmlns.com/foaf/0.1/Person',", $output);
+        $this->assertContains('<a href="https://en.wikipedia.org/wiki/Ceres,_Fife">', $output);
     }
 }

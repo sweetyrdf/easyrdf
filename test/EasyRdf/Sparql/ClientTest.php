@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Sparql;
+
+namespace Test\EasyRdf\Sparql;
 
 /**
  * EasyRdf
@@ -37,20 +38,18 @@ namespace EasyRdf\Sparql;
  */
 
 use EasyRdf\Http;
-use EasyRdf\Http\MockClient;
 use EasyRdf\Literal;
 use EasyRdf\Resource;
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-
+use EasyRdf\Sparql\Client;
+use Test\EasyRdf\TestCase;
+use Test\EasyRdf\Http\MockClient;
 
 class ClientTest extends TestCase
 {
-    /** @var  MockClient */
+    /** @var MockClient */
     private $client;
 
-    /** @var  Client */
+    /** @var Client */
     private $sparql;
 
     public function setUp()
@@ -77,7 +76,7 @@ class ClientTest extends TestCase
             $this->sparql->getQueryUri()
         );
     }
-    
+
     public function testGetUpdateUri()
     {
         $this->assertSame(
@@ -370,7 +369,7 @@ class ClientTest extends TestCase
         $this->assertSame("application/sparql-update", $client->getHeader('Content-Type'));
         return true;
     }
-    
+
     public function testUpdate()
     {
         $this->client->addMock(

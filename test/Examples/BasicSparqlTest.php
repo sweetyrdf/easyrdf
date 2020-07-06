@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\EasyRdf;
+namespace Test\Examples;
 
-use EasyRdf\Exception;
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -38,14 +38,34 @@ use EasyRdf\Exception;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class ExceptionTest extends TestCase
+class BasicSparqlTest extends TestCase
 {
-    public function testException()
+    public function testCountries()
     {
-        $this->setExpectedException(
-            'EasyRdf\Exception',
-            'Test'
+        $output = executeExample('basic_sparql.php');
+        $this->assertContains('<title>EasyRdf Basic Sparql Example</title>', $output);
+        $this->assertContains('<h1>EasyRdf Basic Sparql Example</h1>', $output);
+        $this->assertContains('<h2>List of countries</h2>', $output);
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/China">China</a></li>',
+            $output
         );
-        throw new Exception('Test');
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/India">India</a></li>',
+            $output
+        );
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/United_States">United States</a></li>',
+            $output
+        );
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/United_Kingdom">United Kingdom</a></li>',
+            $output
+        );
+        $this->assertContains(
+            '<li><a href="http://dbpedia.org/resource/Zimbabwe">Zimbabwe</a></li>',
+            $output
+        );
+        $this->assertRegExp('|Total number of countries: (\d+)|', $output);
     }
 }

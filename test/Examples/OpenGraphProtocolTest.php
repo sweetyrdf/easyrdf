@@ -1,15 +1,15 @@
 <?php
 
-namespace Test\EasyRdf;
+namespace Test\Examples;
 
-use EasyRdf\Exception;
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
  *
  * LICENSE
  *
- * Copyright (c) 2009-2013 Nicholas J Humfrey.  All rights reserved.
+ * Copyright (c) 2020 Nicholas J Humfrey.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -35,17 +35,17 @@ use EasyRdf\Exception;
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package    EasyRdf
- * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
+ * @copyright  Copyright (c) 2020 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-class ExceptionTest extends TestCase
+class OpenGraphProtocolTest extends TestCase
 {
-    public function testException()
+    public function testRottenTomatoes()
     {
-        $this->setExpectedException(
-            'EasyRdf\Exception',
-            'Test'
-        );
-        throw new Exception('Test');
+        $output = executeExample('open_graph_protocol.php');
+        $this->assertContains('<dd><a href="https://www.rottentomatoes.com/m/oceans_eleven"', $output);
+        $this->assertContains('<dt>Title:</dt> <dd>Ocean\'s Eleven (2001)</dd>', $output);
+        $this->assertContains('<dt>Description:</dt> <dd>A rag-tag group of con artists and ex-cons', $output);
+        $this->assertContains('src="https://resizing.flixster.com/DjVRv9J4roj7G', $output);
     }
 }

@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Sparql;
+
+namespace Test\EasyRdf\Sparql;
 
 /**
  * EasyRdf
@@ -38,10 +39,8 @@ namespace EasyRdf\Sparql;
 
 use EasyRdf\Literal;
 use EasyRdf\Resource;
-use EasyRdf\TestCase;
-
-require_once realpath(dirname(__FILE__) . '/../../') . '/TestHelper.php';
-
+use EasyRdf\Sparql\Result;
+use Test\EasyRdf\TestCase;
 
 class ResultTest extends TestCase
 {

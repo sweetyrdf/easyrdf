@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
 
 /**
  * EasyRdf
@@ -36,10 +37,14 @@ namespace EasyRdf;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\Http\MockClient;
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
-
+use EasyRdf\Graph;
+use EasyRdf\Http;
+use EasyRdf\Literal;
+use EasyRdf\RdfNamespace;
+use EasyRdf\Resource;
+use Error;
+use PHPUnit\Framework\Error\Error as PHPUnitError;
+use Test\EasyRdf\Http\MockClient;
 class ResourceTest extends TestCase
 {
     /** @var Graph */
@@ -47,6 +52,8 @@ class ResourceTest extends TestCase
 
     /** @var \EasyRdf\Resource */
     private $resource;
+
+    protected $type;
 
     /**
      * Set up the test suite before each test
@@ -275,9 +282,6 @@ class ResourceTest extends TestCase
         $res = new Resource('http://example.com/testToString');
         $this->assertStringEquals('http://example.com/testToString', $res);
     }
-
-
-
 
     /*
      *
@@ -734,13 +738,13 @@ class ResourceTest extends TestCase
     {
         $this->setupTestGraph();
         if (version_compare(PHP_VERSION, '7.4.x-dev', '>')) {
-            $class = '\Error';
+            $class = Error::class;
         } else {
-            $class = '\PHPUnit\Framework\Error\Error';
+            $class = PHPUnitError::class;
         }
         $this->setExpectedException(
             $class,
-            'Object of class EasyRdf\ResourceTest could not be converted to string'
+            'Object of class Test\EasyRdf\ResourceTest could not be converted to string'
         );
         $this->resource->add('rdf:foo', $this);
     }
@@ -1324,7 +1328,7 @@ class ResourceTest extends TestCase
         unset($this->resource['rdf:testMagicUnset']);
         $this->assertNull($this->resource->get('rdf:testMagicUnset'));
     }
-    
+
     /**
      * @see https://github.com/sweetyrdf/easyrdf/issues/17
      */
@@ -1334,11 +1338,11 @@ class ResourceTest extends TestCase
         $r = $g->resource('http://sample/resource');
         $r->addLiteral('dc:title', 'sample title');
         $r->addLiteral('http://unknown.namespace/property', 'sample value');
-        
+
         $uris = $r->propertyUris();
         $props = $r->properties();
         $this->assertEquals(count($uris), count($props));
-        
+
         sort($uris);
         $exProps = array_map(function($x) {return RdfNamespace::expand($x); }, $props);
         sort($exProps);

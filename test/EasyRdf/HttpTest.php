@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
 
 /**
  * EasyRdf
@@ -36,26 +37,15 @@ namespace EasyRdf;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\Http\MockClient;
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
-
+use EasyRdf\Http;
+use Test\EasyRdf\Http\MockClient;
 class HttpTest extends TestCase
 {
-    // FIXME: this test needs to run before the first call to setDefaultHttpClient()
-    //     public function testGetDefaultHttpClient()
-    //     {
-    //         $this->assertClass(
-    //             'EasyRdf\Http\Client',
-    //             Http::getDefaultHttpClient()
-    //         );
-    //     }
-
     public function testSetDefaultHttpClient()
     {
         Http::setDefaultHttpClient(new MockClient());
         $this->assertClass(
-            'EasyRdf\Http\MockClient',
+            MockClient::class,
             Http::getDefaultHttpClient()
         );
     }

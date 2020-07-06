@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
 
 /**
  * EasyRdf
@@ -36,11 +37,11 @@ namespace EasyRdf;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\Http\MockClient;
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-
+use EasyRdf\Format;
+use EasyRdf\Graph;
+use EasyRdf\GraphStore;
+use EasyRdf\Http;
+use Test\EasyRdf\Http\MockClient;
 class GraphStoreTest extends TestCase
 {
     /** @var GraphStore */

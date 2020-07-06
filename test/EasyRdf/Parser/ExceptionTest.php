@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Parser;
+
+namespace Test\EasyRdf\Parser;
 
 /**
  * EasyRdf
@@ -36,11 +37,8 @@ namespace EasyRdf\Parser;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\TestCase;
-
-require_once dirname(dirname(__DIR__)).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
-
+use EasyRdf\Parser\Exception;
+use Test\EasyRdf\TestCase;
 class ExceptionTest extends TestCase
 {
     public function testThrowException()

@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf\Parser;
+
+use EasyRdf\Parser;
 
 /**
  * EasyRdf
@@ -36,36 +39,12 @@ namespace EasyRdf\Examples;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class BasicSparqlTest extends \EasyRdf\TestCase
+class MockParser extends Parser
 {
-    public function testCountries()
+    public function parse($graph, $data, $format, $baseUri)
     {
-        $output = executeExample('basic_sparql.php');
-        $this->assertContains('<title>EasyRdf Basic Sparql Example</title>', $output);
-        $this->assertContains('<h1>EasyRdf Basic Sparql Example</h1>', $output);
-        $this->assertContains('<h2>List of countries</h2>', $output);
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/China">China</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/India">India</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/United_States">United States</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/United_Kingdom">United Kingdom</a></li>',
-            $output
-        );
-        $this->assertContains(
-            '<li><a href="http://dbpedia.org/resource/Zimbabwe">Zimbabwe</a></li>',
-            $output
-        );
-        $this->assertRegExp('|Total number of countries: (\d+)|', $output);
+        parent::checkParseParams($graph, $data, $format, $baseUri);
+        // Parsing goes here
+        return true;
     }
 }

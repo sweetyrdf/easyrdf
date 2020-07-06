@@ -602,6 +602,7 @@ class Graph
         }
 
         $originalResource = $resource;
+        $res = null;
         // Loop through each component in the path
         foreach (explode('/', $propertyPath) as $part) {
             // Stop if we come to a literal
@@ -785,6 +786,7 @@ class Graph
         }
 
         $objects = array($resource);
+        $results = [];
 
         // Loop through each component in the path
         foreach (explode('/', $propertyPath) as $part) {

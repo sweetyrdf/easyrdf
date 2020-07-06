@@ -1,12 +1,15 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\EasyRdf;
+
+use EasyRdf\Resource;
 
 /**
  * EasyRdf
  *
  * LICENSE
  *
- * Copyright (c) 2020 Nicholas J Humfrey.  All rights reserved.
+ * Copyright (c) 2009-2013 Nicholas J Humfrey.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,20 +35,14 @@ namespace EasyRdf\Examples;
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package    EasyRdf
- * @copyright  Copyright (c) 2020 Nicholas J Humfrey
+ * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class OpenGraphProtocolTest extends \EasyRdf\TestCase
+class MyTypeClass extends Resource
 {
-    public function testRottenTomatoes()
+    public function myMethod()
     {
-        $output = executeExample('open_graph_protocol.php');
-        $this->assertContains('<dd><a href="https://www.rottentomatoes.com/m/oceans_eleven"', $output);
-        $this->assertContains('<dt>Title:</dt> <dd>Ocean\'s Eleven (2001)</dd>', $output);
-        $this->assertContains('<dt>Description:</dt> <dd>A rag-tag group of con artists and ex-cons', $output);
-        $this->assertContains('src="https://resizing.flixster.com/DjVRv9J4roj7G', $output);
+        return true;
     }
 }

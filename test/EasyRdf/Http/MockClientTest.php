@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Http;
+
+namespace Test\EasyRdf\Http;
 
 /**
  * EasyRdf
@@ -36,12 +37,8 @@ namespace EasyRdf\Http;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\TestCase;
-
-require_once realpath(__DIR__ . '/../../') . '/TestHelper.php';
-require_once __DIR__.'/MockClient.php';
-
-
+use EasyRdf\Http\Response;
+use Test\EasyRdf\TestCase;
 class MockClientTest extends TestCase
 {
     /** @var MockClient */
@@ -159,7 +156,7 @@ class MockClientTest extends TestCase
     {
         $response = new Response(234, array('Foo' => 'bar'), 'x');
         $this->client->addMock('GET', '/test', $response);
-        $r = $this->get('http://example.com/test', array('throw' => false));
+        $r = $this->get('http://example.com/test');
         $this->assertSame(234, $r->getStatus());
         $this->assertSame('bar', $r->getHeader('Foo'));
         $this->assertSame('x', $r->getBody());

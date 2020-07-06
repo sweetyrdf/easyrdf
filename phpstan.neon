@@ -1,0 +1,9 @@
+parameters:
+    autoload_files:
+        - ./vendor/autoload.php
+
+    fileExtensions:
+        - php
+
+    parallel:
+        maximumNumberOfProcesses: 5

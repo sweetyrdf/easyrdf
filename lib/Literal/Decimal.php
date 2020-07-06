@@ -62,6 +62,9 @@ class Decimal extends Literal
      */
     public function __construct($value, $lang = null, $datatype = null)
     {
+        // a workaround to avoid error by PHPStan ($lang is not used).
+        $lang = $lang ?? null;
+
         if (is_string($value)) {
             self::validate($value);
         } elseif (is_double($value) or is_int($value)) {

@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -35,60 +38,43 @@ namespace EasyRdf\Examples;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class HttpgetTest extends \EasyRdf\TestCase
+class SerialiseTest extends TestCase
 {
-    public function testNoParams()
-    {
-        $output = executeExample('httpget.php');
-        $this->assertContains('<title>Test EasyRdf HTTP Client Get</title>', $output);
-        $this->assertContains('<h1>Test EasyRdf HTTP Client Get</h1>', $output);
-        $this->assertContains(
-            '<input type="text" name="uri" id="uri" value="http://tomheath.com/id/me" size="50" />',
-            $output
-        );
-        $this->assertContains(
-            '<option value="application/rdf+xml">application/rdf+xml</option>',
-            $output
-        );
-        $this->assertContains(
-            '<option value="text/html">text/html</option>',
-            $output
-        );
-    }
-
-    public function testHtml()
+    public function testNtriples()
     {
         $output = executeExample(
-            'httpget.php',
-            array(
-                'uri' => 'http://tomheath.com/id/me',
-                'accept' => 'text/html'
-            )
+            'serialise.php',
+            array('format' => 'ntriples')
         );
-        $this->assertContains('<title>Test EasyRdf HTTP Client Get</title>', $output);
-        $this->assertContains('<h1>Test EasyRdf HTTP Client Get</h1>', $output);
-        $this->assertContains('<b>Content-type</b>: text/html', $output);
-        $this->assertContains('&lt;h1&gt;Home - Tom Heath&lt;/h1&gt;', $output);
+        $this->assertContains('<title>EasyRdf Serialiser Example</title>', $output);
+        $this->assertContains(
+            '&lt;http://www.example.com/joe#me&gt; '.
+            '&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; '.
+            '&lt;http://xmlns.com/foaf/0.1/Person&gt; .',
+            $output
+        );
     }
 
     public function testRdfXml()
     {
         $output = executeExample(
-            'httpget.php',
-            array(
-                'uri' => 'http://tomheath.com/id/me',
-                'accept' => 'application/rdf+xml'
-            )
+            'serialise.php',
+            array('format' => 'rdfxml')
         );
-        $this->assertContains('<title>Test EasyRdf HTTP Client Get</title>', $output);
-        $this->assertContains('<h1>Test EasyRdf HTTP Client Get</h1>', $output);
-        $this->assertContains('<b>Content-type</b>: application/rdf+xml', $output);
+        $this->assertContains('<title>EasyRdf Serialiser Example</title>', $output);
         $this->assertContains(
-            '&lt;foaf:Person rdf:about=&quot;http://tomheath.com/id/me&quot;&gt;',
+            '&lt;foaf:Person rdf:about=&quot;http://www.example.com/joe#me&quot;&gt;',
             $output
         );
+    }
+
+    public function testPhp()
+    {
+        $output = executeExample(
+            'serialise.php',
+            array('format' => 'php')
+        );
+        $this->assertContains('<title>EasyRdf Serialiser Example</title>', $output);
+        $this->assertContains("'value' =&gt; 'http://xmlns.com/foaf/0.1/Person',", $output);
     }
 }

@@ -1,5 +1,11 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
+
+use EasyRdf\Format;
+use EasyRdf\Graph;
+use EasyRdf\Serialiser;
+use Test\EasyRdf\Serialiser\MockSerialiser;
 
 /**
  * EasyRdf
@@ -35,19 +41,6 @@ namespace EasyRdf;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class MockSerialiser extends Serialiser
-{
-    public function serialise(Graph $graph, $format, array $options = array())
-    {
-        parent::checkSerialiseParams($format);
-        // Serialising goes here
-        return true;
-    }
-}
-
 class SerialiserTest extends TestCase
 {
     /** @var Graph */

@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf;
+
+namespace Test\EasyRdf;
 
 /**
  * EasyRdf
@@ -36,30 +37,22 @@ namespace EasyRdf;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
-use EasyRdf\Http\MockClient;
-
-require_once dirname(__DIR__).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class MockRdfParser
-{
-    public function parse($graph, $data, $format, $baseUri)
-    {
-        $graph->add(
-            'http://www.example.com/joe#me',
-            'foaf:name',
-            'Joseph Bloggs'
-        );
-        return true;
-    }
-}
-
-class MockRdfSerialiser
-{
-    public function serialise($graph, $format = null)
-    {
-        return "<rdf></rdf>";
-    }
-}
+use DateTime;
+use EasyRdf\Exception;
+use EasyRdf\Format;
+use EasyRdf\Graph;
+use EasyRdf\Http;
+use EasyRdf\Literal;
+use EasyRdf\ParsedUri;
+use EasyRdf\RdfNamespace;
+use EasyRdf\Resource;
+use EasyRdf\Utils;
+use EasyRdf\Literal\DateTime as LiteralDateTime;
+use Error;
+use PHPUnit\Framework\Error\Error as PHPUnitError;
+use Test\EasyRdf\Http\MockClient;
+use Test\EasyRdf\Parser\MockRdfParser;
+use Test\EasyRdf\Serialiser\MockRdfSerialiser;
 
 class GraphTest extends TestCase
 {
@@ -207,7 +200,7 @@ class GraphTest extends TestCase
 
     public function testMockParser()
     {
-        Format::registerParser('mock', 'EasyRdf\MockRdfParser');
+        Format::registerParser('mock', MockRdfParser::class);
 
         $graph = new Graph();
         $graph->parse('data', 'mock');
@@ -1215,12 +1208,12 @@ class GraphTest extends TestCase
 
     public function testAddDateTime()
     {
-        $dt = new \DateTime("Fri 25 Jan 2013 19:43:19 GMT");
+        $dt = new DateTime("Fri 25 Jan 2013 19:43:19 GMT");
         $count = $this->graph->add($this->uri, 'rdf:test2', $dt);
         $this->assertSame(1, $count);
 
         $literal = $this->graph->get($this->uri, 'rdf:test2');
-        $this->assertClass('EasyRdf\Literal\DateTime', $literal);
+        $this->assertClass(LiteralDateTime::class, $literal);
         $this->assertStringEquals('2013-01-25T19:43:19Z', $literal);
         $this->assertSame(null, $literal->getLang());
         $this->assertSame('xsd:dateTime', $literal->getDataType());
@@ -1228,7 +1221,7 @@ class GraphTest extends TestCase
 
     public function testAddLiteralDateTime()
     {
-        $dt = new \DateTime("Fri 25 Jan 2013 19:43:19 GMT");
+        $dt = new DateTime("Fri 25 Jan 2013 19:43:19 GMT");
         $this->graph->addLiteral($this->uri, 'rdf:test2', $dt);
         $this->assertStringEquals(
             '2013-01-25T19:43:19Z',
@@ -1276,13 +1269,13 @@ class GraphTest extends TestCase
     public function testAddInvalidObject()
     {
         if (version_compare(PHP_VERSION, '7.4.x-dev', '>')) {
-            $class = '\Error';
+            $class = Error::class;
         } else {
-            $class = '\PHPUnit\Framework\Error\Error';
+            $class = PHPUnitError::class;
         }
         $this->setExpectedException(
             $class,
-            'Object of class EasyRdf\GraphTest could not be converted to string'
+            'Object of class Test\EasyRdf\GraphTest could not be converted to string'
         );
         $this->graph->add($this->uri, 'rdf:foo', $this);
     }
@@ -1649,14 +1642,14 @@ class GraphTest extends TestCase
 
     public function testSerialise()
     {
-        Format::registerSerialiser('mock', 'EasyRdf\MockRdfSerialiser');
+        Format::registerSerialiser('mock', MockRdfSerialiser::class);
         $graph = new Graph();
         $this->assertSame("<rdf></rdf>", $graph->serialise('mock'));
     }
 
     public function testSerialiseByMime()
     {
-        Format::registerSerialiser('mock', 'EasyRdf\MockRdfSerialiser');
+        Format::registerSerialiser('mock', MockRdfSerialiser::class);
         Format::register('mock', 'Mock', null, array('mock/mime' => 1.0));
         $graph = new Graph();
         $this->assertSame(
@@ -1668,7 +1661,7 @@ class GraphTest extends TestCase
     public function testSerialiseByFormatObject()
     {
         $format = Format::register('mock', 'Mock Format');
-        $format->setSerialiserClass('EasyRdf\MockRdfSerialiser');
+        $format->setSerialiserClass(MockRdfSerialiser::class);
         $graph = new Graph();
         $this->assertSame("<rdf></rdf>", $graph->serialise($format));
     }

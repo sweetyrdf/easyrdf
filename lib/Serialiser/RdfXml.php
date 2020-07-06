@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyRdf\Serialiser;
 
-    /**
+/**
  * EasyRdf
  *
  * LICENSE
@@ -120,7 +121,7 @@ class RdfXml extends Serialiser
             return "{$indent}<{$property}{$atrributes}>{$value}</{$property}>\n";
         } else {
             throw new Exception(
-                "Unable to serialise object to xml: ".getType($obj)
+                "Unable to serialise object to xml: ".gettype($obj)
             );
         }
     }

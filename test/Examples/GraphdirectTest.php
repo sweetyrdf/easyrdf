@@ -1,5 +1,8 @@
 <?php
-namespace EasyRdf\Examples;
+
+namespace Test\Examples;
+
+use Test\EasyRdf\TestCase;
 
 /**
  * EasyRdf
@@ -35,10 +38,7 @@ namespace EasyRdf\Examples;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
-require_once dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'TestHelper.php';
-
-class GraphdirectTest extends \EasyRdf\TestCase
+class GraphdirectTest extends TestCase
 {
     public function test()
     {

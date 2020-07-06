@@ -1,5 +1,6 @@
 <?php
-namespace EasyRdf\Parser;
+
+namespace Test\EasyRdf\Parser;
 
 /**
  * EasyRdf
@@ -36,14 +37,11 @@ namespace EasyRdf\Parser;
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
 
+use EasyRdf\Exception;
 use EasyRdf\Graph;
-use EasyRdf\TestCase;
-
-require_once dirname(dirname(__DIR__)).
-             DIRECTORY_SEPARATOR.'TestHelper.php';
-
-require_once realpath(__DIR__.'/..').'/Serialiser/NtriplesArray.php';
-
+use EasyRdf\Parser\Ntriples;
+use EasyRdf\Parser\Turtle;
+use Test\EasyRdf\TestCase;
 class TurtleTest extends TestCase
 {
     /** @var Turtle */
@@ -114,7 +112,7 @@ class TurtleTest extends TestCase
     public function testParseUnsupportedFormat()
     {
         $this->setExpectedException(
-            'EasyRdf\Exception',
+            Exception::class,
             'EasyRdf\Parser\Turtle does not support: unsupportedformat'
         );
         $this->turtleParser->parse(
@@ -125,7 +123,8 @@ class TurtleTest extends TestCase
         );
     }
 
-    /* The rest of this script is runs the Turtle Test Suite
+    /*
+       The rest of this script is runs the Turtle Test Suite
        from the files here:
        http://www.w3.org/TeamSubmission/turtle/tests/
      */

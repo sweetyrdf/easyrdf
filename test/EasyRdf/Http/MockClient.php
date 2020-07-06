@@ -1,8 +1,11 @@
 <?php
-namespace EasyRdf\Http;
 
-use EasyRdf\Exception;
+namespace Test\EasyRdf\Http;
+
 use EasyRdf\Format;
+use EasyRdf\Http\Client;
+use EasyRdf\Http\Exception;
+use EasyRdf\Http\Response;
 
 /**
  * EasyRdf
@@ -38,7 +41,6 @@ use EasyRdf\Format;
  * @copyright  Copyright (c) 2009-2013 Nicholas J Humfrey
  * @license    http://www.opensource.org/licenses/bsd-license.php
  */
-
 class MockClient extends Client
 {
     private $mocks = array();
@@ -125,7 +127,16 @@ class MockClient extends Client
             } else {
                 $headers = array();
                 $format = Format::guessFormat($body);
-                if (isset($format)) {
+
+                /**
+                 * TODO: isset was used before but PHPStan complained because $format is always
+                 * set. What propably was meant instead was a check to see if $format is not empty.
+                 * Using empty is OK for now, but should be replaced with a function that does
+                 * additional checks.
+                 *
+                 * @see https://stackoverflow.com/questions/718986/checking-if-the-string-is-empty
+                 */
+                if (false === empty($format)) {
                     $headers['Content-Type'] = $format->getDefaultMimeType();
                 }
                 if (isset($body)) {
