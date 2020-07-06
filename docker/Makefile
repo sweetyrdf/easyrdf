@@ -1,5 +1,5 @@
 default:
-	docker build ./Docker/easyrdf -t easyrdf \
+	docker build ./Docker -t easyrdf \
 	&& \
 	docker run -it \
 			   -v $(PWD)/../:/var/www/html \
