@@ -5,9 +5,15 @@
 
 :exclamation: This is a forked version of [EasyRdf](https://github.com/easyrdf/easyrdf).
 
+## Status of this fork
+
+Because EasyRdf got revived to some extend and I can help out as a maintainer there, I decided to archive this repository for now.
+
+---
+
 ## Why this fork?
 
-EasyRdf is in maintenance mode since 2017 ([link](https://github.com/easyrdf/easyrdf/issues/282)) and is not actively maintained since. There are 6+ pull requests pending with fixes and new features. Its sad to see another RDF PHP project die slowly, so i decided to clean house and give the code a new home ([further info](https://github.com/easyrdf/easyrdf/issues/320)).
+EasyRdf was in maintenance mode since 2017 ([link](https://github.com/easyrdf/easyrdf/issues/282)) and not actively maintained since. There are 6+ pull requests pending with fixes and new features. Its sad to see another RDF PHP project die slowly, so i decided to clean house and give the code a new home ([further info](https://github.com/easyrdf/easyrdf/issues/320)).
 
 #### What can you expect as a user?
 
