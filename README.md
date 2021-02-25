@@ -1,33 +1,10 @@
-# EasyRdf (fork)
+# EasyRdf (Fork)
 
-[![Build Status](https://travis-ci.com/sweetyrdf/easyrdf.svg?branch=master)](https://travis-ci.com/sweetyrdf/easyrdf)
-[![Coverage Status](https://coveralls.io/repos/github/sweetyrdf/easyrdf/badge.svg?branch=master)](https://coveralls.io/github/sweetyrdf/easyrdf?branch=master)
+## :exclamation: Outdated
 
-:exclamation: This is a forked version of [EasyRdf](https://github.com/easyrdf/easyrdf).
+This fork was created in 2020 to provide a new home for EasyRdf and to provide updates on a more regular basis. It is outdated, please use the following instead:
 
-## Status of this fork
-
-Because EasyRdf got revived to some extend and I can help out as a maintainer there, I decided to archive this repository for now.
-
----
-
-## Why this fork?
-
-EasyRdf was in maintenance mode since 2017 ([link](https://github.com/easyrdf/easyrdf/issues/282)) and not actively maintained since. There are 6+ pull requests pending with fixes and new features. Its sad to see another RDF PHP project die slowly, so i decided to clean house and give the code a new home ([further info](https://github.com/easyrdf/easyrdf/issues/320)).
-
-#### What can you expect as a user?
-
-This fork aims to be a drop-in replacement for the `easyrdf/easyrdf` package, which means, you can use it without changing your code. But you should still read the notes of the latest release, to make sure nothing unexpected happens after an update.
-
-#### What can you expect as an EasyRdf developer?
-
-This repository is set up in a way to lower the maintenance overhead in comparison to the original version. For instance, by adding coveralls service (easier [test coverage overview](https://coveralls.io/github/sweetyrdf/easyrdf)) and reworked tooling (reduced bash code in Makefile, keep commands simple).
-
-Furthermore, this repository is held by an organization instead of a user. This allows more flexible maintenance, like add further maintainer or helper.
-
-**Contributions are welcome!** Please read [CONTRIBUTING.md](https://github.com/sweetyrdf/easyrdf/blob/master/CONTRIBUTING.md) for further information.
-
-Further mainainers are possible, please send an email to [@k00ni](https://github.com/k00ni).
+#### https://github.com/sweetrdf/easyrdf
 
 ---
 
